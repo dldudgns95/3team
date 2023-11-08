@@ -21,7 +21,7 @@
 
 <style>
   .header_top {
-    background-color: #1c1c1c;
+    background-color: #070707;
     display: flex;
     justify-content: space-around;
   }
@@ -65,7 +65,7 @@
   }
   
   .list a {
-    color: #1c1c1c;
+    color: #070707;
   }
   
   
@@ -75,7 +75,7 @@
   <div class="header_top">
     <div>
       <a href="${contextPath}/main.do" >
-        <img src="${contextPath}/resources/image/main_logo.png" class="logo_img" width="100px">
+        <img src="${contextPath}/resources/image/main_logo2.PNG" class="logo_img" width="100px">
       </a>
     </div>
     <div class="input-group w-25 p-3" >
