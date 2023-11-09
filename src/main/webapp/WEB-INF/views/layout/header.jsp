@@ -13,6 +13,8 @@
 <title>${param.title == null ? '메인화면' : param.title}</title>
 <!-- 부트스트랩 사용하기 위한 cdn -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<!-- font-awesome을 위한 cdn -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <!-- jquery를 사용하기 위한 cdn -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
@@ -56,7 +58,6 @@
   }
   
   .margin_right {
-    filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(216deg) brightness(104%) contrast(101%);
     float: right;
     display: flex;
     align-items: center;
@@ -119,18 +120,10 @@
         </button>
       </div>
       <div class="margin_right">
-        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="white" class="bi bi-person-fill" viewBox="0 0 16 16">
-          <a href="#"><path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3Zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"/></a>
-        </svg>
-        <a href="${contextPath}/cart/cart.form">
-          <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="white" class="bi bi-cart-fill" viewBox="0 0 16 16">
-            <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-          </svg>
-        </a>
-        <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="white" class="bi bi-star-fill" viewBox="0 0 16 16">
-          <a href="#"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></a>
-        </svg>
-        </div>
+        <a href="#"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/cart/cart.form"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="#"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
+      </div>
     </div>
   </div>
   
