@@ -1,4 +1,4 @@
-package kr.co.withmall.dto.util;
+package kr.co.withmall.util;
 
 import org.springframework.stereotype.Component;
 
