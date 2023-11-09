@@ -173,9 +173,9 @@ CREATE TABLE WM_BOARD_ASK (
 
 -- 1:1 문의 게시판 답변 정보를 저장하기 위한 테이블
 CREATE TABLE WM_BOARD_ANSWER (
+    ANSWER_NUM NUMBER(5),                      -- 답변 번호
 	ASK_NUM NUMBER NOT NULL,                   -- 문의글 번호
     MEM_NUM NUMBER NOT NULL,                   -- 문의자 번호
-	ANSWER_NUM NUMBER(5),                      -- 답변 번호
 	ANSWER_CONTENT VARCHAR2(1000) NOT NULL,    -- 답변 내용
 	ANSWER_PHOTO VARCHAR2(100),                -- 답변 사진 첨부
 	ANSWER_DATE DATE DEFAULT SYSDATE NOT NULL, -- 답변 작성 날짜
