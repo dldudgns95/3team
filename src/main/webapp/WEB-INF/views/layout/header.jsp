@@ -22,6 +22,8 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/decoupled-document/ckeditor.js"></script>
 
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
   .header_top {
     background-color: #070707;
     position: sticky;
@@ -82,7 +84,26 @@
     color: #ffffff;
   }
   
+  .navigation_bar  {
+    display: flex;
+    justify-content: space-around;
+  }
   
+  .category {
+    padding-top: 15px;
+  }
+  
+  .category a {
+    text-decoration: none;
+  }
+  
+  .category h2 {
+    display: flex;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: #070707;
+  }
     
   
 </style>
@@ -94,6 +115,7 @@
     <div class="user_state">
       <ul>
         <!-- 관리자 페이지는 로그인 시에 표시되게(지금은 임시로 표시) -->
+        <a href="${contextPath}/support/faq.do"><li>FAQ 게시판</li></a>
         <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
         <a href="#"><li>회원가입</li></a>
         <a href="${contextPath}/member/login.form"><li>로그인</li></a>
@@ -126,7 +148,14 @@
       </div>
     </div>
   </div>
+  <div class="navigation_bar">
+    <div class="category"><a href="#"><h2>모자</h2></a></div>
+    <div class="category"><a href="#"><h2>상의</h2></a></div>
+    <div class="category"><a href="#"><h2>하의</h2></a></div>
+    <div class="category"><a href="#"><h2>아우터</h2></a></div>
+    <div class="category"><a href="#"><h2>신발</h2></a></div>
+  </div>
   
-  
+  <hr>
 
   <div class="main_wrap">
