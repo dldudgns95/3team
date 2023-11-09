@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>관리자페이지</title>
+<title>관리자 페이지</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
  
@@ -15,6 +15,9 @@
 </head>
 <body>
 
+  <h1>관리자 페이지입니다.</h1>
+  
+  <div></div>
  
 
 </body>

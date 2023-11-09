@@ -8,7 +8,7 @@ public class MvcController {
 
   @GetMapping(value={"/", "/main.do"})
   public String main() {
-    return "main";
+    return "layout/main";
   }
   
 }
