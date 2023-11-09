@@ -83,12 +83,15 @@
   <div class="header_top">
     <div class="user_state">
       <ul>
+        <!-- 관리자 페이지는 로그인 시에 표시되게(지금은 임시로 표시) -->
+        <a href="#"><li>관리자 페이지</li></a>
         <a href="#"><li>회원가입</li></a>
         <a href="#"><li>로그인</li></a>
+        
       </ul>
     </div>
     <div class="search">
-      <div>
+      <div class="margin_left">
         <a href="${contextPath}/main.do" >
           <img src="${contextPath}/resources/image/main_logo2.PNG" class="logo_img" width="100px">
         </a>
