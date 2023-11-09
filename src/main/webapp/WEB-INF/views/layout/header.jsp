@@ -115,6 +115,7 @@
     <div class="user_state">
       <ul>
         <!-- 관리자 페이지는 로그인 시에 표시되게(지금은 임시로 표시) -->
+        <a href="${contextPath}/support/faq.do"><li>FAQ 게시판</li></a>
         <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
         <a href="#"><li>회원가입</li></a>
         <a href="${contextPath}/member/login.form"><li>로그인</li></a>
