@@ -22,8 +22,6 @@
 <style>
   .header_top {
     background-color: #070707;
-    position: sticky;
-    top: 0px; /* 도달했을때 고정시킬 위치 */
   }
   
   .search {
@@ -50,25 +48,13 @@
     flex-direction: row;
   }
   
-  .margin_left {
-    display: flex;
-    align-items: center;
-  }
-  
   .margin_right {
     filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(216deg) brightness(104%) contrast(101%);
     float: right;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    }
+  }
   
   .header_icon {
     align-items : center;
-  }
-  
-  .user_state{
-    height: 21px;
   }
   
   .user_state ul {
@@ -80,7 +66,6 @@
     display: inline-block;
     float: right;
     margin-right: 30px;
-    font-size: 14px;
   }
   
   .user_state a {
