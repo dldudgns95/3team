@@ -35,7 +35,7 @@
 
   http://localhost:8080/withmall/admin/prdtWrite.form
   <div>
-    <a href="${contextPath}/admin/prdt/prdtWrite.form">
+    <a href="${contextPath}/admin/prdtWrite.form">
       <button type="button" >상품등록....</button>
     </a>
   </div>

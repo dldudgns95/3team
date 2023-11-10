@@ -1,9 +1,6 @@
 package kr.co.withmall.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,6 +19,7 @@ public class AdminController {
   public String prdtList() {
     return "admin/prdt/prdtList";
   }
+  
   // 상품작성페이지이동
   @GetMapping("/prdtWrite.form")
   public String prdtWrite() {
