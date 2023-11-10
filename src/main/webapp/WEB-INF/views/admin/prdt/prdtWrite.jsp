@@ -22,6 +22,15 @@
 
   <h1 class="head">상품 작성</h1>
   
+  <div>
+    <form method="post" action="">
+      <div>
+        <label for="prdt_num">제품 번호</label>
+        <input type="text" name="prdt_num">
+      </div>
+    </form>
+  
+  </div>
   
   
 

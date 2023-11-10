@@ -33,9 +33,9 @@
     <button type="button">검색</button>
   </div>
 
-  
+  http://localhost:8080/withmall/admin/prdtWrite.form
   <div>
-    <a href="${contextPath}/admin/write.form">
+    <a href="${contextPath}/admin/prdt/prdtWrite.form">
       <button type="button" >상품등록....</button>
     </a>
   </div>
