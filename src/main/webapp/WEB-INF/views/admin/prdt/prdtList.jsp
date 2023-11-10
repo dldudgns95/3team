@@ -29,7 +29,7 @@
       <option>제품명</option>
       <option>번호</option>
     </select>
-    <input type="text">
+    <input type="text" >
     <button type="button">검색</button>
   </div>
 

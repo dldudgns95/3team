@@ -37,7 +37,14 @@
   <h1 class="head">회원관리</h1>
   
 
-  
+    <div>
+    <select>
+      <option>회원번호</option>
+      <option>이름</option>
+    </select>
+    <input type="text" >
+    <button type="button">검색</button>
+  </div>
 
   
 
