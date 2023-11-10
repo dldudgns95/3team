@@ -7,19 +7,30 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="장바구니" name="title"/>
+  <jsp:param value="제품상세페이지" name="title"/>
 </jsp:include>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>장바구니</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
-</head>
-<body>
-<!-- 장바구니 시작 -->
-<div><h2>님의 장바구니</h2></div>
+  <style>
+  .prdt_info {
+    padding-left: "10px";
+  }
+  
+  </style>
+  
+  <div>
+    <span><strong> 빅 트위치 루즈핏 맨투맨 핑크 </strong></span>
+    <div class="prdt_image">
+      <img src="../resources/images/top/t1.jpg">
+    </div>
+    <div class="prdt_info">
+      <p class="title_box">Product Info</p>
+      맨투맨
+    </div>
+    
+    <hr>
+    
+    
+  </div>
 
 
 

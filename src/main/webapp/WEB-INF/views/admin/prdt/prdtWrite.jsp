@@ -38,7 +38,7 @@
   
   <div  class="mb-3">
     <form method="post" action="${contextPath}/admin/addPrdt.do">
-      <h1 class="head">상품작성</h1>
+      <h1 class="head">제품작성</h1>
       <div  class="mb-3">
         <label for="prdt_num">제품 번호</label>
         <input type="text" name="prdt_num">

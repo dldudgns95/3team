@@ -26,7 +26,7 @@
   
   <div class="search">
     <select>
-      <option>상품명</option>
+      <option>제품명</option>
       <option>번호</option>
     </select>
     <input type="text">
@@ -34,10 +34,14 @@
   </div>
 
   http://localhost:8080/withmall/admin/prdtWrite.form
+  
   <div>
     <a href="${contextPath}/admin/prdtWrite.form">
-      <button type="button" >상품등록....</button>
+      <button type="button" >제품 등록....</button>
     </a>
+    <a href="${contextPath}/admin/prdtWrite.form">
+      <button type="button" >제품 카테고리 등록</button>
+    </a>    
   </div>
 
   
