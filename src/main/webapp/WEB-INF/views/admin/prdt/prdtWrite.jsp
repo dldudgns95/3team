@@ -9,7 +9,7 @@
  .head {
  margin: 60px;
  text-align: center;
- color: rgb(40 40 40);
+ color: rgb(40 40 40); 
  }
  
  
