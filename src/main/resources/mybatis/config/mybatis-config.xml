@@ -20,6 +20,7 @@
     <typeAlias alias="CommentDto"      type="com.gdu.myhome.dto.CommentDto"/>
     <typeAlias alias="UploadDto"      type="com.gdu.myhome.dto.UploadDto"/>
     <typeAlias alias="AttachDto"      type="com.gdu.myhome.dto.AttachDto"/>
+    <typeAlias alias="CartDto"  type="kr.co.withmall.dto.CartDto"/>
   </typeAliases>
 
 </configuration>

@@ -10,7 +10,15 @@
   <jsp:param value="제품상세페이지" name="title"/>
 </jsp:include>
   
-  
+  <div>
+    <div class="prdt_image" width="200px" height="250px">
+      <img src="../resources/images/top/t1.jpg"></a>
+    </div>
+    <div class="prdt_info" width="225px" height="285px">
+      맨투맨
+    </div>
+    
+  </div>
 
 
 
