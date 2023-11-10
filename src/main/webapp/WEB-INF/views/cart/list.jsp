@@ -15,9 +15,11 @@
 <head>
 <meta charset="UTF-8">
 <title>장바구니</title>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cart.css">
 </head>
 <body>
-
+<!-- 장바구니 시작 -->
+<div><h2>${num}님의 장바구니</h2></div>
 
 
 
