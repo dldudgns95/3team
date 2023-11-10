@@ -4,9 +4,23 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="kr.co.withmall.dao.ProductMapper">
+
+  <resultMap type="ProductDto" id="ProductMap">
+    <id column="PRDT_NUM" property="prdtNum"/>
+    <result column="PRDT_NAME" property="prdtName"/>
+    <result column="PRDT_NAME" property="prdtName"/>
+    <result column="PRDT_TITLE" property="prdtName"/>
+    <result column="PRDT_INFO" property="prdtName"/>
+    <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
+    <result column="PRDT_HIT" property="prdtHit"/>
+    <association javaType="ProductCategoryDto" property="productCategoryDto">
+      <id column="CATEGORY_NUM" property="categoryNum"/>
+      <result column="CATEGORY_NAME" property="categoryName"/>
+    </association> 
+  </resultMap>
   
-  <!-- 카테고리 신규등록 -->
-  <insert id="insertProductCategory">
+  <!-- 제품카테고리 신규등록 -->
+  <insert id="insertProductCategory" parameterType="String">
     INSERT INTO PRODUCT_CATEGORY (
       CATEGORY_NUM
     , CATEGORY_NAME
@@ -16,5 +30,34 @@
     )    
   </insert>
 
+  <!-- 제품카테고리 목록조회 -->
+  <select id="getProductCategoryList" parameterType="Map" resultType="ProductCategoryDto">
+    SELECT CATEGORY_NUM, CATEGORY_NAME
+      FROM PRODUCT_CATEGORY
+  </select>
+  
+  <!-- 제품신규등록 -->
+  <insert id="insertProduct" parameterType="ProductDto">
+    INSERT INTO PRODUCT (
+      PRDT_NUM
+    , PRDT_NAME
+    , PRDT_TITLE
+    , PRDT_INFO
+    , PRDT_REAL_PRICE
+    , PRDT_STOCK
+    , CATEGORY_NUM
+    , PRDT_HIT
+    ) VALUES (
+      #{prdtNum}
+    , #{prdtName}
+    , #{prdtTitle}
+    , #{prdtInfo}
+    , #{prdtRealPrice}
+    , #{prdtStock}
+    , #{productCategoryDto.categoryNum}
+    , #{prdtHit}  
+    )
+  </insert>
+  
 
 </mapper>
