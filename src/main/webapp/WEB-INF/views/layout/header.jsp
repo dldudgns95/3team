@@ -78,6 +78,7 @@
     display: inline-block;
     float: right;
     margin-right: 30px;
+    color: #ffffff;
   }
   
   .user_state a {
@@ -116,9 +117,19 @@
       <ul>
         <!-- 관리자 페이지는 로그인 시에 표시되게(지금은 임시로 표시) -->
         <a href="${contextPath}/support/support.do"><li>고객센터</li></a>
-        <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
-        <a href="#"><li>회원가입</li></a>
-        <a href="${contextPath}/member/login.form"><li>로그인</li></a>
+        <c:if test="${sessionScope.member == null}">
+          <a href="#"><li>회원가입</li></a>
+          <a href="${contextPath}/member/login.form"><li>로그인</li></a>
+        </c:if>
+        <c:if test="${sessionScope.member != null}">
+          <c:if test="${sessionScope.member.auth == 0}">
+          <a href="${contextPath}/member/logout.do"><li>로그아웃</li></a>
+          </c:if>
+          <c:if test="${sessionScope.member.auth == 9}">
+            <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
+          </c:if>
+          <li>${sessionScope.member.name}님 환영합니다!</li>
+        </c:if>
         
       </ul>
     </div>

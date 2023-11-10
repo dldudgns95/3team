@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.withmall.dao.MemberMapper">
+
+    <select id="getMember" parameterType="Map" resultType="MemberDto">
+        SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE
+        FROM MEMBER
+        <where>
+            <if test="email != null">AND EMAIL = #{email}</if>
+            <if test="pw != null">AND PW = #{pw}</if>
+            <if test="num != null">AND NUM = #{num}</if>
+        </where>
+    </select>
+
+    <insert id="insertMember" parameterType="MemberDto">
+        INSERT INTO MEMBER(
+        NUM,
+        NAME,
+        PW,
+        MOBILE,
+        EMAIL,
+        POSTCODE,
+        JIBUNADDRESS,
+        ROADADDRESS,
+        DETAILADDRESS,
+        BIRTH,
+        GENDER,
+        MDATE,
+        AUTH,
+        STATUS,
+        REG_DATE
+        ) VALUES(
+        MEMBER_SEQ.NEXTVAL
+        , #{name}
+        , #{pw}
+        , #{mobile}
+        , #{email}
+        , #{postcode}
+        , #{jibunaddress}
+        , #{roadaddress}
+        , #{detailaddress}
+        , #{birth}
+        , #{gender}
+        , #{mdate}
+        , #{auth}
+        , #{status}
+        , SYSDATE
+        );
+    </insert>
+  
+</mapper>
