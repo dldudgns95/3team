@@ -55,5 +55,4 @@
   <h1>메인화면</h1>
   
 
-</body>
-</html>
+<%@ include file="footer.jsp"%>
