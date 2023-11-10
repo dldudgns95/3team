@@ -9,14 +9,26 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="제품상세페이지" name="title"/>
 </jsp:include>
+
+  <style>
+  .prdt_info {
+    padding-left: "10px";
+  }
+  
+  </style>
   
   <div>
-    <div class="prdt_image" width="200px" height="250px">
-      <img src="../resources/images/top/t1.jpg"></a>
+    <span><strong> 빅 트위치 루즈핏 맨투맨 핑크 </strong></span>
+    <div class="prdt_image">
+      <img src="../resources/images/top/t1.jpg">
     </div>
-    <div class="prdt_info" width="225px" height="285px">
+    <div class="prdt_info">
+      <p class="title_box">Product Info</p>
       맨투맨
     </div>
+    
+    <hr>
+    
     
   </div>
 
