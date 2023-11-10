@@ -41,7 +41,7 @@
         <input type="text" name="prdt_real_price">
       </div>
       <div  class="mb-3">
-        <label for="prdt_info">제품 정보</label>
+        <label for="prdt_info">제품  정보</label>
         <textarea rows="10" cols="50" name="prdt_info" class="mb-3"></textarea>
       </div>
     </form>
