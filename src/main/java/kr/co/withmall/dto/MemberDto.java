@@ -15,7 +15,7 @@ public class MemberDto {
 	private int num;
 	private String name;
 	private String pw;
-	private String cell;
+	private String mobile;
 	private String email;
 	private String postcode;
 	private String jibunaddress;
@@ -24,6 +24,7 @@ public class MemberDto {
 	private int gender;
 	private Date mdate;
 	private int auth;
+	private int status;
 	private Date regDate;
 	
 }
