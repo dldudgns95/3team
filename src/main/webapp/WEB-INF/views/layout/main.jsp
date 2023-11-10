@@ -8,12 +8,6 @@
 <jsp:include page="header.jsp">
   <jsp:param value="메인화면" name="title"/>
 </jsp:include>
-  <script>
-    console.log(${sessionScope.user});
-  </script>
-  <c:if test="${sessionScope.user != null}">
-    <div>${sessionScope.user.name}님 환영합니다!</div>
-  </c:if>
   <h1>메인화면</h1>
   <h1>메인화면</h1>
   <h1>메인화면</h1>
