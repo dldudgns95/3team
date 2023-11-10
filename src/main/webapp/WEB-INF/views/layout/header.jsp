@@ -143,7 +143,7 @@
       </div>
       <div class="margin_right">
         <a href="#"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="${contextPath}/cart/cart.form"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/cart/list.do"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
         <a href="#"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
       </div>
     </div>
