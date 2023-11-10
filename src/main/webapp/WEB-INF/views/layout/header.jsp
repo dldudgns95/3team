@@ -115,7 +115,7 @@
     <div class="user_state">
       <ul>
         <!-- 관리자 페이지는 로그인 시에 표시되게(지금은 임시로 표시) -->
-        <a href="${contextPath}/support/faq.do"><li>FAQ 게시판</li></a>
+        <a href="${contextPath}/support/support.do"><li>고객센터</li></a>
         <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
         <a href="#"><li>회원가입</li></a>
         <a href="${contextPath}/member/login.form"><li>로그인</li></a>
@@ -143,17 +143,16 @@
       </div>
       <div class="margin_right">
         <a href="#"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="${contextPath}/cart/cart.form"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/cart/list.do"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
         <a href="#"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
       </div>
     </div>
   </div>
   <div class="navigation_bar">
-    <div class="category"><a href="#"><h2>모자</h2></a></div>
     <div class="category"><a href="#"><h2>상의</h2></a></div>
     <div class="category"><a href="#"><h2>하의</h2></a></div>
     <div class="category"><a href="#"><h2>아우터</h2></a></div>
-    <div class="category"><a href="#"><h2>신발</h2></a></div>
+    <div class="category"><a href="#"><h2>기타</h2></a></div>
   </div>
   
   <hr>
