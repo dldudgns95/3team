@@ -20,7 +20,7 @@
 </style>
 
 
-  <h1 class="head">상품 작성</h1>
+  <h1 class="head">상품작성</h1>
   
   <div>
     <form method="post" action="">
