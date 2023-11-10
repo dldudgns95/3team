@@ -149,11 +149,10 @@
     </div>
   </div>
   <div class="navigation_bar">
-    <div class="category"><a href="#"><h2>모자</h2></a></div>
     <div class="category"><a href="#"><h2>상의</h2></a></div>
     <div class="category"><a href="#"><h2>하의</h2></a></div>
     <div class="category"><a href="#"><h2>아우터</h2></a></div>
-    <div class="category"><a href="#"><h2>신발</h2></a></div>
+    <div class="category"><a href="#"><h2>기타</h2></a></div>
   </div>
   
   <hr>
