@@ -13,18 +13,18 @@
     <div class="item">
       <a href="111">
         <div>
-          <img src="${contextPath}/resources/images/outer1.jpg">
+          <img src="${contextPath}/resources/images/bottom/b1.jpeg">
         </div>
         <div>
           <p>11111111111</p>
         </div>
       </a>
     </div>
-    <div class="item"><a href="222"><img src="${contextPath}/resources/images/outer2.jpg"></a></div>
-    <div class="item"><a href="333"><img src="${contextPath}/resources/images/outer3.jpg"></a></div>
-    <div class="item"><a href="444"><img src="${contextPath}/resources/images/outer4.jpg"></a></div>
-    <div class="item"><a href="555"><img src="${contextPath}/resources/images/outer5.jpg"></a></div>
-    <div class="item"><a href="666"><img src="${contextPath}/resources/images/outer6.jpg"></a></div>
+    <div class="item"><a href="222"><img src="${contextPath}/resources/images/bottom/b2.jpeg"></a></div>
+    <div class="item"><a href="333"><img src="${contextPath}/resources/images/bottom/b3.jpeg"></a></div>
+    <div class="item"><a href="444"><img src="${contextPath}/resources/images/bottom/b4.jpeg"></a></div>
+    <div class="item"><a href="555"><img src="${contextPath}/resources/images/bottom/b5.jpeg"></a></div>
+    <div class="item"><a href="666"><img src="${contextPath}/resources/images/bottom/b6 .jpeg"></a></div>
 
   </div>
 
