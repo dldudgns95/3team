@@ -9,23 +9,28 @@
   <jsp:param value="메인화면" name="title"/>
 </jsp:include>
 
-  <div class="owl-carousel owl-theme">
-    <div class="item">
-      <a href="111">
-        <div>
-          <img src="${contextPath}/resources/images/bottom/b1.jpeg">
-        </div>
-        <div>
-          <p>11111111111</p>
-        </div>
-      </a>
+  
+  <div class="carousel-container">
+    <div class="owl-carousel owl-theme">
+      <div class="item">
+        <div><a href="${contextPath}/product/detail.do?productNum=1"><img src="${contextPath}/resources/images/bottom/b1.jpeg"></a></div><div><p>바지1</p></div><div><p>50000원</p></div>
+      </div>
+      <div class="item">
+        <div><a href="111"><img src="${contextPath}/resources/images/bottom/b2.jpeg"></a></div><div><p>바지2</p></div><div><p>55000원</p></div>
+      </div>
+      <div class="item">
+        <div><a href="111"><img src="${contextPath}/resources/images/bottom/b3.jpeg"></a></div><div><p>바지3</p></div><div><p>55000원</p></div>
+      </div>
+      <div class="item">
+        <div><a href="111"><img src="${contextPath}/resources/images/bottom/b4.jpeg"></a></div><div><p>바지4</p></div><div><p>60000원</p></div>
+      </div>
+      <div class="item">
+        <div><a href="111"><img src="${contextPath}/resources/images/bottom/b5.jpeg"></a></div><div><p>바지5</p></div><div><p>70000원</p></div>
+      </div>
+      <div class="item">
+        <div><a href="111"><img src="${contextPath}/resources/images/bottom/b6.jpeg"></a></div><div><p>바지6</p></div><div><p>75000원</p></div>
+      </div>
     </div>
-    <div class="item"><a href="222"><img src="${contextPath}/resources/images/bottom/b2.jpeg"></a></div>
-    <div class="item"><a href="333"><img src="${contextPath}/resources/images/bottom/b3.jpeg"></a></div>
-    <div class="item"><a href="444"><img src="${contextPath}/resources/images/bottom/b4.jpeg"></a></div>
-    <div class="item"><a href="555"><img src="${contextPath}/resources/images/bottom/b5.jpeg"></a></div>
-    <div class="item"><a href="666"><img src="${contextPath}/resources/images/bottom/b6 .jpeg"></a></div>
-
   </div>
 
 
@@ -75,6 +80,7 @@
       loop:true,
       margin:10,
       nav:true,
+      dots: false,
       autoplay: true,
       autoplyTimeout: 1000,
       responsive:{
@@ -90,6 +96,7 @@
         }
     })
   </script>
+  
   
 
 <%@ include file="footer.jsp"%>
