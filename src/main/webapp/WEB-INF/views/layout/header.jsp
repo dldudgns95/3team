@@ -19,12 +19,10 @@
 <link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
 <link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
 
-
 <!-- jquery를 사용하기 위한 cdn -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <!-- ckeditor를 사용하기 위한 cdn -->
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/decoupled-document/ckeditor.js"></script>
-
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -37,6 +35,7 @@
     position:fixed; 
     width: 100%;
     top: 0;
+    z-index: 1;
   }
   
   .search {
@@ -95,6 +94,7 @@
   }
   
   .navigation_bar  {
+    padding-top: 93.33px;
     display: flex;
     justify-content: space-around;
   }
@@ -139,8 +139,34 @@
     height: 100%;
   }
   
-  .main_wrap {
-    padding-top: 93.33px;
+  .owl-carousel .owl-next,
+  .owl-carousel .owl-prev {
+    font-size: 50px !important;
+    position: absolute;
+    width: 40px;
+    height: 100px;
+    top: 30%
+  
+  }
+  
+  .owl-carousel .owl-prev {
+    left: 10px;
+  }
+  
+  .owl-carousel .owl-next {
+    right: 10px;
+  }
+  
+  .owl-carousel p {
+    text-align: center;
+  }
+  
+  .carousel-container {
+    position: relative;
+  }
+  
+  .owl-carousel {
+    z-index: 2;
   }
     
   
