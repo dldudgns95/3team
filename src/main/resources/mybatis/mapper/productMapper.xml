@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.withmall.dao.ProductMapper">
+  
+  <!-- 카테고리 신규등록 -->
+  <insert id="insertProductCategory">
+    INSERT INTO PRODUCT_CATEGORY (
+      CATEGORY_NUM
+    , CATEGORY_NAME
+    ) VALUES (
+      PRODUCT_CATEGORY_SEQ.NEXTVAL
+    , #{categoryName}
+    )    
+  </insert>
+
+
+</mapper>

@@ -15,19 +15,30 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <!-- font-awesome을 위한 cdn -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- 캐러셀을 사용하기 위한 cdn -->
+<link rel="stylesheet" href="owlcarousel/owl.carousel.min.css">
+<link rel="stylesheet" href="owlcarousel/owl.theme.default.min.css">
 
 <!-- jquery를 사용하기 위한 cdn -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <!-- ckeditor를 사용하기 위한 cdn -->
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/decoupled-document/ckeditor.js"></script>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<link rel="stylesheet" href="${contextPath}/resources/css/cart.css?dt=${dt}" />
+
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 
   .header_top {
     background-color: #070707;
-    position: sticky;
+    position:fixed; 
+    width: 100%;
     top: 0;
+    z-index: 100;
   }
   
   .search {
@@ -78,6 +89,7 @@
     display: inline-block;
     float: right;
     margin-right: 30px;
+    color: #ffffff;
   }
   
   .user_state a {
@@ -85,6 +97,7 @@
   }
   
   .navigation_bar  {
+    padding-top: 93.33px;
     display: flex;
     justify-content: space-around;
   }
@@ -104,6 +117,60 @@
     font-weight: 700;
     color: #070707;
   }
+  
+  .pics {      /* 전체 케러셀 */
+    width: 600px;
+    float: left;
+    position: relative;
+    left: 50%;
+    object-fit: cover;
+  }
+  
+  .carousel-inner {
+    width: auto;
+    height: 400px; /* 이미지 높이 변경 */
+  }
+
+  .carousel-item {
+    width: auto;
+    height: 100%;
+  }
+
+  .d-block {
+    display: block;
+    width: auto;
+    height: 100%;
+  }
+  
+  .owl-carousel .owl-next,
+  .owl-carousel .owl-prev {
+    font-size: 50px !important;
+    position: absolute;
+    width: 40px;
+    height: 100px;
+    top: 30%
+  
+  }
+  
+  .owl-carousel .owl-prev {
+    left: 10px;
+  }
+  
+  .owl-carousel .owl-next {
+    right: 10px;
+  }
+  
+  .owl-carousel p {
+    text-align: center;
+  }
+  
+  .carousel-container {
+    position: relative;
+  }
+  
+  .owl-carousel {
+    z-index: 2;
+  }
     
   
 </style>
@@ -116,9 +183,17 @@
       <ul>
         <!-- 관리자 페이지는 로그인 시에 표시되게(지금은 임시로 표시) -->
         <a href="${contextPath}/support/support.do"><li>고객센터</li></a>
-        <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
-        <a href="#"><li>회원가입</li></a>
-        <a href="${contextPath}/member/login.form"><li>로그인</li></a>
+        <c:if test="${sessionScope.member == null}">
+          <a href="#"><li>회원가입</li></a>
+          <a href="${contextPath}/member/login.form"><li>로그인</li></a>
+        </c:if>
+        <c:if test="${sessionScope.member != null}">
+          <c:if test="${sessionScope.member.auth == 9}">
+            <a href="${contextPath}/admin/admin.do"><li>관리자 페이지</li></a>
+          </c:if>
+          <a href="${contextPath}/member/logout.do"><li>로그아웃</li></a>
+          <li>${sessionScope.member.name}님 환영합니다!</li>
+        </c:if>
         
       </ul>
     </div>
