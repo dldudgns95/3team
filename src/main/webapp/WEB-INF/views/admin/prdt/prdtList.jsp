@@ -30,7 +30,7 @@
       <option>번호</option>
     </select>
     <input type="text">
-    <button type="button">검색</button>
+    <button type="button">검 색</button>
   </div>
 
   http://localhost:8080/withmall/admin/prdtWrite.form
