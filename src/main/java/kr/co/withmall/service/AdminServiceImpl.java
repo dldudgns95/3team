@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public Map<String, Object> imageUpload(MultipartHttpServletRequest multipartRequest) {
 
-    // 이미지가 저장될 경로
+    // 이미지가 저장될 경 로
     String imagePath = myFileUtils.getPrdtImagePath();
     File dir = new File(imagePath);
     if(!dir.exists()) {
