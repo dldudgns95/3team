@@ -36,6 +36,7 @@ public class MemberServiceImpl implements MemberService {
 
 	    HttpSession session = request.getSession();
 	    
+	    
 	    // 휴면 계정인지 확인하기
 	    
 	    // 정상적인 로그인 처리하기
@@ -44,6 +45,7 @@ public class MemberServiceImpl implements MemberService {
 	    if(member != null) {
 	      request.getSession().setAttribute("member", member);
 	      response.sendRedirect(request.getParameter("referer"));
+	      
 	    } else {
 	      response.setContentType("text/html; charset=UTF-8");
 	      PrintWriter out = response.getWriter();
