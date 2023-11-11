@@ -5,17 +5,17 @@
   
 <mapper namespace="kr.co.withmall.dao.ProductMapper">
 
-  <resultMap type="ProductDto" id="ProductMap">
-    <id column="PRDT_NUM" property="prdtNum"/>
-    <result column="PRDT_NAME" property="prdtName"/>
-    <result column="PRDT_NAME" property="prdtName"/>
-    <result column="PRDT_TITLE" property="prdtName"/>
-    <result column="PRDT_INFO" property="prdtName"/>
+  <resultMap type="ProductDto"       id="ProductMap">
+    <id column="PRDT_NUM"            property="prdtNum"/>
+    <result column="PRDT_NAME"       property="prdtName"/>
+    <result column="PRDT_TITLE"      property="prdtTitle"/>
+    <result column="PRDT_INFO"       property="prdtInfo"/>
     <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
-    <result column="PRDT_HIT" property="prdtHit"/>
+    <result column="PRDT_STOCK"      property="prdtStock"/>
+    <result column="PRDT_HIT"        property="prdtHit"/>
     <association javaType="ProductCategoryDto" property="productCategoryDto">
-      <id column="CATEGORY_NUM" property="categoryNum"/>
-      <result column="CATEGORY_NAME" property="categoryName"/>
+      <id column="CATEGORY_NUM"                property="categoryNum"/>
+      <result column="CATEGORY_NAME"           property="categoryName"/>
     </association> 
   </resultMap>
   
