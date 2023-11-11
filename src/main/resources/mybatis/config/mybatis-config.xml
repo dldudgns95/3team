@@ -11,6 +11,9 @@
   </settings>
   
   <typeAliases>
+    <typeAlias alias="PrdtImageDto"  type="kr.co.withmall.dto.PrdtImageDto"/>
+    <typeAlias alias="ProductCategoryDto"  type="kr.co.withmall.dto.ProductCategoryDto"/>
+    <typeAlias alias="ProductDto"  type="kr.co.withmall.dto.ProductDto"/>
     <typeAlias alias="MemberDto"  type="kr.co.withmall.dto.MemberDto"/>
     <typeAlias alias="CartDto"  type="kr.co.withmall.dto.CartDto"/>
   </typeAliases>

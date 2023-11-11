@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../../layout/header.jsp">
   <jsp:param value="관리자페이지" name="title"/>
@@ -46,6 +50,26 @@
     <button type="button">검색</button>
   </div>
 
+  <hr>
+  
+  <div>
+    <table border="1">
+      <thead>
+        <tr>
+          <td>회원번호</td>
+          <td>이름</td>
+          <td>이메일</td>
+          <td>상태</td>
+          <td></td>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${userList}" var="u" varStatus="vs">
+        
+        </c:forEach>
+      </tbody>
+    </table>
+  </div>
   
 
 </body>
