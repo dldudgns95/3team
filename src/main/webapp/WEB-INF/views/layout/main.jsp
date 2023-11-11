@@ -13,7 +13,7 @@
   <div class="carousel-container">
     <div class="owl-carousel owl-theme">
       <div class="item">
-        <div><a href="111"><img src="${contextPath}/resources/images/bottom/b1.jpeg"></a></div><div><p>바지1</p></div><div><p>50000원</p></div>
+        <div><a href="${contextPath}/product/detail.do?productNum=1"><img src="${contextPath}/resources/images/bottom/b1.jpeg"></a></div><div><p>바지1</p></div><div><p>50000원</p></div>
       </div>
       <div class="item">
         <div><a href="111"><img src="${contextPath}/resources/images/bottom/b2.jpeg"></a></div><div><p>바지2</p></div><div><p>55000원</p></div>
