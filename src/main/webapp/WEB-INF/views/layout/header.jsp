@@ -51,6 +51,7 @@
   }
   
   .serach_text {
+    min-width: 300px;
     width: 300px;
   }
   
@@ -74,6 +75,8 @@
     float: right;
     display: flex;
     align-items: center;
+    width: 120px;
+    justify-content: space-between;
   }
   
   .header_icon {
@@ -98,13 +101,12 @@
   
   .navigation_bar  {
     padding-top: 93.33px;
+    height: 131.33px;
     display: flex;
+    text-align: center;
     justify-content: space-around;
   }
   
-  .category {
-    padding-top: 15px;
-  }
   
   .category a {
     text-decoration: none;
@@ -171,6 +173,10 @@
   .owl-carousel {
     z-index: 2;
   }
+  
+  .owl-container {
+    max-height: 200px;
+  }
     
   
 </style>
@@ -230,6 +236,6 @@
     <div class="category"><a href="#"><h2>기타</h2></a></div>
   </div>
   
-  <hr>
+  <hr style="margin: 5px 0">
 
   <div class="main_wrap">
