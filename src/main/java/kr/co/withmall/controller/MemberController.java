@@ -50,5 +50,10 @@ public class MemberController {
 	    return rtn;
 	  }
 	
+	@GetMapping("/logout.do")
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		memberservice.logout(request, response);
+	}
+	
 	
 }
