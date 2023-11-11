@@ -58,6 +58,6 @@
     , #{prdtHit}  
     )
   </insert>
-  
+
 
 </mapper>
