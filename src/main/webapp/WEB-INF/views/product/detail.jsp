@@ -10,7 +10,7 @@
   <jsp:param value="제품상세페이지" name="title"/>
 </jsp:include>
   <div>
-    <h3>빅 트위치 루즈핏 맨투맨 핑크</h3>   <!-- 차후에 ${product.prdtTitle}로 수정예정 -->
+    <h4>빅 트위치 루즈핏 맨투맨 핑크</h4>   <!-- 차후에 ${product.prdtTitle}로 수정예정 -->
     <hr>
   <div>
   <div>   
@@ -32,9 +32,16 @@
         <i id="eaPlus" class="fa-solid fa-square-plus"></i>  <!-- 클릭하면 수량증가 -->
         <i id="eaMinus" class="fa-solid fa-square-minus"></i> <!-- 클릭하면 수량감소 -->
       </p>
+      <hr>
+      <div>
+        총 결제금액:
+        <button type="button" id="btn_cart" class="btn btn-light">장바구니</button>
+        <button type="button" id="btn_order" class="btn btn-primary">구매하기</button>
+      </div>
     </div>
   </div>
-  </div>  
+  </div> 
+ 
     <hr>
     
     <div>제품상세</div>
