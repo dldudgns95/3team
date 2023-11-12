@@ -59,7 +59,7 @@
   <insert id="insertPrdt" parameterType="ProductDto">
     INSERT INTO PRODUCT(
        PRDT_NUM
-     , PRDT_NAME,
+     , PRDT_NAME
      , PRDT_TITLE
      , PRDT_INFO
      , PRDT_REAL_PRICE

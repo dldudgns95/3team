@@ -27,6 +27,7 @@ import kr.co.withmall.util.MyFileUtils;
 import kr.co.withmall.util.MyPageUtils;
 import lombok.RequiredArgsConstructor;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class AdminServiceImpl implements AdminService {

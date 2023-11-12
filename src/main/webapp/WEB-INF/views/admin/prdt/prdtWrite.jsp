@@ -42,7 +42,7 @@
 
   
   <div  class="mb-3">
-    <form method="post" action="${contextPath}/admin/addPrdt.do">
+    <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do">
       <h1 class="head">제품작성</h1>
       <div class="mb-3">
           <label for="categoryNum">카테고리</label>
@@ -111,10 +111,15 @@
       });
   }
   
-  const fnBlogAdd = () => {
-    $('#frm_admin_add').submit(() => {
-      $('#contents').val($('#ckeditor').html());
-    })
+  const fnAdminAdd = () => {
+	  $('#frm_admin_add').submit((ev) => {
+      if($('#prdtNum').val() === ''){
+        alert('제목은 반드시 입력해야 합니다.');
+        ev.preventDefault();
+        return;
+      }
+		  $('#prdtInfo').val($('#ckeditor').html());
+	  })
   }
   
   fnCkeditor();
