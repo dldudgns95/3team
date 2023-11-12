@@ -55,6 +55,11 @@
     width: 300px;
   }
   
+  .serach_text:focus, .search_select:focus{
+    box-shadow: none;
+  }
+  
+  
   .white, .white a {
     color: #fff;
   }
@@ -100,7 +105,7 @@
   }
   
   .navigation_bar  {
-    padding-top: 93.33px;
+    padding-top: 97.33px;
     height: 131.33px;
     display: flex;
     text-align: center;
@@ -112,7 +117,7 @@
     text-decoration: none;
   }
   
-  .category h2 {
+  .category h3 {
     display: flex;
     justify-content: center;
     font-family: 'Montserrat', sans-serif;
@@ -168,6 +173,7 @@
   
   .carousel-container {
     position: relative;
+    margin-top: 10px;
   }
   
   .owl-carousel {
@@ -176,6 +182,27 @@
   
   .owl-container {
     max-height: 200px;
+  }
+  
+  a img {
+    transition: all 0.2s linear;
+  }
+  
+  .a-images {
+    overflow: hidden;
+  }
+  
+  a:hover img {
+    transform: scale(1.1);  
+  }
+  
+  .item a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .item {
+    border: 1px solid gray;
   }
     
   
@@ -217,9 +244,7 @@
         </select>
         <input type="text" class="form-control serach_text" placeholder="검색어를 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
         <button class="btn btn-outline-secondary " type="button">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search white header_icon" viewBox="0 0 16 16">
-            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-          </svg>
+          <i class="fa-solid fa-magnifying-glass white"></i>
         </button>
       </div>
       <div class="margin_right">
@@ -230,12 +255,10 @@
     </div>
   </div>
   <div class="navigation_bar">
-    <div class="category"><a href="#"><h2>상의</h2></a></div>
-    <div class="category"><a href="#"><h2>하의</h2></a></div>
-    <div class="category"><a href="#"><h2>아우터</h2></a></div>
-    <div class="category"><a href="#"><h2>기타</h2></a></div>
+    <div class="category"><a href="#"><h3>상의</h3></a></div>
+    <div class="category"><a href="#"><h3>하의</h3></a></div>
+    <div class="category"><a href="#"><h3>아우터</h3></a></div>
+    <div class="category"><a href="#"><h3>기타</h3></a></div>
   </div>
-  
-  <hr style="margin: 5px 0">
 
   <div class="main_wrap">
