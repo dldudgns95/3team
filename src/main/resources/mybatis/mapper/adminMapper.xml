@@ -5,34 +5,79 @@
 
 <mapper namespace="kr.co.withmall.dao.AdminMapper">
 
+ <resultMap type="ProductDto" id="ProductMap">
+    <id column="PRDT_NUM" property="prdtNum"/>
+    <result column="PRDT_NAME" property="prdtName"/>
+    <result column="PRDT_TITLE" property="prdtTitle"/>
+    <result column="PRDT_INFO" property="prdtInfo"/>
+    <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
+    <result column="PRDT_STOCK" property="prdtStock"/>
+    <result column="CATEGORY_NUM" property="categoryNum"/>
+    <result column="PRDT_HIT" property="prdtHit"/>
+    <association javaType="ProductImageDto" property="productImageDto">
+      <result column="PRDT_NUM" property="prdtNum"/>
+      <result column="IMAGE_PATH" property="imagePath"/>
+      <result column="FILESYSTEM_NAME" property="filesystemName"/>
+    </association>
+ </resultMap>
 
+ <resultMap type="MemberDto" id="MemberMap">
+  <id column="NUM" property="num"/>
+  <result column="NAME" property="name"/>
+  <result column="PW" property="pw"/>
+  <result column="MOBILE" property="mobile"/>
+  <result column="EMAIL" property="email"/>
+  <result column="POSTCODE" property="postcode"/>
+  <result column="JIBUNADDRESS" property="jibunaddress"/>
+  <result column="ROADADDRESS" property="roadaddress"/>
+  <result column="DETAILADDRESS" property="detailaddress"/>
+  <result column="BIRTH" property="birth"/>
+  <result column="GENDER" property="gender"/>
+  <result column="MDATE" property="mdate"/>
+  <result column="AUTH" property="auth"/>
+  <result column="STATUS" property="status"/>
+  <result column="REG_DATE" property="regDate"/>
+  <association javaType="OrderDto" property="orderDto">
+    <id column="ORDER_NUM" property="orderNum"/>
+    <result column="NUM" property="num"/>
+    <result column="ORDER_TOTAL_PRICE" property="orderTotalPrice"/>
+    <result column="ORDER_STATUS" property="orderStatus"/>
+    <result column="ORDER_DATE" property="orderDate"/>
+    <result column="ORDER_NOTICE" property="orderNotice"/>
+    <result column="RECEIVER_NAME" property="receiverName"/>
+    <result column="RECEIVER_PHONE" property="receiverPhone"/>
+    <result column="ORDERER_NAME" property="ordererName"/>
+    <result column="ORDERER_PHONE" property="ordererPhone"/>
+    <result column="DELIVERY_METHOD" property="deliveryMethod"/>
+    <result column="PAY_METHOD" property="payMethod"/>
+    <result column="CARD_NAME" property="cardName"/>
+    <result column="CARD_PAY" property="cardPay"/>
+  </association>
+ </resultMap>
 
-   <insert id="insertPrdt" parameterType="ProductDto">
-
-      INSERT INTO PRODUCT (
-          PRDT_NUM,
-          PRDT_NAME,
-          PRDT_TITLE,
-          PRDT_INFO,
-          PRDT_REAL_PRICE,
-          PRDT_STOCK,
-          CATEGORY_NUM
-      ) VALUES (
-          #{prdtNum},
-          #{prdtName},
-          #{prdtTitle},
-          #{prdtInfo},
-          #{prdtRealPrice},
-          #{prdtStock},
-          #{categoryNum}
-      );
+  <!-- 제품 작성 -->
+  <insert id="insertPrdt" parameterType="ProductDto">
+    INSERT INTO PRODUCT(
+       PRDT_NUM
+     , PRDT_NAME,
+     , PRDT_TITLE
+     , PRDT_INFO
+     , PRDT_REAL_PRICE
+     , PRDT_STOCK
+     , CATEGORY_NUM
+     ) VALUES(
+        #{prdtNum}
+      , #{prdtName}
+      , #{prdtTitle}
+      , #{prdtInfo}
+      , #{prdtRealPrice}
+      , #{prdtStock}
+      , #{categoryNum}
+      )
   </insert>
-
-
   
-
-  
-  <insert id="insertPrdtImage" parameterType="PrdtImageDto">
+  <!-- 제품 이미지 -->
+  <select id="insertPrdtImage" resultType="ProductImageDto">
     INSERT INTO PRODUCT_IMAGE(
         PRDT_NUM
       , IMAGE_PATH
@@ -41,11 +86,102 @@
         #{prdtNum}
       , #{imagePath}
       , #{filesystemName}
-    )    
-  </insert>
-
+    )
+  </select>
+  
+  <!-- 제품 이미지 삭제 -->
   
 
+  <!-- 제품 목록 -->
+  <select id="getPrdtCount" resultType="int">
+    SELECT COUNT(*)
+      FROM PRODUCT 
+  </select>
+  
+  
+  <select id="getPrdtList" parameterType="Map" resultMap="ProductMap">
+    SELECT A.PRDT_NUM, A.PRDT_NAME, A.PRDT_REAL_PRICE, A.PRDT_STOCK, A.FILESYSTEM_NAME
+    FROM (SELECT ROW_NUMBER() OVER (ORDER BY P.PRDT_NUM DESC) AS RN, P.PRDT_NUM, P.PRDT_NAME, P.PRDT_REAL_PRICE, P.PRDT_STOCK, PI.FILESYSTEM_NAME
+            FROM PRODUCT P LEFT JOIN PRODUCT_IMAGE PI 
+              ON P.PRDT_NUM = PI.PRDT_NUM) A
+    WHERE A.RN BETWEEN #{begin} AND #{end}
+  </select>
+
+
+
+   <!-- 회원목록 -->
+   <select id="getMemCount" resultType="int">
+    SELECT COUNT(*)
+      FROM MEMBER
+   </select>
+
+   <select id="getMemList" parameterType="Map" resultMap="MemberMap">
+      SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE
+        FROM (SELECT ROW_NUMBER() OVER(ORDER BY NUM DESC) AS RN, NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE 
+            FROM MEMBER)
+       WHERE RN BETWEEN #{begin} AND #{end}
+   </select>
+   
+   <!-- ......특정 회원별 매출액 -->
+   <select id="getSalesUser" parameterType="Map" resultMap="MemberMap">
+  SELECT
+      M.NUM AS MEMBER_NUM,
+      M.NAME AS MEMBER_NAME,
+      M.PW,
+      M.MOBILE,
+      M.EMAIL,
+      M.POSTCODE,
+      M.JIBUNADDRESS,
+      M.ROADADDRESS,
+      M.DETAILADDRESS,
+      M.BIRTH,
+      M.GENDER,
+      M.MDATE,
+      M.AUTH,
+      M.STATUS,
+      M.REG_DATE,
+      COALESCE(SUM(O.ORDER_TOTAL_PRICE), 0) AS TOTAL_PRICE
+   FROM MEMBER M  LEFT JOIN  ORDER_T O ON M.NUM = O.NUM
+  WHERE  M.NUM = #{num}
+      AND ROWNUM BETWEEN #{begin} AND #{end}
+  GROUP BY
+      M.NUM, M.NAME, M.PW, M.MOBILE, M.EMAIL, M.POSTCODE,
+      M.JIBUNADDRESS, M.ROADADDRESS, M.DETAILADDRESS, M.BIRTH,
+      M.GENDER, M.MDATE, M.AUTH, M.STATUS, M.REG_DATE;
+   </select>
+  
+  <!-- 회원 검색 -->
+  <select id="getSearchCount" parameterType="Map" resultType="int">
+    SELECT COUNT(*)
+      FROM MEMBER
+     WHERE ${column} LIKE '%' || #{searchText} || '%'
+  </select>
+  
+  
+  <select id="getSearchList" parameterType="Map" resultType="MemberDto">
+    SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE
+    FROM (
+      SELECT ROW_NUMBER() OVER(ORDER BY NUM DESC) AS RN, NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE 
+      FROM MEMBER
+      WHERE
+        <choose>
+          <when test="column == 'NAME'">
+            NAME LIKE '%' || #{searchText} || '%'
+          </when>
+          <when test="column == 'EMAIL'">
+            EMAIL LIKE '%' || #{searchText} || '%'
+          </when>
+          <when test="column == 'MOBILE'">
+            MOBILE LIKE '%' || #{searchText} || '%'
+          </when>
+        </choose>
+    )
+    WHERE RN BETWEEN #{begin} AND #{end}
+  </select>
+
+
+  
+  
   
   
 </mapper>

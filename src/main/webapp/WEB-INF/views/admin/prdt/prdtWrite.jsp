@@ -45,6 +45,16 @@
     <form method="post" action="${contextPath}/admin/addPrdt.do">
       <h1 class="head">제품작성</h1>
       <div class="mb-3">
+          <label for="categoryNum">카테고리</label>
+          <select name="categoryNum">
+              <option value="0">::선택::</option>
+              <option value="1">아우터</option>
+              <option value="2">상의</option>
+              <option value="3">하의</option>
+              <option value="4">기타</option>
+          </select>
+      </div>
+      <div class="mb-3">
           <label for="prdtNum">제품 번호</label>
           <input type="text" name="prdtNum">
       </div>
@@ -57,12 +67,6 @@
           <input type="text" name="prdtTitle">
       </div>
       <div class="mb-3">
-          <label for="prdtInfo">제품 정보</label>
-          <textarea name="prdtInfo" id="prdtInfo" style="display: none;"></textarea>
-          <div id="toolbar-container"></div>
-          <div id="ckeditor"></div>
-      </div>
-      <div class="mb-3">
           <label for="prdtRealPrice">제품 가격</label>
           <input type="text" name="prdtRealPrice">
       </div>
@@ -71,14 +75,10 @@
           <input type="text" name="prdtStock">
       </div>
       <div class="mb-3">
-          <label for="categoryNum">카테고리</label>
-          <select name="categoryNum">
-              <option value="0">::선택::</option>
-              <option value="1">아우터</option>
-              <option value="2">상의</option>
-              <option value="3">하의</option>
-              <option value="4">기타</option>
-          </select>
+          <label for="prdtInfo">제품 정보</label>
+          <textarea name="prdtInfo" id="prdtInfo" style="display: none;"></textarea>
+          <div id="toolbar-container"></div>
+          <div id="ckeditor"></div>
       </div>
 
       

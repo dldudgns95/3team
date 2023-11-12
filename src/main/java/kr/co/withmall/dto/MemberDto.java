@@ -19,6 +19,7 @@ public class MemberDto {
 	private String email;
 	private String postcode;
 	private String jibunaddress;
+	private String roadaddress;
 	private String detailaddress;
 	private String birth;
 	private int gender;
@@ -26,5 +27,6 @@ public class MemberDto {
 	private int auth;
 	private int status;
 	private Date regDate;
+	private OrderDto orderDto;
 	
 }

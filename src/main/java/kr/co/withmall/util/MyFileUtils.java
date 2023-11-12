@@ -9,13 +9,13 @@ import org.springframework.stereotype.Component;
 @Component  // MyFileUtil 객체로 만들어  불러다 쓰기 @autowired
 public class MyFileUtils {
     
-  // 블로그 작성 시 사용된 이미지가 저장될 경로 반환하기
+  // 제품 작성 시 사용된 이미지가 저장될 경로 반환하기
   public String getPrdtImagePath() {   
     LocalDate today = LocalDate.now();  // 오늘
     return "/admin/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
   }
   
-  //  블로그 이미지가 저장된 어제 경로를 반환
+  //  제품 이미지가 저장된 어제 경로를 반환
   public String getPrdtImagePathInYesterday() {
     LocalDate date = LocalDate.now();
     date = date.minusDays(1); // 1일 전

@@ -19,4 +19,5 @@ public class ProductDto {
   private int categoryNum;
   //private ProductCategoryDto categoryDto;   // private int categoryName
   private int prdtHit;                      // 제품조회수
+  private ProductImageDto productImageDto;
 }

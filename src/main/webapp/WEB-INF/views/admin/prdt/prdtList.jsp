@@ -49,6 +49,36 @@
       <button type="button" >제품 카테고리 등록</button>
     </a>    
   </div>
+  
+  <hr>
+
+  <div>
+    <table border="1">
+      <thead>
+        <tr>
+          <td>제품번호</td>
+          <td>제품사진</td>
+          <td>제품이름</td>
+          <td>제품재고</td>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${prdtList}" var="p">
+          <tr>
+            <td><a href="${contextPath}/adim/prtdEdit?=${p.prdtNum}">${p.prdtNum}</a></td>
+            <td>${p.productImageDto.filesystemName}</td>
+            <td>${p.prdtName}</td>
+            <td>${p.prdtStock}</td>
+          </tr>
+        </c:forEach>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4">${paging}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
 
   
 

@@ -9,9 +9,6 @@
   <jsp:param value="관리자페이지" name="title"/>
 </jsp:include>
 <style>
-  .blind {
-    display: none;
-  }
  
  .head {
  margin: 60px;
@@ -58,17 +55,6 @@
     </form>
   </div>
 
-
-
-  <hr>
-  
-  로그인 방법 : 0 일반가입, 1 네이버 간편 가입
-  회원 등급 : (0 일반,1 정지, 2 탈퇴, 9 관리) 기본설정은 0
-  
-  <div>
-    <table border="1">
-      <thead>
-        <tr>
           <td>순번</td>
           <td>회원이름</td>
           <td>이메일</td>
@@ -76,36 +62,14 @@
           <td>구매누적금액</td>
           <td>로그인방법</td>
           <td>회원등급</td>
-        </tr>
-      </thead>
-      <tbody>      
-        <c:forEach items="${memList}" var="m" varStatus="vs" >
-          <tr>
-            <td>${beginNo - vs.index}</td>
 
-            <td><a href="${contextPath}/admin/userEdit.do?userId=${m.num}">${m.name}</a></td>
-            <td>${m.email}</td>
-            <td>${m.mobile}</td>
-            <td>${m.orderDto.orderTotalPrice}</td>
-            <td>${m.status}</td>
-            <td>${m.auth}</td>
-          </tr>
-          
-          <tr class="blind write_tr">
-            <td colspan="5">
-              <form method="post" action="${contextPath}/admin/modifyUser.do">
-                <label for=""></label>
-              </form>
-          </tr>
-        </c:forEach>
-      </tbody>
-      <tfoot>
-        <tr>
-           <td colspan="5">${paging}</td>
-        </tr>
-      </tfoot>
-    </table>
+ <!-- 회원 상세 보기 -->
+  <div>
+    <h3>${mem.num}번 회원</h3>
+    <div>회원이름</div>
   </div>
+  
+  
 
   <script>
   
