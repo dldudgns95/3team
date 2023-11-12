@@ -13,6 +13,7 @@
   <typeAliases>
     <typeAlias alias="MemberDto"  type="kr.co.withmall.dto.MemberDto"/>
     <typeAlias alias="CartDto"  type="kr.co.withmall.dto.CartDto"/>
+    <typeAlias alias="ProductDto" type="kr.co.withmall.dto.ProductDto" />
   </typeAliases>
 
 </configuration>
