@@ -218,7 +218,7 @@ CREATE TABLE ORDER_DETAIL (
 	ORDER_DETAIL_NUM     NUMBER       NOT NULL,   -- 구매상세 식별번호
 	ORDER_NUM            NUMBER       NOT NULL,   -- 주문번호
 	PRDT_NUM             NUMBER(5)    NOT NULL,   -- 제품번호
-	ORDER_TOTAL          NUMBER(7)    NOT NULL,   -- 제품구매총액 (상품개수*상품가격)
+	ORDER_PRICE          NUMBER(7)    NOT NULL,   -- 제품구매총액 (상품개수*상품가격)
     ORDER_QTY            NUMBER(5)    NOT NULL,   -- 제품구매개수
 	CONSTRAINT           PK_ORDER_DETAIL        PRIMARY KEY (ORDER_DETAIL_NUM),
 	CONSTRAINT           FK_ORDER_DETAIL        FOREIGN KEY (ORDER_NUM)         REFERENCES ORDER_T (ORDER_NUM)     ON DELETE CASCADE,
