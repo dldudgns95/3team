@@ -42,7 +42,7 @@
         총 결제금액: ${product.prdtRealPrice} 원
         <input type="hidden" name="prdtNum" value="${product.prdtNum}">    
         <i class="fa-regular fa-star"></i>    <!-- 찜하기 된 제품은 색깔있는 별 <i class="fa-solid fa-star"></i> -->
-        <button type="button" id="btn_cart" class="btn btn-light">장바구니</button>
+        <button type="button" id="btn_cart" class="btn btn-light"><a href="${contextPath}/cart/list/${member.num}">장바구니</a></button>
         <button type="button" id="btn_order" class="btn btn-primary">구매하기</button>
         </div>  
       </div>
