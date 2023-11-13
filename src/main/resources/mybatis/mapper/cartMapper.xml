@@ -5,20 +5,104 @@
 
 <mapper namespace="kr.co.withmall.dao.CartMapper">
 
+<!-- 리절트맵 -->
   <!-- 장바구니 목록 (장바구니의 정보를 저장하는 resultMap) -->
   <resultMap id="CartMap" type="CartDto" >
-    <id column="CART_NUM" property="cartNo"/>
+    <id column="CART_NUM" property="cartNum"/>
     <result column="PRDT_NUM" property="prdtNum"/>
     <result column="NUM" property="num"/>
     <result column="PRDT_QTY" property="prdtQty"/>
   </resultMap>
   
-  <!-- 제품 목록 -->
+  <!-- 제품 목록 (장바구니에 표시할 상품 정보 저장하는 resultMap -->
+  <resultMap id="PrdtMap" type="ProductDto">
+    <id column="PRDT_NUM" property="prdtNum" />
+    <result column="PRDT_NAME" property="prdtName"/>
+    <result column="PRDT_TITLE" property="prdtTitle"/>
+    <result column="PRDT_INFO" property="prdtInfo"/>
+    <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
+    <result column="PRDT_STOCK" property="prdtStock"/>
+    <association property="productImageDto" resultMap="ProductImageMap"/>
+  </resultMap>
   
-  
-  <!-- 장바구니 정보 조회 -->
-  <select id="getCartList" resultMap="CartMap">
-    
+<!-- <resultMap id="ProductImageMap" type="ProductImageDto">
+      <id column="PRDT_NUM" property="prdtNum"/>
+      <result column="FILESYSTEM_NAME" property="fileSystemName" />
+  </resultMap>
+ -->  
+
+<!-- 쿼리 -->
+  <!-- 장바구니 제품 조회 -->
+  <!-- 해당 회원(num)에게 상품(prdtNum)이 장바구니에 있는지 조회해서 0개면 false(상품저장), 아니면 true -->
+  <select id="getPrdtCount" resultType="int" parameterType="CartDto">
+    <![CDATA[
+    SELECT COUNT(*)
+      FROM CART 
+     WHERE PRDT_NUM=#{prdtNum}
+       AND NUM=#{num}
+    ]]>
   </select>
+
+  <!-- 장바구니 목록 조회 -->
+  <!-- 해당 회원번호(NUM) 회원이 가지는 장바구니 정보 조회 -->
+  <select id="getCartList" parameterType="CartDto" resultMap="CartMap" >
+    <![CDATA[
+    SELECT CART_NUM,PRDT_NUM,NUM,PRDT_QTY
+      FROM CART
+     WHERE NUM=#{num}
+    ]]>
+  </select>
+  
+    <select id="getCart" parameterType="int" resultMap="CartMap" >
+    <![CDATA[
+    SELECT CART_NUM,PRDT_NUM,NUM,PRDT_QTY
+      FROM CART
+     WHERE NUM=#{num}
+    ]]>
+  </select>
+  
+  <!-- 제품 목록 조회 -->
+  <!-- 장바구니 테이블에 등록된 제품 번호를 이용해 제품 정보 조회 -->
+  <!-- 리스트(list)에 있는 상품 ID들에 해당하는 상품 목록을 반환 -->
+  <select id="getPrdtList" resultMap="PrdtMap" parameterType="CartDto">
+      <![CDATA[
+          SELECT C.CART_NUM,C.NUM,C.PRDT_QTY, P.PRDT_NUM,P.PRDT_NAME,P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, I.FILESYSTEM_NAME 
+            FROM CART C LEFT OUTER JOIN PRODUCT P 
+              ON C.PRDT_NUM=P.PRDT_NUM LEFT OUTER JOIN PRODUCT_IMAGE I
+              ON P.PRDT_NUM=I.PRDT_NUM 
+           WHERE C.NUM = #{num} 
+             AND P.PRDT_NUM = #{prdtNum}
+      ]]>
+  </select>
+
+  <!-- 장바구니 제품 저장 -->
+  <!-- cartDto로 전달된 제품 정보를 장바구니에 저장 -->
+  <insert id="insertCart" parameterType="cartDto">
+    <![CDATA[
+        INSERT INTO CART(CART_NUM,
+                         PRDT_NUM,
+                         NUM,
+                         PRDT_QTY
+        ) VALUES (
+          CART_SEQ.NEXTVAL,
+          #{prdtNum},
+          #{num},
+          #{prdtQty}
+        )
+    ]]>
+  </insert>
+  
+  <!-- 장바구니 삭제 -->
+  <delete id="deleteCart" parameterType="int">
+      <![CDATA[
+        DELETE FROM CART WHERE CART_NUM=#{CART_NUM}
+      ]]>
+  </delete>
+  
+  <!-- 제품 수량 변경 -->
+  <update id="modifyCount">
+    UPDATE CART SET PRDT_QTY=#{PRDT_QTY} WHERE CART_NUM =#{CART_NUM}
+  </update>
+
   
 </mapper>

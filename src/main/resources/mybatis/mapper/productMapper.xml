@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.withmall.dao.ProductMapper">
+
+  <resultMap type="ProductDto"       id="ProductMap">
+    <id column="PRDT_NUM"            property="prdtNum"/>
+    <result column="PRDT_NAME"       property="prdtName"/>
+    <result column="PRDT_TITLE"      property="prdtTitle"/>
+    <result column="PRDT_INFO"       property="prdtInfo"/>
+    <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
+    <result column="PRDT_STOCK"      property="prdtStock"/>
+    <result column="PRDT_HIT"        property="prdtHit"/>
+    <association javaType="ProductCategoryDto" property="categoryDto">
+      <id     column="CATEGORY_NUM"            property="categoryNum"/>
+      <result column="CATEGORY_NAME"           property="categoryName"/>
+    </association> 
+  </resultMap>
+  
+  <resultMap type="ProductImageDto" id="ProductImageMap">
+    <result column="IMAGE_PATH"        property="imagePath" />
+    <result column="FILESYSTEM_NAME"   property="filesystemName" />
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+      <result column="PRDT_NAME"       property="prdtName" />
+      <result column="PRDT_TITLE"      property="prdtTitle" />
+      <result column="PRDT_INFO"       property="prdtInfo" />
+      <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+      <result column="PRDT_STOCK"      property="prdtStock" />
+      <result column="PRDT_HIT"        property="prdtHit" />
+      <association javaType="ProductCategoryDto" property="categoryDto">
+        <id     column="CATEGORY_NUM"    property="categoryNum" />
+        <result column="CATEGORY_NAME"   property="categoryName" />
+      </association>
+    </association>
+  </resultMap>
+  
+  
+  <!-- 제품카테고리 신규등록 -->
+  <insert id="insertProductCategory" parameterType="String">
+    INSERT INTO PRODUCT_CATEGORY (
+      CATEGORY_NUM
+    , CATEGORY_NAME
+    ) VALUES (
+      PRODUCT_CATEGORY_SEQ.NEXTVAL
+    , #{categoryName}
+    )    
+  </insert>
+
+  <!-- 제품카테고리 목록조회 -->
+  <select id="getProductCategoryList" parameterType="Map" resultType="ProductCategoryDto">
+    SELECT CATEGORY_NUM, CATEGORY_NAME
+      FROM PRODUCT_CATEGORY
+  </select>
+  
+  <!-- 제품신규등록 -->
+  <insert id="insertProduct" parameterType="ProductDto">
+  <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
+  <selectKey order="BEFORE" resultType="int" keyProperty="prdtNum">
+    SELECT PRODUCT_SEQ.NEXTVAL
+      FROM DUAL
+  </selectKey>
+    INSERT INTO PRODUCT (
+      PRDT_NUM
+    , PRDT_NAME
+    , PRDT_TITLE
+    , PRDT_INFO
+    , PRDT_REAL_PRICE
+    , PRDT_STOCK
+    , CATEGORY_NUM
+    , PRDT_HIT
+    ) VALUES (
+      #{prdtNum}
+    , #{prdtName}
+    , #{prdtTitle}
+    , #{prdtInfo}
+    , #{prdtRealPrice}
+    , #{prdtStock}
+    , #{productCategoryDto.categoryNum}
+    , #{prdtHit}  
+    )
+  </insert>
+  
+  <!-- 제품 조회하기(제품번호로 조회) -->
+  <select id="getProduct" parameterType="int" resultMap="ProductMap">
+    SELECT P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, PC.CATEGORY_NUM
+      FROM PRODUCT_CATEGORY PC LEFT OUTER JOIN PRODUCT P
+        ON PC.CATEGORY_NUM = P.CATEGORY_NUM
+     WHERE PRDT_NUM = #{prdtNum}
+  </select>
+  
+  <select id="getProductImage" parameterType="int" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+      FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
+     WHERE I.PRDT_NUM = P.PRDT_NUM
+       AND P.CATEGORY_NUM = C.CATEGORY_NUM AND P.PRDT_NUM = #{prdtNum}
+  </select>
+
+</mapper>

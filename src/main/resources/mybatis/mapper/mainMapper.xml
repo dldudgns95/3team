@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.withmall.dao.MainMapper">
+
+  <resultMap type="ProductDto" id="ProductMap">
+    <id     column="PRDT_NUM"        property="prdtNum" />
+    <result column="PRDT_NAME"       property="prdtName" />
+    <result column="PRDT_TITLE"      property="prdtTitle" />
+    <result column="PRDT_INFO"       property="prdtInfo" />
+    <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+    <result column="PRDT_STOCK"      property="prdtStock" />
+    <result column="PRDT_HIT"        property="prdtHit" />
+    <association javaType="ProductCategoryDto" property="categoryDto">
+      <id     column="CATEGORY_NUM"    property="categoryNum" />
+      <result column="CATEGORY_NAME"   property="categoryName" />
+    </association>
+  </resultMap>
+  
+  <resultMap type="ProductImageDto" id="ProductImageMap">
+    <result column="IMAGE_PATH"        property="imagePath" />
+    <result column="FILESYSTEM_NAME"   property="filesystemName" />
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+	    <result column="PRDT_NAME"       property="prdtName" />
+	    <result column="PRDT_TITLE"      property="prdtTitle" />
+	    <result column="PRDT_INFO"       property="prdtInfo" />
+	    <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+	    <result column="PRDT_STOCK"      property="prdtStock" />
+	    <result column="PRDT_HIT"        property="prdtHit" />
+	    <association javaType="ProductCategoryDto" property="categoryDto">
+	      <id     column="CATEGORY_NUM"    property="categoryNum" />
+	      <result column="CATEGORY_NAME"   property="categoryName" />
+	    </association>
+    </association>
+  </resultMap>
+  
+  
+  <select id="getProductList" resultMap="ProductMap">
+    SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+      FROM PRODUCT P INNER JOIN PRODUCT_CATEGORY C
+        ON P.CATEGORY_NUM = C.CATEGORY_NUM
+  </select>
+  <select id="getProductTotalList" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+		  FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
+		 WHERE I.PRDT_NUM = P.PRDT_NUM
+		   AND P.CATEGORY_NUM = C.CATEGORY_NUM
+  </select>
+  <select id="getProductTotalListByCategory" parameterType="String" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+		  FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
+		 WHERE I.PRDT_NUM = P.PRDT_NUM
+		   AND P.CATEGORY_NUM = C.CATEGORY_NUM
+		   AND CATEGORY_NAME = #{categoryName}
+  </select>
+  <select id="getProductHitTop10List" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM, CATEGORY_NAME
+		  FROM ( SELECT ROW_NUMBER() OVER(ORDER BY P.PRDT_HIT DESC) AS RN, IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+		           FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
+		          WHERE I.PRDT_NUM = P.PRDT_NUM
+		            AND P.CATEGORY_NUM = C.CATEGORY_NUM)
+		 WHERE RN BETWEEN 1 AND 10
+  </select>
+
+</mapper>
