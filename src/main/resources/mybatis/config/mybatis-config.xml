@@ -10,6 +10,7 @@
     <setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
   
+  
  <typeAliases>
     <typeAlias alias="MemberDto"           type="kr.co.withmall.dto.MemberDto"/>
     <typeAlias alias="CartDto"             type="kr.co.withmall.dto.CartDto"/>
