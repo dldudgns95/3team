@@ -6,6 +6,9 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
+<c:set var="cartList"  value="${cartMap.cartList}"  />
+<c:set var="prdtList"  value="${cartMap.prdtList}"  />
+
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="장바구니" name="title"/>
 </jsp:include>
@@ -14,8 +17,7 @@
   
 </style>
 
-
-<!-- 장바구니 시작 -->
+<!-- 장바구니 시작 -->   
 <div class="cart cart-title"><h2>${sessionScope.member.name}님의 장바구니</h2></div>
 
 <!-- 장바구니 상단 (전체선택, 선택삭제) -->
@@ -33,12 +35,14 @@
 </div>
 
 <!-- 장바구니 목록 -->
-<div><a href="/cart/list/${member.num}">장바구니</a></div>
+<div><a href="${contextPath}/cart/list/${member.num}">장바구니</a></div>
+
 <c:if test="${empty list}">
     <div class="cart">
       장바구니에 담은 상품이 없습니다.
     </div>
 </c:if>    
+
 <form id="cart cart-order" action="${contextPath}/order/list.do" method="post">
   <table class="cart-content">
     <!-- 장바구니 아이템 반복 출력 -->
@@ -81,24 +85,30 @@
 
 
 <div class="cart del">
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<hr>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<hr>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<hr>
+<table>
+  <tbody>
+   <c:forEach items="${myCartList}" var="ci">
+    <tr>
+      <td class="prdt-check"></td>
+      <td class="prdt-image"></td>
+      <td class="prdt-name"></td>
+      <td class="prdt-price"></td>
+      <td class="prdt-qty">제품 수량 ${ci.prdtQty} 개 <button>수정</button> </td>
+    </tr>
+    </c:forEach>
+  </tbody>
+</table>
+<table>
+  <tbody>
+   <c:forEach items="${myCartList}" var="ci">
+    <tr>
+      <td>${ci.prdtNum}</td>
+      <td>${ci.prdtQty}</td>
+    </tr>
+   </c:forEach>
+  </tbody>
+</table>
+
 <div>바구니</div>
 <div>바구니</div>
 <div>바구니</div>
@@ -123,4 +133,30 @@
 </div>
 </form>
 
+<script>
+  const fnFloatHidden = () => {
+    $(window).on('scroll', function () {
+      var scrollPosition = $(window).scrollTop();
+      var documentHeight = $(document).height(); // document의 높이를 직접 가져오도록 수정
+
+      var viewportHeight = $(window).height();
+
+      console.log("Scroll Position: " + scrollPosition);
+      console.log("Document Height: " + documentHeight);
+      console.log("Viewport Height: " + viewportHeight);
+
+      var cartFloating = $('.cart-floating');
+
+      if (scrollPosition + viewportHeight >= documentHeight - 1) {
+        console.log('Reached Bottom!');
+        cartFloating.addClass('hidden');
+      } else {
+        cartFloating.removeClass('hidden');
+      }
+    });
+  };
+  
+  
+  fnFloatHidden();
+</script>
 <%@ include file="../layout/footer.jsp"%>

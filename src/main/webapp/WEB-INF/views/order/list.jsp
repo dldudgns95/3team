@@ -15,6 +15,6 @@
 </style>
 
 <div class="order"><h2>${sessionScope.member.name}님의 주문</h2></div>
-
+${cartInfo}
 </body>
 </html>

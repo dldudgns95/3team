@@ -3,11 +3,12 @@ package kr.co.withmall.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,22 +16,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.withmall.dto.CartDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.service.CartService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequestMapping(value = "/cart")
 @RequiredArgsConstructor
 @Controller
+@Slf4j
 public class CartController {
-  
+  private static final Logger logger = LoggerFactory.getLogger(CartController.class);
+
+  @Autowired
   private CartService cartService;
   private CartDto cartDto;
   private MemberDto memberDto;
@@ -70,10 +72,31 @@ public class CartController {
     }
   
 
-  @GetMapping(value="list/{num}", produces=MediaType.APPLICATION_JSON_VALUE)
-  public String cartInfo(@PathVariable("num") int num, Model model) throws Exception {
-    model.addAttribute("cartInfo", cartService.getCartList(num));
-    return "cart/list";
+  @GetMapping(value="/list/{num}", produces=MediaType.APPLICATION_JSON_VALUE)
+  public String cartInfo(@PathVariable("num") int num,HttpServletRequest request, HttpSession session, Model model) {
+    try {
+      // 디버깅 정보 로깅
+      logger.debug("cartInfo method called with num: {}", num);
+      
+      // cartService.getCartList(num) 메소드를 호출하여 어떤 결과가 나오는지 확인
+      Map<String, List> cartInfo = cartService.getCartList(num);
+  
+      // 디버깅 정보 로깅
+      logger.debug("cartList: {}", cartInfo);
+  
+      // 세션에 cartInfo 추가
+      request.getSession().setAttribute("cartInfo", cartInfo);
+      session.setAttribute("cartInfo", cartInfo);
+      
+      // 모델에 cartInfo 추가
+      model.addAttribute("cartInfo", cartInfo);
+  
+      // JSP 페이지 반환
+      return "cart/list";
+      } catch (Exception e) {
+      e.printStackTrace();
+      }
+    return null;
   }
   
 }

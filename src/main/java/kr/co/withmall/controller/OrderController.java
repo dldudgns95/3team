@@ -18,6 +18,6 @@ public class OrderController {
   @ResponseBody
   @PostMapping(value="/list.do")
   public String orderList(HttpSession session, Model model) throws Exception {
-    return null;
+    return "order/list";
   }
 }
