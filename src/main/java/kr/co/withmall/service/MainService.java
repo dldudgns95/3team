@@ -8,4 +8,5 @@ import kr.co.withmall.dto.ProductImageDto;
 public interface MainService {
   public List<ProductDto> getProductList();
   public List<ProductImageDto> getProductTotalList();
+  public List<ProductImageDto> getProductTotalListByCategory(String categoryName);
 }

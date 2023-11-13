@@ -11,4 +11,5 @@ import kr.co.withmall.dto.ProductImageDto;
 public interface MainMapper {
   public List<ProductDto> getProductList();
   public List<ProductImageDto> getProductTotalList();
+  public List<ProductImageDto> getProductTotalListByCategory(String categoryName);
 }

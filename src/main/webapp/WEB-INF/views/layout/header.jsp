@@ -31,207 +31,9 @@
 
 
 <link rel="stylesheet" href="${contextPath}/resources/css/cart.css?dt=${dt}" />
+<link rel="stylesheet" href="${contextPath}/resources/css/header.css?dt=${dt}" />
+<link rel="stylesheet" href="${contextPath}/resources/css/main.css?dt=${dt}" />
 
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-
-  .header_top {
-    background-color: #070707;
-    position:fixed; 
-    width: 100%;
-    top: 0;
-    z-index: 100;
-  }
-  
-  .search {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .search_select {
-    max-width: 150px;
-  }
-  
-  .serach_text {
-    min-width: 300px;
-    width: 300px;
-  }
-  
-  .serach_text:focus, .search_select:focus{
-    box-shadow: none;
-  }
-  
-  
-  .white, .white a {
-    color: #fff;
-  }
-  .white a:visited {
-    color: #fff;
-  }
-  
-  .main_header  {
-    flex-direction: row;
-  }
-  
-  .margin_left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .margin_right {
-    float: right;
-    display: flex;
-    align-items: center;
-    width: 120px;
-    justify-content: space-between;
-  }
-  
-  .header_icon {
-    align-items : center;
-  }
-  
-  .user_state ul {
-    display: inline;
-    list-style: none;
-  }
-  
-  .user_state li {
-    display: inline-block;
-    float: right;
-    margin-right: 30px;
-    color: #ffffff;
-  }
-  
-  .user_state a {
-    color: #ffffff;
-  }
-  
-  .navigation_bar  {
-    padding-top: 97.33px;
-    height: 131.33px;
-    display: flex;
-    text-align: center;
-    justify-content: space-around;
-  }
-  
-  
-  .category a {
-    text-decoration: none;
-  }
-  
-  .category h3 {
-    display: flex;
-    justify-content: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    color: #070707;
-  }
-  
-  .pics {      /* 전체 케러셀 */
-    width: 600px;
-    float: left;
-    position: relative;
-    left: 50%;
-    object-fit: cover;
-  }
-  
-  .carousel-inner {
-    width: auto;
-    height: 400px; /* 이미지 높이 변경 */
-  }
-
-  .carousel-item {
-    width: auto;
-    height: 100%;
-  }
-
-  .d-block {
-    display: block;
-    width: auto;
-    height: 100%;
-  }
-  
-  .owl-carousel .owl-next,
-  .owl-carousel .owl-prev {
-    font-size: 50px !important;
-    position: absolute;
-    width: 40px;
-    height: 100px;
-    top: 30%
-  
-  }
-  
-  .owl-carousel .owl-prev {
-    left: 10px;
-  }
-  
-  .owl-carousel .owl-next {
-    right: 10px;
-  }
-  
-  .owl-carousel p {
-    text-align: center;
-  }
-  
-  .carousel-container {
-    position: relative;
-    margin-top: 10px;
-  }
-  
-  .owl-carousel {
-    z-index: 2;
-  }
-  
-  .owl-container {
-    max-height: 200px;
-  }
-  
-  a img {
-    transition: all 0.2s linear;
-  }
-  
-  .a-images {
-    overflow: hidden;
-  }
-  
-  a:hover img {
-    transform: scale(1.1);  
-  }
-  
-  .item a {
-    text-decoration: none;
-    color: black;
-  }
-  
-  .item {
-    border: 1px solid gray;
-  }
-  
-  .main_list {
-    width: 1600px;
-    margin: 10px auto;
-    display: flex;
-    flex-wrap: wrap;/* 박스 크기에 따라 정렬된다.*/
-  }
-  
-  .main_item {
-    width: 320px;
-    height: 450px;
-    border: 1px solid gray;
-  }
-  
-  .main_item_image {
-    width: 315px;
-    height: 445px;
-  }
-  
-  .main_list img {
-    width: 320px;
-    height: 400px;
-  }
-    
-  
-</style>
 
 </head>
 <body>
@@ -261,17 +63,18 @@
           <img src="${contextPath}/resources/images/main_logo2.PNG" class="logo_img" width="100px">
         </a>
       </div>
-      <div class="input-group w-25 p-3" >
-        <select class="form-select search_select" id="inputGroupSelect01" aria-label="Example select with button addon">
-          <option value="0" selected>통합검색</option>
-          <option value="1">상품명</option>
-          <option value="2">등록자명</option>
-        </select>
-        <input type="text" class="form-control serach_text" placeholder="검색어를 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
-        <button class="btn btn-outline-secondary " type="button">
-          <i class="fa-solid fa-magnifying-glass white"></i>
-        </button>
-      </div>
+      <form id="frm_search" method="get" action="${contextPath}/main/search.do">
+        <div class="input-group w-100 p-3" >
+          <select class="form-select search_select" id="inputGroupSelect01" name="column" aria-label="Example select with button addon">
+            <option value="PRDT_NAME" selected>상품명</option>
+            <option value="PRDT_TITLE">상세내용</option>
+          </select>
+          <input type="text" class="form-control serach_text" name="query" placeholder="검색어를 입력하세요." aria-label="Username" aria-describedby="basic-addon1">
+          <button class="btn btn-outline-secondary" type="submit" id="btn_search">
+            <i class="fa-solid fa-magnifying-glass white"></i>
+          </button>
+        </div>
+      </form>
       <div class="margin_right">
         <a href="${contextPath}/member/mypage.do"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
         <a href="${contextPath}/cart/list.do"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
@@ -280,10 +83,19 @@
     </div>
   </div>
   <div class="navigation_bar">
-    <div class="category"><a href="#"><h3>상의</h3></a></div>
-    <div class="category"><a href="#"><h3>하의</h3></a></div>
-    <div class="category"><a href="#"><h3>아우터</h3></a></div>
-    <div class="category"><a href="#"><h3>기타</h3></a></div>
+    <div class="category"><a href="${contextPath}/main/list.do?categoryName=상의"><h3>상의</h3></a></div>
+    <div class="category"><a href="${contextPath}/main/list.do?categoryName=하의"><h3>하의</h3></a></div>
+    <div class="category"><a href="${contextPath}/main/list.do?categoryName=아우터"><h3>아우터</h3></a></div>
+    <div class="category"><a href="${contextPath}/main/list.do?categoryName=기타"><h3>기타</h3></a></div>
   </div>
+  
+  <script>
+   const fnSearch = () => {
+     $('#btn_search').click((ev) => {
+       const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+       
+     })     
+   }
+  </script>
 
   <div class="main_wrap">
