@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class ProductServiceImpl implements ProductService {
+<<<<<<< HEAD
 
   private final ProductMapper productMapper;
   
@@ -19,4 +20,7 @@ public class ProductServiceImpl implements ProductService {
   public ProductDto getProduct(int prdtNum) {    
     return productMapper.getProduct(prdtNum);
   }
+=======
+  
+>>>>>>> main
 }

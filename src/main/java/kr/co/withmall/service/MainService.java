@@ -1,5 +1,11 @@
 package kr.co.withmall.service;
 
-public interface MainService {
+import java.util.List;
 
+import kr.co.withmall.dto.ProductDto;
+import kr.co.withmall.dto.ProductImageDto;
+
+public interface MainService {
+  public List<ProductDto> getProductList();
+  public List<ProductImageDto> getProductTotalList();
 }
