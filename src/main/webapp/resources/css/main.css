@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+  .pics {      /* 전체 케러셀 */
+    width: 600px;
+    float: left;
+    position: relative;
+    left: 50%;
+    object-fit: cover;
+  }
+  
+  .carousel-inner {
+    width: auto;
+    height: 400px; /* 이미지 높이 변경 */
+  }
+
+  .carousel-item {
+    width: auto;
+    height: 100%;
+  }
+
+  .d-block {
+    display: block;
+    width: auto;
+    height: 100%;
+  }
+  
+  .owl-carousel .owl-next,
+  .owl-carousel .owl-prev {
+    font-size: 50px !important;
+    position: absolute;
+    width: 40px;
+    height: 100px;
+    top: 30%
+  
+  }
+  
+  .owl-carousel .owl-prev {
+    left: 10px;
+  }
+  
+  .owl-carousel .owl-next {
+    right: 10px;
+  }
+  
+  .owl-carousel p {
+    text-align: center;
+  }
+  
+  .carousel-container {
+    position: relative;
+  }
+  
+  .owl-container {
+    max-height: 200px;
+  }
+  
+  a img {
+    transition: all 0.2s linear;
+  }
+  
+  .a-images {
+    overflow: hidden;
+  }
+  
+  
+  a:hover img {
+    transform: scale(1.1);  
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .item {
+    border: 1px solid gray;
+  }
+  
+  .main_list {
+    width: 1400px;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;/* 박스 크기에 따라 정렬된다.*/
+  }
+  
+  .main_item {
+    width: 320px;
+    height: 450px;
+    border: 1px solid gray;
+    margin: 20px 15px;
+  }
+  
+  .main_item_image{
+    width: 320px;
+    height: 400px;
+    margin: 0px auto;
+    overflow: hidden;
+  }
+  
+  .main_list img {
+    width: 315px;
+    height: 395px;
+  }

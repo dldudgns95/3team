@@ -25,4 +25,9 @@ public class MainServiceImpl implements MainService {
     return mainMapper.getProductTotalList();
   }
   
+  @Override
+  public List<ProductImageDto> getProductTotalListByCategory(String categoryName) {
+    return mainMapper.getProductTotalListByCategory(categoryName);
+  }
+  
 }
