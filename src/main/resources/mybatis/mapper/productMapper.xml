@@ -14,7 +14,7 @@
     <result column="PRDT_STOCK"      property="prdtStock"/>
     <result column="PRDT_HIT"        property="prdtHit"/>
     <association javaType="ProductCategoryDto" property="productCategoryDto">
-      <id column="CATEGORY_NUM"                property="categoryNum"/>
+      <id     column="CATEGORY_NUM"            property="categoryNum"/>
       <result column="CATEGORY_NAME"           property="categoryName"/>
     </association> 
   </resultMap>
@@ -38,6 +38,11 @@
   
   <!-- 제품신규등록 -->
   <insert id="insertProduct" parameterType="ProductDto">
+  <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
+  <selectKey order="BEFORE" resultType="int" keyProperty="prdtNum">
+    SELECT PRODUCT_SEQ.NEXTVAL
+      FROM DUAL
+  </selectKey>
     INSERT INTO PRODUCT (
       PRDT_NUM
     , PRDT_NAME
@@ -58,6 +63,13 @@
     , #{prdtHit}  
     )
   </insert>
-
+  
+  <!-- 제품 조회하기(제품번호로 조회) -->
+  <select id="getProduct" parameterType="Map" resultMap="ProductMap">
+    SELECT P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, PC.CATEGORY_NUM
+      FROM PRODUCT_CATEGORY PC LEFT OUTER JOIN PRODUCT P
+        ON PC.CATEGORY_NUM = P.CATEGORY_NUM
+     WHERE PRDT_NUM = #{prdtNum}
+  </select>
 
 </mapper>
