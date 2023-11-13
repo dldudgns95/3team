@@ -35,48 +35,15 @@
   
   <div class="main_list">
   <c:forEach items="${productList}" var="product">
-    <div class="main_item"><div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div></div>
+    <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
+      <div class="main_item">
+       <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
+       <div>${product.productDto.prdtTitle}</div>
+       <div><p>${product.productDto.prdtRealPrice}원</p></div>
+     </div>
+   </a>
   </c:forEach>
   </div>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
-  <h1>메인화면</h1>
   
   <script>
     $('.owl-carousel').owlCarousel({
@@ -88,7 +55,7 @@
       autoplyTimeout: 1000,
       responsive:{
           0:{
-              items:1
+              items:1   
           },
           600:{
               items:3
