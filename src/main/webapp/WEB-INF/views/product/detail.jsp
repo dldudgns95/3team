@@ -26,12 +26,12 @@
       <p>쿠폰적용가 : 35900 원<!-- 판매가에서 할인계산 후 금액 -->
       <button type="button" name="btn_coupon" class="btn btn-light">쿠폰받기</button>
       </p> 
-      <p>
+      <div class="button_quantity">
         수량 : 
-        <i id="eaMinus" class="fa-solid fa-square-minus"></i> <!-- 클릭하면 수량감소 -->
-        <input type="text" name="ea" value="1" size="2" readonly> 개      
-        <i id="eaPlus" class="fa-solid fa-square-plus" onclick="increase()"></i>  <!-- 클릭하면 수량증가 -->
-      </p>
+        <button class="minus_btn">-</button>
+        <input type="text" name="qty" id="qty" value="1" size="2" readonly> 개      
+        <button class="plus_btn">+</button>
+      </div>
       <hr>
       <div>
         총 결제금액: ${product.prdtRealPrice} 원
@@ -65,21 +65,7 @@
     
     
    </div> 
-   
-    <script>
-        
-        //quiz 내용 : 버튼을 누를때마다 button의 innerText가 1씩 증가되게 해보세요.
-        //주의할 점!! 함수명과 변수명이 겹치면 안된다.
-        //페이지가 로딩되는 시점에 count 값을 0으로 초기화 한다. 
-        var count=0;
-        function increase(){
-            count=count+1;
-            document.querySelector("#countBtn").innerText=count;
-        }
-        
 
-        
-    </script>
 
 
 

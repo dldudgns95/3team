@@ -13,7 +13,7 @@
     <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
     <result column="PRDT_STOCK"      property="prdtStock"/>
     <result column="PRDT_HIT"        property="prdtHit"/>
-    <association javaType="ProductCategoryDto" property="productCategoryDto">
+    <association javaType="ProductCategoryDto" property="categoryDto">
       <id     column="CATEGORY_NUM"            property="categoryNum"/>
       <result column="CATEGORY_NAME"           property="categoryName"/>
     </association> 
