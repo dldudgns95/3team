@@ -56,7 +56,7 @@
       </div>
       <div class="mb-3">
           <label for="prdtNum">제품 번호</label>
-          <input type="text" name="prdtNum" id="prdtNum" class="form-control">
+          <input type="hidden" name="prdtNum" id="prdtNum" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtName">제품 이름</label>

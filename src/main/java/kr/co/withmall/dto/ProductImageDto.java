@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ProductImageDto {
-  
-  private int prdtNum;
   private String imagePath;
   private String filesystemName;
-
+  private ProductDto productDto;  // priavet int prdtNum;
 }

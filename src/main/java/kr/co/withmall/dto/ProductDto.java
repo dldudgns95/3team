@@ -16,8 +16,6 @@ public class ProductDto {
   private String prdtInfo;                  // 제품정보
   private int prdtRealPrice;                // 제품원가
   private int prdtStock;                    // 제품재고
-  private int categoryNum;
-  //private ProductCategoryDto categoryDto;   // private int categoryName
   private int prdtHit;                      // 제품조회수
-  private ProductImageDto productImageDto;
+  private ProductCategoryDto categoryDto;   // private int categoryNum
 }
