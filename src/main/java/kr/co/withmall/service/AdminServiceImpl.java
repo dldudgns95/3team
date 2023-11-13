@@ -68,7 +68,7 @@ public class AdminServiceImpl implements AdminService {
     // CKEditor로 저장된 이미지의 경로를 JSON 형식으로 반환해야 함
     return Map.of("uploaded", true
                 , "url", multipartRequest.getContextPath() + imagePath + "/" + filesystemName);
-
+    
   }
   
   // 제품 삽입
@@ -116,6 +116,7 @@ public class AdminServiceImpl implements AdminService {
   }
   
   
+  
   // 제품 목록
   @Override
   public void loadPrdtList(HttpServletRequest request, Model model) {
@@ -140,6 +141,36 @@ public class AdminServiceImpl implements AdminService {
   
 
     
+  }
+  
+  // 제품 수정
+  @Override
+  public int modifyPrdt(HttpServletRequest request) {
+    
+    String prdtName = request.getParameter("prdtName");
+    String prdtTitle = request.getParameter("prdtTitle");
+    int prdtRealPrice = Integer.parseInt(request.getParameter("prdtRealPrice"));
+    String prdtInfo = request.getParameter("prdtInfo");
+    
+    ProductDto prdt = ProductDto.builder()
+                           .prdtName(prdtName)
+                           .prdtTitle(prdtTitle)
+                           .prdtRealPrice(prdtRealPrice)
+                           .prdtInfo(prdtInfo)
+                           .build();
+    
+    int modifyResult = adminMapper.updatePrdt(prdt);
+    
+    System.out.println("modifyPrdt - modifyResult: " + modifyResult);
+
+    
+    return modifyResult;
+  }
+  
+  // 제품 정보....
+  @Override
+  public ProductDto getPrdt(int prdtNum) {
+    return adminMapper.getPrdt(prdtNum);
   }
   
   

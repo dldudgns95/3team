@@ -41,8 +41,8 @@
 
 
   
-  <div  class="mb-3">
-    <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do">
+  <div  class="wrap wrap_9">
+    <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do" enctype="multipart/form-data">
       <h1 class="head">제품작성</h1>
       <div class="mb-3">
           <label for="categoryNum">카테고리</label>
@@ -56,34 +56,42 @@
       </div>
       <div class="mb-3">
           <label for="prdtNum">제품 번호</label>
-          <input type="text" name="prdtNum">
+          <input type="text" name="prdtNum" id="prdtNum" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtName">제품 이름</label>
-          <input type="text" name="prdtName">
+          <input type="text" name="prdtName" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtTitle">제품 타이틀</label>
-          <input type="text" name="prdtTitle">
+          <input type="text" name="prdtTitle" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtRealPrice">제품 가격</label>
-          <input type="text" name="prdtRealPrice">
+          <input type="text" name="prdtRealPrice" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtStock">제품 재고</label>
-          <input type="text" name="prdtStock">
+          <input type="text" name="prdtStock" class="form-control">
       </div>
-      <div class="mb-3">
+      
+      <div>
           <label for="prdtInfo">제품 정보</label>
           <textarea name="prdtInfo" id="prdtInfo" style="display: none;"></textarea>
           <div id="toolbar-container"></div>
           <div id="ckeditor"></div>
       </div>
+      <div>
+        <input type="hidden" name="hit" value="${p.hit}">
+      </div>
 
       
     <div class="writer_btn">
       <button class="btn btn-primary col-3" type="submit">작성완료</button>
+      
+      <a href="${contextPath}/admin/prdtList.do">
+        <button class="btn btn-secondary" type="button">작성취소</button>
+      </a>    
     </div>
     
     
@@ -114,7 +122,7 @@
   const fnAdminAdd = () => {
 	  $('#frm_admin_add').submit((ev) => {
       if($('#prdtNum').val() === ''){
-        alert('제목은 반드시 입력해야 합니다.');
+        alert('제품번호를 입력하세요.');
         ev.preventDefault();
         return;
       }
@@ -130,5 +138,4 @@
 
   
 
-</body>
-</html>
+<%@ include file="../../layout/footer.jsp" %>

@@ -65,6 +65,7 @@
      , PRDT_REAL_PRICE
      , PRDT_STOCK
      , CATEGORY_NUM
+     , PRDT_HIT
      ) VALUES(
         #{prdtNum}
       , #{prdtName}
@@ -73,6 +74,7 @@
       , #{prdtRealPrice}
       , #{prdtStock}
       , #{categoryNum}
+      , #{prdtHit}
       )
   </insert>
   
@@ -89,10 +91,14 @@
     )
   </select>
   
-  <!-- 제품 이미지 삭제 -->
+  <!-- 제품 번호-->
+  <select id="getPrdt" parameterType="int"  >
+    SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, CATEGORY_NUM, PRDT_HIT
+      FROM PRODUCT
+    WHRER PRDT_NUM = #{prdtNum}
+  </select>
   
-
-  <!-- 제품 목록 -->
+  <!-- 제품 갯수 -->
   <select id="getPrdtCount" resultType="int">
     SELECT COUNT(*)
       FROM PRODUCT 
@@ -106,6 +112,16 @@
               ON P.PRDT_NUM = PI.PRDT_NUM) A
     WHERE A.RN BETWEEN #{begin} AND #{end}
   </select>
+  
+  <!-- 제품 수정 -->
+  <update id="updatePrdt" parameterType="ProductDto">
+    UPDATE PRODUCT
+       SET PRDT_NUM = #{prdtNum}
+         , PRDT_NAME =#{prdtName}
+         , PRDT_TITLE =#{prdtTitle}
+         , PRDT_REAL_PRICE = #{prdtRealPrice}
+       WHERE PRDT_NUM = #{prdtNum}
+  </update>
 
 
 
@@ -180,8 +196,17 @@
   </select>
 
 
+  <!-- 조회수 증가 -->
+  <update id="updateHit" parameterType="int">
+    UPDATE PRODUCT
+       SET HIT = HIT + 1
+     WHRER PRDT_NUM = #{prdtNo}
+  </update>
   
+  <!-- 매출 가져오기 -->
+  <select id="getOrder" parameterType="">
   
+  </select>
   
   
 </mapper>

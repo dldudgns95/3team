@@ -7,12 +7,15 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.service.AdminService;
 import lombok.RequiredArgsConstructor;
 
@@ -41,29 +44,45 @@ public class AdminController {
     return "admin/prdt/prdtWrite";
   }
   
-//  // 제품 목록 이동
-//  @GetMapping("/loadrdtList.do")
-//  public  String loadPrdtList(HttpServletRequest request, Model model) {
-//    return "admin/prdt/prdtList";
-//  }
   
-  
-  // 이미지 경로..
+  // 이미지 경로.. 저장안됨
   @PostMapping(value ="/imageUpload.do", produces = "application/json")
   @ResponseBody
   public Map<String, Object> imageUpload(MultipartHttpServletRequest multipartRequest){
     return adminService.imageUpload(multipartRequest);
   }
   
-  // 작성 결과 저장...
+  // 작성 결과 저장
   @PostMapping("/addPrdt.do")
   public String addPrdt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int addResult = adminService.addPrdt(request);
     redirectAttributes.addFlashAttribute("addResult", addResult);
-    return "redirect:/admin/prdt/prdtList.do";
+    return "redirect:/admin/prdtList.do";
   }
   
-    
+  // 값 못가져오고 있음... ㅠ
+  @GetMapping("/prdtEdit.form")
+  public String edit(@RequestParam("prdtNum") int prdtNum, Model model) {
+    System.out.println(prdtNum);
+    ProductDto prdt = adminService.getPrdt(prdtNum);
+    return "admin/prdt/prdtEdit";
+  }
+
+//  // 값 못가져오고 있음... ㅠ
+//  @PostMapping("/prdtEdit.form")
+//  public String edit(@ModelAttribute("prdt") ProductDto prdt) {
+//    return "admin/prdt/prdtEdit";
+//  }
+ 
+ // 수정 
+  @PostMapping("/modifyPrdt.do")
+  public String modifyPrdt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    int modifyResult = adminService.modifyPrdt(request);
+    redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
+    System.out.println("modifyPrdt.do - modifyResult: " + modifyResult);
+
+    return "redirect:/admin/prdtList.do";
+  }
   
   
   // 회원관리이동
@@ -80,6 +99,10 @@ public class AdminController {
 //    return "admin/user/userDetail";
 //  }
   
+  @GetMapping("/prdtDetail.do")
+  public String prdtDetail(HttpServletRequest request, Model model) {
+    return "admin/prdt/prdtDetail";
+  }
   
   // 회원 검색
   @GetMapping("/search.do")
