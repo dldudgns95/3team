@@ -15,7 +15,7 @@ public interface AdminService {
    //public Map<String, Object> imageUpload(MultipartHttpServletRequest httpServletRequest);
   
   // 제품 번호로...
-  public ProductDto getPrdt(int prdtNum);
+//  public ProductDto getPrdt(int prdtNum);
   
   // 이미지 저장...
   public Map<String, Object> imageUpload(MultipartHttpServletRequest multipartRequest);
@@ -28,8 +28,6 @@ public interface AdminService {
   // 제품 목록
   public void loadPrdtList(HttpServletRequest request, Model model);  
   
-  // 제품 가져오기
-  //public void loadPrdt(HttpServletRequest request, Model model);
   
   // 회원 목록
   public void loadMemList(HttpServletRequest request, Model model);

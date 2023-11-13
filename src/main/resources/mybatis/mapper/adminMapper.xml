@@ -55,7 +55,7 @@
   </association>
  </resultMap>
 
-  <!-- 제품 작성 -->
+  <!-- 제품 삽입 -->
   <insert id="insertPrdt" parameterType="ProductDto">
     INSERT INTO PRODUCT(
        PRDT_NUM
@@ -91,14 +91,9 @@
     )
   </select>
   
-  <!-- 제품 번호-->
-  <select id="getPrdt" parameterType="int"  >
-    SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, CATEGORY_NUM, PRDT_HIT
-      FROM PRODUCT
-    WHRER PRDT_NUM = #{prdtNum}
-  </select>
+
   
-  <!-- 제품 갯수 -->
+  <!-- 제품목록 가져오기 -->
   <select id="getPrdtCount" resultType="int">
     SELECT COUNT(*)
       FROM PRODUCT 

@@ -61,7 +61,7 @@
           <label for="prdtInfo">제품 정보</label>
           <textarea name="prdtInfo" id="prdtInfo" style="display: none;"></textarea>
           <div id="toolbar-container"></div>
-          <div id="ckeditor"></div>
+          <div id="ckeditor">${prdt.prdtInfo}</div>
       </div>
 
     <div>

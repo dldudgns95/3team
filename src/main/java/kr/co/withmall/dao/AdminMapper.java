@@ -14,14 +14,11 @@ public interface AdminMapper {
   
   // 제품 삽입
   public int insertPrdt(ProductDto prdt);
-  // 제품 사진 삽입
+  // 제품 이미지
   public int insertPrdtImage(ProductImageDto prdtImage);
   
-  // 제품 번호
-  public List<ProductDto> prdtNum(ProductDto prdt);
-  
-  
-  public ProductDto getPrdt(int prdtNum);
+  //제품 번호
+ // public ProductDto getPrdt(int prdtNum);
   
   
   // 제품목록 가져오기
@@ -41,7 +38,7 @@ public interface AdminMapper {
   //public Map<String, Object> getSalesUser(Map<String, Object> map);
   
   
-  // 회원 목록 검색
+  // 회원 검색
   public int getSearchCount(Map<String, Object> map);
   public List<MemberDto> getSearchList(Map<String, Object> map);
   

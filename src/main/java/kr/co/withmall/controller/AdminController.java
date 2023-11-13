@@ -60,13 +60,13 @@ public class AdminController {
     return "redirect:/admin/prdtList.do";
   }
   
-  // 값 못가져오고 있음... ㅠ
-  @GetMapping("/prdtEdit.form")
-  public String edit(@RequestParam("prdtNum") int prdtNum, Model model) {
-    System.out.println(prdtNum);
-    ProductDto prdt = adminService.getPrdt(prdtNum);
-    return "admin/prdt/prdtEdit";
-  }
+//  // 값 못가져오고 있음... ㅠ
+//  @GetMapping("/prdtEdit.form")
+//  public String edit(@RequestParam("prdtNum") int prdtNum, Model model) {
+//    System.out.println(prdtNum);
+//    //ProductDto prdt = adminService.getPrdt(prdtNum);
+//    return "admin/prdt/prdtEdit";
+//  }
 
 //  // 값 못가져오고 있음... ㅠ
 //  @PostMapping("/prdtEdit.form")

@@ -168,10 +168,10 @@ public class AdminServiceImpl implements AdminService {
   }
   
   // 제품 정보....
-  @Override
-  public ProductDto getPrdt(int prdtNum) {
-    return adminMapper.getPrdt(prdtNum);
-  }
+//  @Override
+//  public ProductDto getPrdt(int prdtNum) {
+//    return adminMapper.getPrdt(prdtNum);
+//  }
   
   
   // 회원 목록---------------------------------------------------------------
