@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.withmall.dao.ProductMapper;
 import kr.co.withmall.dto.ProductDto;
+import kr.co.withmall.dto.ProductImageDto;
 import lombok.RequiredArgsConstructor;
 
 @Transactional
@@ -19,6 +20,11 @@ public class ProductServiceImpl implements ProductService {
   @Override
   public ProductDto getProduct(int prdtNum) {    
     return productMapper.getProduct(prdtNum);
+  }
+  
+  @Override
+  public ProductImageDto getProductImage(int prdtNum) {
+    return productMapper.getProductImage(prdtNum);
   }
 
 }
