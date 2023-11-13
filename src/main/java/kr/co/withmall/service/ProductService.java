@@ -1,5 +1,7 @@
 package kr.co.withmall.service;
 
-public interface ProductService {
+import kr.co.withmall.dto.ProductDto;
 
+public interface ProductService {
+  public ProductDto getProduct(int prdtNum);
 }

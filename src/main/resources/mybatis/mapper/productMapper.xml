@@ -65,7 +65,7 @@
   </insert>
   
   <!-- 제품 조회하기(제품번호로 조회) -->
-  <select id="getProduct" parameterType="Map" resultMap="ProductMap">
+  <select id="getProduct" parameterType="int" resultMap="ProductMap">
     SELECT P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, PC.CATEGORY_NUM
       FROM PRODUCT_CATEGORY PC LEFT OUTER JOIN PRODUCT P
         ON PC.CATEGORY_NUM = P.CATEGORY_NUM
