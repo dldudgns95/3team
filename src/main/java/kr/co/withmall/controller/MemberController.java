@@ -54,6 +54,18 @@ public class MemberController {
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
 		memberservice.logout(request, response);
 	}
+	@GetMapping("/mypage.do")
+	public String mypage( ) {
+		return "member/mypage";
+	}
 	
+	@GetMapping("/mypageedit.form")
+	public String mypageedit() {
+		return "member/mypageedit";
+	}
 	
+	@GetMapping("/memberoutform.do")
+	public String memberoutform() {
+		return "member/memberoutform";
+	}
 }
