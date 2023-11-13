@@ -10,7 +10,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${param.title == null ? '메인화면' : param.title}</title>
+<title>
+  <c:if test="${empty param.title}">메인화면</c:if>
+  <c:if test="${not empty param.title}">${param.title}</c:if>
+</title>
 <!-- 부트스트랩 사용하기 위한 cdn -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <!-- font-awesome을 위한 cdn -->
@@ -203,6 +206,29 @@
   .item {
     border: 1px solid gray;
   }
+  
+  .main_list {
+    width: 1600px;
+    margin: 10px auto;
+    display: flex;
+    flex-wrap: wrap;/* 박스 크기에 따라 정렬된다.*/
+  }
+  
+  .main_item {
+    width: 320px;
+    height: 450px;
+    border: 1px solid gray;
+  }
+  
+  .main_item_image {
+    width: 315px;
+    height: 445px;
+  }
+  
+  .main_list img {
+    width: 320px;
+    height: 400px;
+  }
     
   
 </style>
@@ -249,7 +275,7 @@
       <div class="margin_right">
         <a href="${contextPath}/member/mypage.form"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
         <a href="${contextPath}/cart/list.do"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="#"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/cart/list/${member.num}"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
       </div>
     </div>
   </div>

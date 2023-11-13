@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class CpIssueDto {
-  private int cpUse;
-  private MemberDto memberDto; // private int num;
-  private CpDto cp;            // private int cpNum;
+public class ProductImageDto {
+  private String imagePath;
+  private String filesystemName;
+  private ProductDto productDto;  // priavet int prdtNum;
 }
