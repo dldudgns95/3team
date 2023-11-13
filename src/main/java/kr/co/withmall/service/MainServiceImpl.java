@@ -30,4 +30,9 @@ public class MainServiceImpl implements MainService {
     return mainMapper.getProductTotalListByCategory(categoryName);
   }
   
+  @Override
+  public List<ProductImageDto> getProductHitTop10List() {
+    return mainMapper.getProductHitTop10List();
+  }
+  
 }
