@@ -13,6 +13,7 @@ import kr.co.withmall.dto.CpIssueDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
+import kr.co.withmall.dto.ZzimDto;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -59,6 +60,11 @@ public class MainServiceImpl implements MainService {
                                    .build();
     int addResult = mainMapper.addMemberCoupon(cpIssue);
     return Map.of("addResult", addResult);
+  }
+  
+  @Override
+  public List<ZzimDto> getZzimProductList(int num) {
+    return mainMapper.getZzimProductList(num);
   }
   
 }

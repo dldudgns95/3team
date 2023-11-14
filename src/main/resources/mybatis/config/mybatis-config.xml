@@ -19,7 +19,8 @@
     <typeAlias alias="ProductDto"          type="kr.co.withmall.dto.ProductDto"/>
     <typeAlias alias="ProductCategoryDto"  type="kr.co.withmall.dto.ProductCategoryDto"/>
     <typeAlias alias="ProductImageDto"     type="kr.co.withmall.dto.ProductImageDto"/>
-    <typeAlias alias="SupportDto"     type="kr.co.withmall.dto.SupportDto"/>
+    <typeAlias alias="SupportDto"          type="kr.co.withmall.dto.SupportDto"/>
+    <typeAlias alias="ZzimDto"             type="kr.co.withmall.dto.ZzimDto"/>
   </typeAliases>
 
 </configuration>
