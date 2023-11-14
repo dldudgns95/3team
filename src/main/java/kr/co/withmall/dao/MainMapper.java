@@ -20,5 +20,5 @@ public interface MainMapper {
   public List<CpDto> getHasCouponList(int num);
   public List<CpDto> getDontHaveCouponList(int num);
   public int addMemberCoupon(CpIssueDto cpIssue);
-  public List<ZzimDto> getZzimProductList(int num);
+  public List<ProductImageDto> getZzimProductList(int num);
 }

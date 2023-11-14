@@ -16,5 +16,5 @@ public interface MainService {
   public List<ProductImageDto> getProductHitTop10List();
   public Map<String, Object> getCouponList(int num);
   public Map<String, Object> addMemberCoupon(HttpServletRequest request);
-  public List<ZzimDto> getZzimProductList(int num);
+  public List<ProductImageDto> getZzimProductList(int num);
 }

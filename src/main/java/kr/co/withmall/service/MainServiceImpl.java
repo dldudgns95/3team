@@ -63,7 +63,7 @@ public class MainServiceImpl implements MainService {
   }
   
   @Override
-  public List<ZzimDto> getZzimProductList(int num) {
+  public List<ProductImageDto> getZzimProductList(int num) {
     return mainMapper.getZzimProductList(num);
   }
   
