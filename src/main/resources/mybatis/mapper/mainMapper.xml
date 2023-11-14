@@ -168,6 +168,7 @@
     )
   </insert>
   
+  <!-- 사용하지않은 제품 사용 -->
   <select id="getUnusedCouponList" parameterType="int" resultType="CpDto">
     SELECT CI.CP_NUM, C.CP_NAME, C.CP_INFO, C.CP_PRICE, C.CP_MIN, C.START_AT, C.END_AT
 		  FROM CP C INNER JOIN CP_ISSUE CI
