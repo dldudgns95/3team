@@ -26,10 +26,16 @@
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">쿠폰 목록</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
         <!-- 모달 내용이 들어갈 자리 -->
+        </div>
       </div>
     </div>
-  </div>
+  </div>  
   
   <script>
   
@@ -135,7 +141,7 @@
         }
         
         // 모달 내용 업데이트
-        $(".modal-content").html(modalContent);
+        $(".modal-body").html(modalContent);
       }
     });
     
