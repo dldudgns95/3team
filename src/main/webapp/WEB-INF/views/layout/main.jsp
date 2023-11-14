@@ -12,26 +12,16 @@
   
   <div class="carousel-container">
     <div class="owl-carousel owl-theme">
-      <div class="item">
-        <a href="${contextPath}/product/detail.do?prdtNum=1"><div class="a-images"><img src="${contextPath}/resources/images/bottom/b1.jpeg"></div><div><p>바지1</p></div><div><p>50000원</p></div></a>
-      </div>
-      <div class="item">
-        <a href="111"><div class="a-images"><img src="${contextPath}/resources/images/bottom/b2.jpeg"></div><div><p>바지2</p></div><div><p>55000원</p></div></a>
-      </div>
-      <div class="item">
-        <a href="111"><div class="a-images"><img src="${contextPath}/resources/images/bottom/b3.jpeg"></div><div><p>바지3</p></div><div><p>55000원</p></div></a>
-      </div>
-      <div class="item">
-        <a href="111"><div class="a-images"><img src="${contextPath}/resources/images/bottom/b4.jpeg"></div><div><p>바지4</p></div><div><p>60000원</p></div></a>
-      </div>
-      <div class="item">
-        <a href="111"><div class="a-images"><img src="${contextPath}/resources/images/bottom/b5.jpeg"></div><div><p>바지5</p></div><div><p>70000원</p></div></a>
-      </div>
-      <div class="item">
-        <a href="111"><div class="a-images"><img src="${contextPath}/resources/images/bottom/b6.jpeg"></div><div><p>바지6</p></div><div><p>75000원</p></div></a>
-      </div>
+      <c:forEach items="${productTop10List}" var="top10" begin="0" varStatus="i">
+        <div class="item">
+          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}"><div class="a-images"><img src="${top10.imagePath}/${top10.filesystemName}"></div><div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div><div><p>${top10.productDto.prdtRealPrice}원</p></div></a>
+        </div>
+      </c:forEach>
     </div>
   </div>
+  
+ 
+  
   
   <div class="main_list">
   <c:forEach items="${productList}" var="product">
@@ -52,7 +42,7 @@
       nav:true,
       dots: false,
       autoplay: true,
-      autoplyTimeout: 1000,
+      autoplyTimeout: 10000,
       responsive:{
           0:{
               items:1   

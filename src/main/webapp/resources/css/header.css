@@ -16,12 +16,12 @@
   }
   
   .search_select {
-    max-width: 150px;
+    max-width: 120px;
   }
   
-  .serach_text {
-    min-width: 300px;
-    width: 300px;
+  .form_control {
+    min-width:500px;
+    width: 500px;
   }
   
   .serach_text:focus, .search_select:focus{
