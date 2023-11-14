@@ -41,6 +41,12 @@ public class MainController {
     return mainService.addMemberCoupon(request);
   }
   
+  @GetMapping(value="/zzimList.do")
+  public String getZzimProductList(@RequestParam(value="num") int num, Model model) {
+    model.addAttribute("productList", mainService.getZzimProductList(num));
+    return "main/zzim";
+  }
+  
   
   
   

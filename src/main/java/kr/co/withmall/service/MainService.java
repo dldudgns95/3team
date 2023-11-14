@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
+import kr.co.withmall.dto.ZzimDto;
 
 public interface MainService {
   public List<ProductDto> getProductList();
@@ -15,4 +16,5 @@ public interface MainService {
   public List<ProductImageDto> getProductHitTop10List();
   public Map<String, Object> getCouponList(int num);
   public Map<String, Object> addMemberCoupon(HttpServletRequest request);
+  public List<ProductImageDto> getZzimProductList(int num);
 }

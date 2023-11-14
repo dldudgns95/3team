@@ -5,6 +5,7 @@
 
 <mapper namespace="kr.co.withmall.dao.MainMapper">
 
+  <!-- 제품 resultmap -->
   <resultMap type="ProductDto" id="ProductMap">
     <id     column="PRDT_NUM"        property="prdtNum" />
     <result column="PRDT_NAME"       property="prdtName" />
@@ -19,6 +20,7 @@
     </association>
   </resultMap>
   
+  <!-- 제품이미지 resultmap(제품 전부 있음) -->
   <resultMap type="ProductImageDto" id="ProductImageMap">
     <result column="IMAGE_PATH"        property="imagePath" />
     <result column="FILESYSTEM_NAME"   property="filesystemName" />
@@ -37,6 +39,40 @@
     </association>
   </resultMap>
   
+    <!-- 찜 resultmap -->
+  <resultMap type="ZzimDto" id="ZzimMap">
+    <id column="ZZIM_NUM"        property="zzimNum" />
+    <association javaType="MemberDto" property="memberDto">
+      <id     column="NUM"           property="num" />
+      <result column="NAME"          property="name" />
+      <result column="PW"            property="pw" />
+      <result column="MOBILE"        property="mobile" />
+      <result column="EMAIL"         property="email" />
+      <result column="POSTCODE"      property="postcode" />
+      <result column="JIBUNADDRESS"  property="jibunaddress" />
+      <result column="ROADADDRESS"   property="roadaddress" />
+      <result column="DETAILADDRESS" property="detailaddress" />
+      <result column="BIRTH"         property="birth" />
+      <result column="GENDER"        property="gender" />
+      <result column="MDATE"         property="mdate" />
+      <result column="AUTH"          property="auth" />
+      <result column="STATUS"        property="status" />
+      <result column="REG_DATE"      property="regDate" />
+    </association>
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+      <result column="PRDT_NAME"       property="prdtName" />
+      <result column="PRDT_TITLE"      property="prdtTitle" />
+      <result column="PRDT_INFO"       property="prdtInfo" />
+      <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+      <result column="PRDT_STOCK"      property="prdtStock" />
+      <result column="PRDT_HIT"        property="prdtHit" />
+      <association javaType="ProductCategoryDto" property="categoryDto">
+        <id     column="CATEGORY_NUM"    property="categoryNum" />
+        <result column="CATEGORY_NAME"   property="categoryName" />
+      </association>
+    </association>
+  </resultMap>
   
   <select id="getProductList" resultMap="ProductMap">
     SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
@@ -77,7 +113,7 @@
 		 WHERE M.NUM = #{num}
 		 ORDER BY CP_NUM
   </select>
-  
+    
   <!-- 회원이 가지고 있지 않은 쿠폰 리스트 -->
   <select id="getDontHaveCouponList" parameterType="int" resultType="CpDto">
     SELECT CP.CP_NUM, CP.CP_NAME, CP.CP_INFO, CP.CP_PRICE, CP.CP_MIN, CP.START_AT, CP.END_AT
@@ -89,6 +125,7 @@
 		 ORDER BY CP_NUM
   </select>
     
+  <!-- 회원 쿠폰 발급 -->
   <insert id="addMemberCoupon" parameterType="CpIssueDto">
     INSERT INTO CP_ISSUE(
       CP_USE
@@ -100,6 +137,16 @@
     , #{cp.cpNum}
     )
   </insert>
-    
+  
+  <!-- 찜한 제품 가져오기 -->
+  <select id="getZzimProductList" parameterType="int" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+		  FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
+		 WHERE I.PRDT_NUM = P.PRDT_NUM
+		   AND P.CATEGORY_NUM = C.CATEGORY_NUM
+		   AND P.PRDT_NUM IN (SELECT PRDT_NUM
+		                        FROM ZZIM
+		                       WHERE NUM = #{num})
+  </select>
 
 </mapper>

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ZzimDto {
-  private int zzim_num;
+  private int zzimNum;
   private MemberDto memberDto;
   private ProductDto productDto;
 }

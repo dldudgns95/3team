@@ -6,15 +6,19 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
+
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="회원가입" name="title"/>
 </jsp:include>
+
+<script src="${contextPath}/resources/js/agree.js"></script>
+
 
 <div>
  <h1>환영합니다</h1>
  <h2>위드에 가입하시려면 약관에 동의해 주세요.</h2>
  
- <form id="frm_agree" action="${contextPath}/user/join.form">
+ <form id="frm_agree" action="${contextPath}/member/join.form">
 
 
     <div class="form-check mt-3">
@@ -24,7 +28,7 @@
       </label>
     </div>
     <div>
-      <textarea rows="5" class="form-control">제발 동의해</textarea>
+      <textarea rows="5" class="form-control">본 약관은 ...</textarea>
     </div>
     
     <div class="form-check mt-3">
@@ -34,7 +38,7 @@
       </label>
     </div>
     <div>
-      <textarea rows="5" class="form-control">동의해줬으면 좋겠어</textarea>
+      <textarea rows="5" class="form-control">본 약관은 ...</textarea>
     </div>
   
     <div class="form-check mt-3">
@@ -51,3 +55,4 @@
   </form>
  
 </div>
+<%@ include file="../layout/footer.jsp" %>
