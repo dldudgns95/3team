@@ -51,11 +51,11 @@ public class SupportServiceImpl implements SupportService {
 	}
 	
 	// 상세보기 
-	/*@Override
-	  public SupportDto getSupport(int annNo) {
+	@Override
+	public SupportDto getSupport(int annNum) {
 	    return supportMapper.getSupport(annNum);
 	  }
-	*/
+	
 	
 	
 	
