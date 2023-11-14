@@ -91,7 +91,7 @@
   
   <script>
    const fnSearch = () => {
-     $('#btn_search').click((ev) => {
+     $('#frm_search').submit((ev) => {
        const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
        
      })     

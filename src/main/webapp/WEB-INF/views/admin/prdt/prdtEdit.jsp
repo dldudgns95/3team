@@ -78,7 +78,6 @@
 <script>
 
 
-
 const fnCkeditor = () => {
   DecoupledEditor
     .create(document.getElementById('ckeditor'), {
@@ -98,7 +97,7 @@ const fnCkeditor = () => {
 
 const fnAdminModify = () => {
   $('#frm_admin_modify').submit(() => {
-    $('#contents').val($('#ckeditor').html());
+    $('#prdtInfo').val($('#ckeditor').html());
   })
 }
 

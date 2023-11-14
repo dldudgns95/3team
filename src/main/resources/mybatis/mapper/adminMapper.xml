@@ -20,6 +20,51 @@
      </association>
   </resultMap>
   
+  <!-- 제품신규등록 -->
+  <insert id="insertProduct" parameterType="ProductDto">
+  <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
+  <selectKey order="BEFORE" resultType="int" keyProperty="prdtNum">
+    SELECT PRODUCT_SEQ.NEXTVAL
+      FROM DUAL
+  </selectKey>
+    INSERT INTO PRODUCT (
+      PRDT_NUM
+    , PRDT_NAME
+    , PRDT_TITLE
+    , PRDT_INFO
+    , PRDT_REAL_PRICE
+    , PRDT_STOCK
+    , CATEGORY_NUM
+    ) VALUES (
+      #{prdtNum}
+    , #{prdtName}
+    , #{prdtTitle}
+    , #{prdtInfo}
+    , #{prdtRealPrice}
+    , #{prdtStock}
+    , #{categoryDto.categoryNum}
+    )
+  </insert>
+  
+   <!-- 제품 이미지 -->
+  <insert id="insertPrdtImage" parameterType="ProductImageDto">
+    <selectKey order="BEFORE" resultType="int" keyProperty="prdtNum">
+      SELECT PRODUCT_SEQ.CURRVAL
+        FROM DUAL
+    </selectKey>
+    INSERT INTO PRODUCT_IMAGE(
+        PRDT_NUM
+      , IMAGE_PATH
+      , FILESYSTEM_NAME
+    ) VALUES(
+        #{prdtNum}
+      , #{imagePath}
+      , #{filesystemName}
+    )
+  </insert>
+
+  <!-- 이미지 삭제 -->
+  
   
   <!-- 제품목록 가져오기 -->
   <select id="getPrdtCount" resultType="int">
@@ -36,6 +81,74 @@
     WHERE A.RN BETWEEN #{begin} AND #{end}
   </select>
   
+  <select id="getPrdt" parameterType="int" resultType="ProductDto">
+    SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM 
+      FROM PRODUCT
+     WHERE PRDT_NUM = #{prdtNum}
+  </select>
+  
+  
+  <!-- 제품 수정 -->
+  <update id="updatePrdt" parameterType="ProductDto">
+    UPDATE PRODUCT
+       SET PRDT_NAME = #{prdtName}
+         , PRDT_TITLE = #{prdtTitle}
+         , PRDT_REAL_PRICE = #{prdtRealPrice}
+         , PRDT_INFO = #{prdtInfo}
+       WHERE PRDT_NUM = #{prdtNum}
+  </update>
+  
+  <delete id="deletePrdt" parameterType="int">
+    DELETE
+      FROM PRODUCT
+     WHERE PRDT_NUM = #{prdtNum}
+  </delete>
+  
+  
+  
+  
+  <!--        회원           -->
+  
+   <!-- 회원목록 -->
+   <select id="getMemCount" resultType="int">
+    SELECT COUNT(*)
+      FROM MEMBER
+   </select>
+   
+    <select id="getMemList" parameterType="Map" resultType="MemberDto">
+    SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY NUM DESC) AS RN, NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE 
+          FROM MEMBER)
+     WHERE RN BETWEEN #{begin} AND #{end}
+   </select>
+   
+     <!-- 회원 검색 -->
+  <select id="getSearchCount" parameterType="Map" resultType="int">
+    SELECT COUNT(*)
+      FROM MEMBER
+     WHERE ${column} LIKE '%' || #{searchText} || '%'
+  </select>
+  
+    <select id="getSearchList" parameterType="Map" resultType="MemberDto">
+    SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE
+    FROM (
+      SELECT ROW_NUMBER() OVER(ORDER BY NUM DESC) AS RN, NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE 
+      FROM MEMBER
+      WHERE
+        <choose>
+          <when test="column == 'NAME'">
+            NAME LIKE '%' || #{searchText} || '%'
+          </when>
+          <when test="column == 'EMAIL'">
+            EMAIL LIKE '%' || #{searchText} || '%'
+          </when>
+          <when test="column == 'MOBILE'">
+            MOBILE LIKE '%' || #{searchText} || '%'
+          </when>
+        </choose>
+    )
+    WHERE RN BETWEEN #{begin} AND #{end}
+  </select>
 
   
   

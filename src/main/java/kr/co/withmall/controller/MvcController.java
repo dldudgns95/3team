@@ -16,6 +16,7 @@ public class MvcController {
   @GetMapping(value={"/", "/main.do"})
   public String main(Model model) {
     model.addAttribute("productList", mainService.getProductTotalList());
+    model.addAttribute("productTop10List", mainService.getProductHitTop10List());
     return "layout/main";
   }
   

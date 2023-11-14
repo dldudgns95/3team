@@ -64,7 +64,7 @@
   <hr>
 
   <div class="table-responsive">
-   <form method="post" action="${contextPath}/admin/prdtEdit.form" id="frm_admin_edit">
+   <form id="frm_btn" method="post">
     <table border="1" class="table align-middle">
       <thead>
         <tr>
@@ -82,13 +82,15 @@
           <tr>
           
             <td>${p.prdtNum}</td>
-            <td>${p.productImageDto.filesystemName}</td>
+            <td>${productImageDto.filesystemName}</td>
             <td>${p.prdtName}</td>
             <td>${p.prdtStock}</td>
             
             
             <td><a href="${contextPath}/admin/prdtEdit.form?prdtNum=${p.prdtNum}"><button type="button" id="btn_edit">수정</button></a></td>
-            <td><button type="button" id="btn_delete">삭제</button></td>
+            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" id="btn_remove">삭제</button></a></td>
+         
+         
           </tr>
         </c:forEach>
       </tbody>
@@ -106,57 +108,24 @@
 
 <script>
 
-var frmBtn = $('#btn_edit');
-
-
-const fnPrdtEdit = () => {
-    $('#btn_edit').click((ev) => {
-      
-
-    })
 
 
 
-const fnAddResult = () => {
-	  let addResult = '${addResult}';
-	  if(addResult !== ''){
-		  if(addResult === '1'){
-			  alert('게시글이 등록되었습니다.');
-		  } else {
-			  alert('게시글이 등록되지 않았습니다.');
-		  }
-	  }
-}
-
-
-
-
-
+  var frmBtn = $('#frm_btn');
   
-  const fnRemove = () => {
-	  $('.btn_delete').submit((ev) => {
-		  if(!confirm('게시글을 삭제할까요?')){
-			  ev.preventDefault();
-			  return;
-		  }
-	  })
-  }
-  
-  const fnRemoveResult = () => {
-	    let removeResult = '${removeResult}';
-	    if(removeResult !== ''){
-	      if(removeResult === '1'){
-	        alert('게시글이 삭제되었습니다.');
-	      } else {
-	        alert('게시글이 삭제되지 않았습니다.');
-	      }
-	    }
-	  }
-  
-  fnPrdtEdit();
-  fnAddResult();
-  fnRemove();
-  fnRemoveResult();
+
+    
+  const fnRemovePrdt = () => {
+      $('#btn_remove').click(() => {
+        if(confirm('상품을 삭제할까요?')){
+          frmBtn.attr('action', '${contextPath}/admin/remove.do');
+          frmBtn.submit();          
+        }
+      })
+    }
+
+
+  fnRemovePrdt();
 
 </script>
 

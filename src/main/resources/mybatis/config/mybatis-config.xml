@@ -10,14 +10,15 @@
     <setting name="mapUnderscoreToCamelCase" value="true"/>
   </settings>
   
-  <typeAliases>
-    <typeAlias alias="ProductImageDto"  type="kr.co.withmall.dto.ProductImageDto"/>
+  
+ <typeAliases>
+    <typeAlias alias="MemberDto"           type="kr.co.withmall.dto.MemberDto"/>
+    <typeAlias alias="CartDto"             type="kr.co.withmall.dto.CartDto"/>
+    <typeAlias alias="CpDto"               type="kr.co.withmall.dto.CpDto"/>
+    <typeAlias alias="CpIssueDto"          type="kr.co.withmall.dto.CpIssueDto"/>
+    <typeAlias alias="ProductDto"          type="kr.co.withmall.dto.ProductDto"/>
     <typeAlias alias="ProductCategoryDto"  type="kr.co.withmall.dto.ProductCategoryDto"/>
-    <typeAlias alias="ProductDto"  type="kr.co.withmall.dto.ProductDto"/>
-    <typeAlias alias="MemberDto"  type="kr.co.withmall.dto.MemberDto"/>
-    <typeAlias alias="CartDto"  type="kr.co.withmall.dto.CartDto"/>
-    <typeAlias alias="OrderDto"  type="kr.co.withmall.dto.OrderDto"/>
-
+    <typeAlias alias="ProductImageDto"     type="kr.co.withmall.dto.ProductImageDto"/>
   </typeAliases>
 
 </configuration>

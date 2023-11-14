@@ -56,11 +56,11 @@
       </div>
       <div class="mb-3">
           <label for="prdtNum">제품 번호</label>
-          <input type="hidden" name="prdtNum" id="prdtNum" class="form-control">
+          <input type="hidden" name="prdtNum" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtName">제품 이름</label>
-          <input type="text" name="prdtName" class="form-control">
+          <input type="text" id="prdtName" name="prdtName" class="form-control">
       </div>
       <div class="mb-3">
           <label for="prdtTitle">제품 타이틀</label>
@@ -121,8 +121,8 @@
   
   const fnAdminAdd = () => {
 	  $('#frm_admin_add').submit((ev) => {
-      if($('#prdtNum').val() === ''){
-        alert('제품번호를 입력하세요.');
+      if($('#prdtName').val() === ''){
+        alert('제품이름을 입력하세요.');
         ev.preventDefault();
         return;
       }

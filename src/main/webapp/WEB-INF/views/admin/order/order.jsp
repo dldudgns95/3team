@@ -52,9 +52,7 @@
         </tr>
       </thead>
       <tbody>
-        <c:foreach items ="" vs="">
-        
-        </c:foreach>
+
       </tbody>
     </table>
   </div>

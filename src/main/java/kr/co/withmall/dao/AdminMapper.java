@@ -13,37 +13,38 @@ import kr.co.withmall.dto.ProductImageDto;
 public interface AdminMapper {
   
   // 제품 삽입
-  public int insertPrdt(ProductDto prdt);
+  public int insertProduct(ProductDto prdt);
 
-  //  // 제품 이미지
-//  public int insertPrdtImage(ProductImageDto prdtImage);
-//  
-//  //제품 번호
-// // public ProductDto getPrdt(int prdtNum);
-  
+  // 제품 이미지
+  public int insertPrdtImage(ProductImageDto prdtImage);
   
   // 제품목록 가져오기
   public int getPrdtCount();  
   public List<ProductDto> getPrdtList(Map<String, Object> map);
   
-//  // 제품 수정
-//  public int updatePrdt(ProductDto prdt);
-//  
-//  ///////////////////////////////////////////////////
-//  
-//  // 회원목록 가져오기
-//  public int getMemCount();
-//  public List<MemberDto> getMemList(Map<String, Object> map );
-//  
+  //제품 번호
+  public ProductDto getPrdt(int prdtNum);
+  // 제품 수정
+  public int updatePrdt(ProductDto prdt);
+  
+  // 제품 삭제
+  public int deletePrdt(int prdtNum);
+  
+  ///////////////////////////////////////////////////
+  
+  // 회원목록 가져오기
+  public int getMemCount();
+  public List<MemberDto> getMemList(Map<String, Object> map );
+  
 //  // 특정 회원 별 매출액
 //  //public Map<String, Object> getSalesUser(Map<String, Object> map);
-//  
-//  
-//  // 회원 검색
-//  public int getSearchCount(Map<String, Object> map);
-//  public List<MemberDto> getSearchList(Map<String, Object> map);
-//  
-//  
+  
+  
+  // 회원 검색
+  public int getSearchCount(Map<String, Object> map);
+  public List<MemberDto> getSearchList(Map<String, Object> map);
+  
+  
 //  //////////////////////////////////////////////////////////
 //  
 //  // 조회수 증가 
