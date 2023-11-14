@@ -34,8 +34,10 @@
         <button type="button" class="plus_btn">+</button>
         현재 재고 : ${product.prdtStock} 개
       </div>
+      <div>
+      
       <p>쿠폰적용가 : 35900 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
-
+      </div>
       <hr>
       <!-- 장바구니,찜하기,구매하기로 이동하는 버튼 -->
       <div>
