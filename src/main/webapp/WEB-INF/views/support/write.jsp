@@ -10,13 +10,46 @@
   <jsp:param value="공지사항 작성" name="title"/>
 </jsp:include>
 
+<style>
+  .ck.ck-editor {
+    max-width: 1000px;
+  }
+  .ck-editor__editable {
+    min-height: 400px;
+  }
+  .ck-content {
+    color: gray;
+  }
+</style>
+
 <div>
-	<h1>공지 작성화면</h1>
-	
+  <form id="frm_support_add" method="post" action="${contextPath}/support/addSupport.do">
+    
+    <h1 style="text-align: center;">공지사항을 작성하세요</h1>
+    
+    <div>
+      <label for="title">제목</label>
+      <input type="text" name="title" id="title" class="form-control">      
+    </div>
+    
+    <div>
+      <label for="contents">내용</label>
+      <textarea name="content" id="content" style="display: none;"></textarea>  <!-- ckEditor 아이디와맞춰야함 -->
+      <div id="toolbar-container"></div>
+      <div id="ckeditor"></div>
+    </div>
+  
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button type="submit" class="btn btn-outline-dark">작성완료</button>
+    </div>
+    
+    
+  </form>
 </div>
 
 <div>
-  <form id="frm_blog_add" method="post" action="${contextPath}/blog/addBlog.do">
+  <form id="frm_support_add" method="post" action="${contextPath}/support/addSupport.do">
+  
 </div>  
 
 

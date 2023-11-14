@@ -5,14 +5,10 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>고객센터</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eesamsaoh.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer_style.css">
+<jsp:include page="../layout/header.jsp">
+    <jsp:param value="공지사항" name="title"/>
+</jsp:include>
+   
 
     <style>
         .notice-section {
@@ -22,14 +18,9 @@
 
         .table thead th {
             font-weight: bold;
-        }
+       }
     </style>
-</head>
-<body>
 
-<jsp:include page="../layout/header.jsp">
-    <jsp:param value="공지사항" name="title"/>
-</jsp:include>
 
 <div class="whole">
     <div class="container">
