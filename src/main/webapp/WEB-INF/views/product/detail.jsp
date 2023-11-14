@@ -19,6 +19,7 @@
     <div class="prdt_image" style="float: left; width: 50%; padding-left:50px;">
       <img src="${productImage.imagePath}/${productImage.filesystemName}">  
     </div>
+    
     <!-- 제품정보 출력 -->
     <div class="prdt_info" style="float: left; width: 50%; height:600px; border-bottom: 1px solid gray;">
       <p class="title_box">Product Info</p>
@@ -26,7 +27,6 @@
       <p>${product.prdtInfo}</p>            
       <p>상품조회수 : ${product.prdtHit} 회</p>            
       <p>판매가 : ${product.prdtRealPrice} 원</p>     
-      <!-- <button type="button" name="btn_coupon" class="btn btn-light">쿠폰받기</button>  -->
       <div class="button_quantity" style="padding-bottom: 10px;">
         수량 : 
         <button type="button" class="minus_btn">-</button>
@@ -34,11 +34,12 @@
         <button type="button" class="plus_btn">+</button>
         현재 재고 : ${product.prdtStock} 개
       </div>
-      <div>
       
-      <p>쿠폰적용가 : 35900 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
-      </div>
+      <!-- 사용 가능한 쿠폰리스트 출력 -->
+      <div class="couponList"></div>
+      <p>쿠폰적용가 : ${product.prdtRealPrice} - 100 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
       <hr>
+      
       <!-- 장바구니,찜하기,구매하기로 이동하는 버튼 -->
       <div>
         총 결제금액: ${product.prdtRealPrice} 원
@@ -51,7 +52,7 @@
     </div>
   </div>
   </div> 
- 
+
     <hr>
     <div>상세보기</div>
     
@@ -83,7 +84,7 @@
   }
   
   // 장바구니 추가
-  $('.btn_cart').on('click', function(e){
+  $('#btn_cart').on('click', function(e){
     form.prdtCount = $('.quantity_input').val();
     $.ajax({
       type: 'post',
@@ -106,6 +107,7 @@
       }
     })
   });
+  
   
   
   </script>
