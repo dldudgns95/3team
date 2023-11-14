@@ -10,7 +10,7 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="마이페이지" name="title"/>
 </jsp:include>
-<div>
+
 <h1>내 정보</h1>
 	<ul>
 		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>

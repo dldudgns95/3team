@@ -15,11 +15,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.JSONObject;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.withmall.dao.MemberMapper;
 import kr.co.withmall.dto.MemberDto;
+import kr.co.withmall.util.MyJavaMailUtils;
 import kr.co.withmall.util.MySecurityUtils;
 import lombok.RequiredArgsConstructor;
 
@@ -31,6 +34,7 @@ public class MemberServiceImpl implements MemberService {
 	
 	private final MemberMapper memberMapper;
 	private final MySecurityUtils mySecurityUtils;
+	private final MyJavaMailUtils myJavaMailUtils;
 	
 	private final String client_id = "K3HBLQteMesDkdnTQl7_";
 	private final String client_secret = "590mYEK6XK";	
@@ -188,7 +192,6 @@ public class MemberServiceImpl implements MemberService {
 	      responseBody.append(line);
 	    }
 	    
-	    // 응답 결과(프로필을 JSON으로 응답) -> UserDto 객체
 	    JSONObject obj = new JSONObject(responseBody.toString());
 	    JSONObject response = obj.getJSONObject("response");
 	    MemberDto user = MemberDto.builder()
@@ -264,5 +267,85 @@ public class MemberServiceImpl implements MemberService {
 	    }
 	    
 	  }
+	  @Override
+   	  public void join(HttpServletRequest request, HttpServletResponse response) {
+		  
+		    String name = mySecurityUtils.preventXSS(request.getParameter("name"));
+		    String pw = mySecurityUtils.getSHA256(request.getParameter("pw"));
+		    String mobile = request.getParameter("mobile");
+		    String email = request.getParameter("email");
+		    String postcode = request.getParameter("postcode");
+		    String roadaddress = request.getParameter("roadaddress");
+		    String jibunaddress = request.getParameter("jibunaddress");
+		    String detailaddress = mySecurityUtils.preventXSS(request.getParameter("detailaddress"));	    
+		    String gender = request.getParameter("gender");
+		    String event = request.getParameter("event");
+		   
+		    MemberDto member = MemberDto.builder()
+		                    .email(email)
+		                    .pw(pw)
+		                    .name(name)
+		                    .gender(gender)
+		                    .mobile(mobile)
+		                    .postcode(postcode)
+		                    .roadaddress(roadaddress)
+		                    .jibunaddress(jibunaddress)
+		                    .detailaddress(detailaddress)
+		                    .agree(event.equals("on") ? 1 : 0)
+		                    .build();
+		    
+		    int joinResult = memberMapper.insertMember(member);
+		    
+		    try {
+		      
+		      response.setContentType("text/html; charset=UTF-8");
+		      PrintWriter out = response.getWriter();
+		      out.println("<script>");
+		      if(joinResult == 1) {
+		        request.getSession().setAttribute("member", memberMapper.getMember(Map.of("email", email)));
+		        out.println("alert('회원 가입되었습니다.')");
+		        out.println("location.href='" + request.getContextPath() + "/main.do'");
+		      } else {
+		        out.println("alert('회원 가입이 실패했습니다.')");
+		        out.println("history.go(-2)");
+		      }
+		      out.println("</script>");
+		      out.flush();
+		      out.close();
+		      
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		    }
+	}
+	  
+	  @Transactional(readOnly=true)
+	  @Override
+	  public ResponseEntity<Map<String, Object>> checkEmail(String email) {
+	    
+	    Map<String, Object> map = Map.of("email", email);
+	    
+	    boolean enableEmail = memberMapper.getMember(map) == null
+	                       && memberMapper.getLeaveMember(map) == null
+	                       && memberMapper.getInactiveMember(map) == null;
+	    
+	    return new ResponseEntity<>(Map.of("enableEmail", enableEmail), HttpStatus.OK);
+	    
+	  }
+	  
+	  @Override
+	  public ResponseEntity<Map<String, Object>> sendCode(String email) {
+	    
+	    // RandomString 생성(6자리, 문자 사용, 숫자 사용)
+	    String code = mySecurityUtils.getRandomString(6, true, true);
+	    
+	    // 메일 전송
+	    myJavaMailUtils.sendJavaMail(email
+	                               , "withmall 인증 코드"
+	                               , "<div>인증코드는 <strong>" + code + "</strong>입니다.</div>");
+	    
+	    return new ResponseEntity<>(Map.of("code", code), HttpStatus.OK);
+	    
+	  }
+	  
 	  
 }

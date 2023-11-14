@@ -11,7 +11,16 @@
   <jsp:param value="회원탈퇴" name="title"/>
 </jsp:include>
 
-
+<h1>내 정보</h1>
+	<ul>
+		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
+		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
+		<li><a href="${contextPath}/member/cart.do">장바구니</a></li>
+		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
+		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
+		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
+	</ul>
+	
 <div>
 <h1>회원 탈퇴</h1>
 

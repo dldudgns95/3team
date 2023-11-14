@@ -1,8 +1,12 @@
 package kr.co.withmall.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -77,11 +81,27 @@ public class MemberController {
 	      rtn = "redirect:/main.do";
 	    } else {
 	      model.addAttribute("event", event);  
-	      rtn = "main/join";
+	      rtn = "member/join";
 	    }
 	    return rtn;
 	  }
-	
+
+	@PostMapping("/join.do")
+	public void join(HttpServletRequest request, HttpServletResponse response) {
+		memberService.join(request, response);
+		
+	}
+	 
+	@GetMapping(value="/checkEmail.do", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Object>> checkEmail(@RequestParam String email) {
+	  return memberService.checkEmail(email);
+	}
+	  
+	@GetMapping(value="/sendCode.do", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Object>> sendCode(@RequestParam String email) {
+      return memberService.sendCode(email);
+	  }
+	  
 	
 	@GetMapping("/logout.do")
 	public void logout(HttpServletRequest request, HttpServletResponse response) {

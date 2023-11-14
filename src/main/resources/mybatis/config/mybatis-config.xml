@@ -13,6 +13,8 @@
   
  <typeAliases>
     <typeAlias alias="MemberDto"           type="kr.co.withmall.dto.MemberDto"/>
+    <typeAlias alias="LeaveMemberDto"            type="kr.co.withmall.dto.LeaveMemberDto"/>
+    <typeAlias alias="InactiveMemberDto"   type="kr.co.withmall.dto.InactiveMemberDto"/>
     <typeAlias alias="CartDto"             type="kr.co.withmall.dto.CartDto"/>
     <typeAlias alias="CpDto"               type="kr.co.withmall.dto.CpDto"/>
     <typeAlias alias="CpIssueDto"          type="kr.co.withmall.dto.CpIssueDto"/>
