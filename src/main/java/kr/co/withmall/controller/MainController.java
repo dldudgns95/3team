@@ -47,6 +47,12 @@ public class MainController {
     return "main/zzim";
   }
   
+  @ResponseBody
+  @GetMapping(value="/unusedCouponList.do", produces="application/json")
+  public Map<String, Object> addMemberCoupon(@RequestParam("num") int num) {
+    return mainService.getUnusedCouponList(num);
+  }
+  
   
   
   
