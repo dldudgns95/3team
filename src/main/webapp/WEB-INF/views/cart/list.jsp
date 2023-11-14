@@ -18,122 +18,143 @@
 </style>
 
 <!-- 장바구니 시작 -->   
-<div class="cart cart-title"><h2>${sessionScope.member.name}님의 장바구니</h2></div>
+<div class="cart cart-title"><h2>${member.name}님의 장바구니</h2></div>
 
 <!-- 장바구니 상단 (전체선택, 선택삭제) -->
 <div class="cart cart-top">
 <div>
   <span class="all-check">
     <label class="cart_checkbox">
-      <input type="checkbox" name="check_all" id="check_all">전체선택 <span id=checkCnt>개</span>
+      <input type="checkbox" class="all_check_input input_size_20" checked="checked"><span class="all_chcek_span">전체선택 </span>
     </label>
   </span>
   </div>
   <div>
-  <button>선택삭제</button>
+    <input class="btn" type="button" value="선택삭제" onclick="location.href='${contextPath}/cart/delete.do'">
   </div>
 </div>
 
 <!-- 장바구니 목록 -->
-<div><a href="${contextPath}/cart/list/${member.num}">장바구니</a></div>
+<div><a href="${contextPath}/cart/list/num/${member.num}">장바구니</a></div>
 
-<c:if test="${empty list}">
-    <div class="cart">
+<c:if test="${empty cartInfo}">
+    <div class="cart cart-noPrdt">
       장바구니에 담은 상품이 없습니다.
     </div>
 </c:if>    
-
+<c:if test="${!empty cartInfo}">
 <form id="cart cart-order" action="${contextPath}/order/list.do" method="post">
-  <table class="cart-content">
-    <!-- 장바구니 아이템 반복 출력 -->
-  	<c:forEach var="cart" items="${prdtList}">
-  	<tr>
-  		<td class="cart-image">
-  			<img src="${pageContext.request.contextPath}/upload/${cart.product.product_photo1}" width="80">
-  		</td>
-  		<td>
-  			<a href="${pageContext.request.contextPath}/product/productDetail.do?product_num=${cart.product_num}">${cart.product.product_title}</a>
-  		</td>
-  		<td>
-  		  <div class="quantity">
-  			<button type="button" onclick="fnCalCount('m', this);" class="button qpm m">-</button>						
-  			<input type="text" name="order_quantity" id="result"
-  			  min="1" max="${cart.product.product_stock} 
-  			  autocomplete="off" readonly="readonly"
-  			  value="${cart.cart_quantity}" style="text-align:center">
-  			<button type="button" onclick="fnCalCount('p', this);" class="button qpm p">+</button>
-  		  </div>
-  		  <input type="button" value="변경"  
-  			 class="cart-modify button" 
-  			 data-cartnum="${cart.mem_cart_num}"
-  			 data-itemnum="${cart.product_num}"
-  		   >
-  		</td>
-  		<td>
-		  <c:if test="${cart.product.product_price!=cart.product.product_price_sales}">
-		  <label class="before-price"><fmt:formatNumber value="${cart.product.product_price*cart.cart_quantity}"/>원</label><br>
-		  </c:if>
-		  <b><fmt:formatNumber value="${cart.product.product_price_sales*cart.cart_quantity}"/>원</b>
-  		</td>
-  		<td class="buttontd">
-  		  <input type="button" value="삭제" class="cart-del button" data-cartnum="${cart.mem_cart_num}">
-  		</td>
-  	</tr>
-  	</c:forEach>
-  </table>
-
-
-
-<div class="cart del">
-<table>
+<table class="cart-table">
   <tbody>
-   <c:forEach items="${myCartList}" var="ci">
+   <c:forEach items="${cartInfo}" var="ci">
+   
     <tr>
-      <td class="prdt-check"></td>
-      <td class="prdt-image"></td>
-      <td class="prdt-name"></td>
-      <td class="prdt-price"></td>
+      <td class="cart-prdt prdt-check">
+        <input type="checkbox" class="individual_checkbox size-20" checked="checked">
+        <input type="hidden" class="individual_prdtRealPrice_input" value="${ci.productDto.prdtRealPrice}">
+        <input type="hidden" class="individual_prdtQty_input" value="${ci.prdtQty}">
+        <input type="hidden" class="individual_totalPrice_input" value="${ci.productDto.prdtRealPrice * ci.prdtQty}">
+      </td>
+      <td class="cart-prdt prdt-image">
+        <div class="image_wrap" data-prdtNum="${ci.imageList[0].productDto}" data-path="${ci.imageList[0].imagePath}" data-filename="${ci.imageList[0].filesystemName}">
+          <img>
+        </div>
+      </td>
+      <td class="cart-prdt prdt-title">${ci.productDto.prdtTitle}</td>
+      <td class="cart-prdt prdt-price">
+        <del>원가가 : <fmt:formatNumber value="${ci.productDto.prdtRealPrice}" pattern="#,### 원" /></del><br>
+        판매가 : <span class="red_color"><fmt:formatNumber value="${ci.productDto.prdtRealPrice}" pattern="#,### 원" /></span><br>
+      </td>
       <td class="prdt-qty">제품 수량 ${ci.prdtQty} 개 <button>수정</button> </td>
+      
     </tr>
     </c:forEach>
   </tbody>
 </table>
-<table>
-  <tbody>
-   <c:forEach items="${myCartList}" var="ci">
-    <tr>
-      <td>${ci.prdtNum}</td>
-      <td>${ci.prdtQty}</td>
-    </tr>
-   </c:forEach>
-  </tbody>
-</table>
 
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<hr>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<div>바구니</div>
-<hr>
-<div>마지막 바구니</div>
-</div>
 
 <!-- 하단 플로팅 바 (총주문액 계산, 주문버튼) -->
 <div class="cart-floating">
   <div class="order-area">
-    <span>총주문액 ${sessionScope.member.num} 원 - 할인금액 ${sessionScope.member.num} 원 = </span>
+    <span>총주문액 <span class="totalPrice_span"></span> 원 - 쿠폰 <span class="coupon_span"></span> 원 = <span class="finalTotalPrice_span"></span>원 </span>
     <input type="submit" value="주문하기" class="button">
   </div>
 </div>
 </form>
+</c:if>
 
 <script>
+  /* 체크여부에따른 종합 정보 변화 */
+$(".individual_checkbox").on("change", function(){
+  /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
+  setTotalInfo($(".prdt-check"));
+});
+
+/* 체크박스 전체 선택 */
+$(".all-check").on("click", function(){
+  /* 체크박스 체크/해제 */
+  if($(".all-check").prop("checked")){
+    $(".individual_checkbox").attr("checked", true);
+  } else{
+    $(".individual_checkbox").attr("checked", false);
+  }
+  
+  /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
+  setTotalInfo($(".prdt-check"));  
+});  
+
+  // 체크박스 갯수 세기
+  const fnCheckCount = () => {
+    var checkedCount = $(".prdt-check input[type='checkbox']:checked").length;
+    console.log("Checked Count: " + checkedCount);
+
+    // 여기에 추가적인 작업을 수행하거나 식을 추가할 수 있습니다.
+    // 예시: alert("현재 체크된 항목 개수는 " + checkedCount + "개입니다.");
+    
+    // 반환하고 싶은 값이 있다면 리턴도 가능합니다.
+    // return checkedCount;
+    }
+  
+  /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
+function setTotalInfo() {
+  let totalPrice = 0; // 총 가격
+  let totalKind = 0; // 총 종류
+  let coupon = 10000;
+  let finalTotalPrice = 0;
+
+  $(".prdt-check").each(function (index, element) {
+
+      if ($(element).find(".individual_checkbox").is(":checked") === true) { //체크여부
+          // 총 가격
+          totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
+          // 총 종류
+          totalKind += 1;
+      }
+  });
+
+  /* 할인가격 결정 */
+  if (totalPrice >= 55000) {
+      finalTotalPrice = totalPrice - coupon;
+  } else {
+      coupon = 0;
+      finalTotalPrice = totalPrice;
+  }
+
+  // 총 가격
+  console.log("Total Price: " + totalPrice);
+
+  $(".totalPrice_span").text(totalPrice.toLocaleString());
+  // 쿠폰 
+  $(".coupon_span").text(coupon);
+  // 총 종류
+  $(".totalKind_span").text(totalKind);
+  // 최종 가격
+  console.log("Final Total Price: " + finalTotalPrice);
+  $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+}
+
+
+  // 하단 주문 플로팅바 스크롤바 최하단에서 사라지도록 조정
   const fnFloatHidden = () => {
     $(window).on('scroll', function () {
       var scrollPosition = $(window).scrollTop();
@@ -156,7 +177,14 @@
     });
   };
   
+
   
+  
+$(document).ready(function() {
+	  /* 종합 정보 섹션 정보 삽입 */
+  setTotalInfo(); 	   
+  fnCheckCount();
   fnFloatHidden();
+});
 </script>
 <%@ include file="../layout/footer.jsp"%>

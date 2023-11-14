@@ -9,9 +9,15 @@
   <!-- 장바구니 목록 (장바구니의 정보를 저장하는 resultMap) -->
   <resultMap id="CartMap" type="CartDto" >
     <id column="CART_NUM" property="cartNum"/>
-    <result column="PRDT_NUM" property="prdtNum"/>
     <result column="NUM" property="num"/>
     <result column="PRDT_QTY" property="prdtQty"/>
+    <result column="PRDT_NUM" property="prdtNum"/>
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+      <result column="PRDT_TITLE"      property="prdtTitle" />
+      <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+      <result column="PRDT_STOCK" property="prdtStock"/>
+    </association>
   </resultMap>
   
   <!-- 제품 목록 (장바구니에 표시할 상품 정보 저장하는 resultMap -->
@@ -22,7 +28,20 @@
     <result column="PRDT_INFO" property="prdtInfo"/>
     <result column="PRDT_REAL_PRICE" property="prdtRealPrice"/>
     <result column="PRDT_STOCK" property="prdtStock"/>
-    <association property="productImageDto" resultMap="ProductImageMap"/>
+  </resultMap>
+  
+    <resultMap type="ProductImageDto" id="ProductImageMap">
+    <result column="IMAGE_PATH"        property="imagePath" />
+    <result column="FILESYSTEM_NAME"   property="filesystemName" />
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+      <result column="PRDT_NAME"       property="prdtName" />
+      <result column="PRDT_TITLE"      property="prdtTitle" />
+      <result column="PRDT_INFO"       property="prdtInfo" />
+      <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+      <result column="PRDT_STOCK"      property="prdtStock" />
+      <result column="PRDT_HIT"        property="prdtHit" />
+    </association>
   </resultMap>
   
 <!-- <resultMap id="ProductImageMap" type="ProductImageDto">
@@ -34,7 +53,7 @@
 <!-- 쿼리 -->
   <!-- 장바구니 제품 조회 -->
   <!-- 해당 회원(num)에게 상품(prdtNum)이 장바구니에 있는지 조회해서 0개면 false(상품저장), 아니면 true -->
-  <select id="getPrdtCount" resultType="int" parameterType="CartDto">
+  <select id="getPrdtCount" parameterType="CartDto" resultType="int" >
     <![CDATA[
     SELECT COUNT(*)
       FROM CART 
@@ -55,8 +74,9 @@
   
     <select id="getCart" parameterType="int" resultMap="CartMap" >
     <![CDATA[
-    SELECT CART_NUM,PRDT_NUM,NUM,PRDT_QTY
-      FROM CART
+    SELECT C.CART_NUM,C.PRDT_NUM,C.NUM, C.PRDT_QTY, P.PRDT_TITLE, P.PRDT_REAL_PRICE, P.PRDT_STOCK
+      FROM CART C LEFT OUTER JOIN PRODUCT P
+        ON C.PRDT_NUM = P.PRDT_NUM
      WHERE NUM=#{num}
     ]]>
   </select>
