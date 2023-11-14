@@ -146,6 +146,21 @@ CREATE TABLE BOARD_ANNOUNCE (
 	CONSTRAINT PK_BOARD_ANNOUNCE PRIMARY KEY (ANN_NUM)
 );
 
+-- 공지사항
+INSERT INTO BOARD_ANNOUNCE(ANN_NUM,ANN_TITLE,ANN_CONTENT,ANN_DATE) VALUES(BOARD_ANNOUNCE_SEQ.NEXTVAL
+                            ,'첫번째 공지사항입니다.'
+                            ,'오늘 한시쿠폰 발표입니다.'
+                            ,SYSDATE);
+INSERT INTO BOARD_ANNOUNCE(ANN_NUM,ANN_TITLE,ANN_CONTENT,ANN_DATE) VALUES(BOARD_ANNOUNCE_SEQ.NEXTVAL
+                            ,'두번째 공지사항입니다.'
+                            ,'오늘 두시쿠폰 발표입니다.'
+                            ,SYSDATE);
+INSERT INTO BOARD_ANNOUNCE(ANN_NUM,ANN_TITLE,ANN_CONTENT,ANN_DATE) VALUES(BOARD_ANNOUNCE_SEQ.NEXTVAL
+                            ,'세번째 공지사항입니다.'
+                            ,'오늘 세시쿠폰 발표입니다.'
+                            ,SYSDATE);
+
+
 
 -- FAQ 정보를 저장하기 위한 테이블
 CREATE TABLE BOARD_FAQ (
