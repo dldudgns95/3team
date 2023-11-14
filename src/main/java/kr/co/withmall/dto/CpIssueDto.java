@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CpIssueDto {
   private int cpUse;
-  private MemberDto memberDto; // private int num;
+  private MemberDto member;    // private int num;
   private CpDto cp;            // private int cpNum;
 }
