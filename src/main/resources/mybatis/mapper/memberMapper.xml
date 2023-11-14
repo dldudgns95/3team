@@ -70,8 +70,8 @@
         #{mobile},
         #{email},
         #{gender},
-        #{mdate},
-        #{status},
+        SYSDATE,
+        1,
         #{agree},
         SYSDATE
     )
