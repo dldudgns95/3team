@@ -14,7 +14,7 @@
     <div class="owl-carousel owl-theme">
       <c:forEach items="${productTop10List}" var="top10" begin="0" varStatus="i">
         <div class="item">
-          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}"><div class="a-images"><img src="${top10.imagePath}/${top10.filesystemName}"></div><div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div><div><p>${top10.productDto.prdtRealPrice}원</p></div></a>
+          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}&num=${sessionScope.member.num}"><div class="a-images"><img src="${top10.imagePath}/${top10.filesystemName}"></div><div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div><div><p>${top10.productDto.prdtRealPrice}원</p></div></a>
         </div>
       </c:forEach>
     </div>
@@ -143,6 +143,19 @@
         // 모달 내용 업데이트
         $(".modal-body").html(modalContent);
       }
+      
+      // 모달창이 닫히면 이벤트
+      $('#myModal').on('hidden.bs.modal', () => {
+        $.ajax({
+          method: 'GET',
+          url: '${contextPath}/main/unusedCouponList.do',
+          data: 'num=${sessionScope.member.num}',
+          dataType: 'json',
+          success: (resData) => {
+            console.log(resData);
+          } 
+        })
+      })
     });
     
   </script>
@@ -150,7 +163,7 @@
   
   <div class="main_list">
   <c:forEach items="${productList}" var="product">
-    <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
+    <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}&num=${sessionScope.member.num}">
       <div class="main_item">
        <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
        <div>${product.productDto.prdtTitle}</div>

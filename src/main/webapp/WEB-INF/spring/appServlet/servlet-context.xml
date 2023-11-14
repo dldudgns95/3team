@@ -23,6 +23,18 @@
 	
 	<context:component-scan base-package="kr.co.withmall" />
 	
+	<interceptors>
+      <interceptor>
+        <mapping path="/main/zzimList.do"/>
+        <mapping path="/cart/list/num/*"/>
+        <mapping path="/member/mypage.do"/>
+        <beans:bean class="kr.co.withmall.intercept.RequiredLoginInterceptor" />
+      </interceptor>
+      <interceptor>
+        <mapping path="/user/useruseruser"/><!-- 바꾸면 됨 -->
+        <beans:bean class="kr.co.withmall.intercept.ShouldNotLoginInterceptor" />
+      </interceptor>
+    </interceptors>
 	
 	
 </beans:beans>

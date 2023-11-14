@@ -12,6 +12,7 @@ public interface SupportService {
 	// 목록보기
 	  public void loadSupportList(HttpServletRequest request, Model model);
 	// 상세보기
-	//public SupportDto getSupport(annNum);
-	  
+	public SupportDto getSupport(int annNum);
+	  
+	
 }
