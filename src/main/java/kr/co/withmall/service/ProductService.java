@@ -11,5 +11,5 @@ public interface ProductService {
   public ProductDto getProduct(int prdtNum);
   public ProductImageDto getProductImage(int prdtNum);
   public int increseHit(int prdtNum);
-  public Map<String, Object> getCouponList(int num);
+  public List<CpDto> getCouponList(int num);
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.withmall.dao.MainMapper;
 import kr.co.withmall.dao.ProductMapper;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
@@ -19,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
 
 
   private final ProductMapper productMapper;
+  private final MainMapper mainMapper;
   
   @Transactional(readOnly=true)
   @Override
@@ -37,9 +39,10 @@ public class ProductServiceImpl implements ProductService {
   }
   
   @Override
-  public Map<String, Object> getCouponList(int num) {
-    List<CpDto> couponList = productMapper.getCouponList(num);
-    return Map.of("couponList", couponList);
+  public List<CpDto> getCouponList(int num) {
+    System.out.println("couponlist: " + mainMapper.getUnusedCouponList(num));
+    return mainMapper.getUnusedCouponList(num);
   }
+
 
 }

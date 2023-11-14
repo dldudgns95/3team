@@ -36,7 +36,16 @@
       </div>
       
       <!-- 사용 가능한 쿠폰리스트 출력 -->
-      <div class="couponList"></div>
+      <div class="couponList">
+          <c:if test="${sessionScope.member.num == member.num}">
+        <select>
+         <option value="">----사용가능쿠폰목록----</option>
+            <c:forEach items="${couponList}" var="c">
+              <option value="${c.cpPrice}">${c.cpName}</option>
+            </c:forEach>
+        </select>      
+          </c:if>
+      </div>
       <p>쿠폰적용가 : ${product.prdtRealPrice} 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
       <hr>
       
@@ -59,7 +68,7 @@
    </div> 
 
   <script>
-  
+  console.log(${couponList});
   // 버튼을 클릭하면 수량 변경(1개 이하는 불가능)
   let quantity = $('.quantity_input').val();
   $('.plus_btn').on('click', function(){
