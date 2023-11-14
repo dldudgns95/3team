@@ -25,6 +25,7 @@ public class ProductController {
     ProductImageDto productImage = productService.getProductImage(prdtNum); 
     model.addAttribute("product", product);
     model.addAttribute("productImage", productImage);
+    productService.increseHit(prdtNum);
     return "product/detail";
   }
   

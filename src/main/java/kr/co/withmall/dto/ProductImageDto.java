@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProductImageDto {
 
-
   private String imagePath;
   private String filesystemName;
-  private ProductDto productDto;  // private int prdtNum;
+  private ProductDto productDto;   //  private int prdtNum;
 
 }
