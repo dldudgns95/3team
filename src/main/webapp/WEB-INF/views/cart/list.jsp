@@ -65,7 +65,10 @@
         <del>원가가 : <fmt:formatNumber value="${ci.productDto.prdtRealPrice}" pattern="#,### 원" /></del><br>
         판매가 : <span class="red_color"><fmt:formatNumber value="${ci.productDto.prdtRealPrice}" pattern="#,### 원" /></span><br>
       </td>
-      <td class="prdt-qty">제품 수량 ${ci.prdtQty} 개 <button>수정</button> </td>
+      <td class="prdt-qty">제품 수량 ${ci.prdtQty} 개 
+      <button>수정</button>
+      <button>삭제</button>  
+      </td>
       
     </tr>
     </c:forEach>

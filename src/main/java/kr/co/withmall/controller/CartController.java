@@ -65,7 +65,7 @@ public class CartController {
   
   @ResponseBody
   @PostMapping(value="/add.do", produces=MediaType.APPLICATION_JSON_VALUE)
-  public String addCart(CartDto cartDto, HttpServletRequest request, RedirectAttributes redirectAttributes)  throws Exception{
+  public String addCart(CartDto cartDto, HttpServletRequest request)  throws Exception{
     HttpSession session = request.getSession();
     //수정 로그인체크 할까말까 
     MemberDto mvo = (MemberDto)session.getAttribute("member");
@@ -78,6 +78,7 @@ public class CartController {
     int result = cartService.addCart(cartDto);
     return result+"";
     }
+  
   
   @ResponseBody
   @GetMapping(value="/delete.do", produces=MediaType.APPLICATION_JSON_VALUE)

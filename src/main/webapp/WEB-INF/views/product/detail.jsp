@@ -81,7 +81,7 @@
   }
   
   // 장바구니 추가
-  $('.btn_cart').on('click', function(e){
+  $('#btn_cart').on('click', function(e){
     form.prdtCount = $('.quantity_input').val();
     $.ajax({
       type: 'post',
