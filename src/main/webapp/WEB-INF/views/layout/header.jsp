@@ -78,8 +78,8 @@
       </form>
       <div class="margin_right">
         <a href="${contextPath}/member/mypage.do"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="${contextPath}/cart/list.do"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="${contextPath}/"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/cart/list/num/${member.num}"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/main/zzimList.do"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
       </div>
     </div>
   </div>
