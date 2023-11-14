@@ -100,7 +100,7 @@ CREATE TABLE PRODUCT(
 	PRDT_NUM        NUMBER(5)        NOT NULL,       -- 제품 식별 번호
 	PRDT_NAME       VARCHAR2(60)     NOT NULL,	     -- 제품 이름
 	PRDT_TITLE      VARCHAR2(100)    NOT NULL,	     -- 제품 타이틀
-	PRDT_INFO       VARCHAR2(1000)   NOT NULL,       -- 제품 정보
+	PRDT_INFO       VARCHAR2(4000)   NOT NULL,       -- 제품 정보
 	PRDT_REAL_PRICE NUMBER(7)        NOT NULL,       -- 제품 원가
 	PRDT_STOCK      NUMBER(7)        NOT NULL,
     PRDT_HIT        NUMBER(8)        DEFAULT 0,
