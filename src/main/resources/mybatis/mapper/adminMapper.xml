@@ -20,10 +20,29 @@
      </association>
   </resultMap>
   
+  
+    <resultMap type="ProductImageDto" id="ProductImageMap">
+    <result column="IMAGE_PATH"        property="imagePath" />
+    <result column="FILESYSTEM_NAME"   property="filesystemName" />
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+      <result column="PRDT_NAME"       property="prdtName" />
+      <result column="PRDT_TITLE"      property="prdtTitle" />
+      <result column="PRDT_INFO"       property="prdtInfo" />
+      <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+      <result column="PRDT_STOCK"      property="prdtStock" />
+      <result column="PRDT_HIT"        property="prdtHit" />
+      <association javaType="ProductCategoryDto" property="categoryDto">
+        <id     column="CATEGORY_NUM"    property="categoryNum" />
+        <result column="CATEGORY_NAME"   property="categoryName" />
+      </association>
+    </association>
+  </resultMap>
+  
   <!-- 제품신규등록 -->
   <insert id="insertProduct" parameterType="ProductDto">
   <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
-  <selectKey order="BEFORE" resultType="int" keyProperty="prdtNum">
+  <selectKey order="BEFORE" resultType="int"  keyProperty="prdtNum">
     SELECT PRODUCT_SEQ.NEXTVAL
       FROM DUAL
   </selectKey>
@@ -45,23 +64,22 @@
     , #{categoryDto.categoryNum}
     )
   </insert>
+
+
   
    <!-- 제품 이미지 -->
   <insert id="insertPrdtImage" parameterType="ProductImageDto">
-    <selectKey order="BEFORE" resultType="int" keyProperty="prdtNum">
-      SELECT PRODUCT_SEQ.CURRVAL
-        FROM DUAL
-    </selectKey>
     INSERT INTO PRODUCT_IMAGE(
         PRDT_NUM
       , IMAGE_PATH
       , FILESYSTEM_NAME
     ) VALUES(
-        #{prdtNum}
+        #{productDto.prdtNum}
       , #{imagePath}
       , #{filesystemName}
     )
   </insert>
+
 
   <!-- 이미지 삭제 -->
   
@@ -161,6 +179,41 @@
   <!-- 매출 -->
 
   <!-- 특정 회원 매출 총액 -->
+  
+  
+  <!-- 쿠폰 -->
+    <insert id="insertCp" parameterType="CpDto" >
+      INSERT INTO CP (
+          CP_NUM
+        , CP_NAME
+        , CP_INFO
+        , CP_PRICE
+        , CP_MIN
+        , START_AT
+        , END_AT
+      ) VALUES (
+          CP_SEQ.NEXTVAL
+        , #{cpName}
+        , #{cpInfo}
+        , #{cpPrice}
+        , #{cpMin}
+        , TO_DATE(#{startAt},'YYYY-MM-DD')
+        , TO_DATE(#{endAt},'YYYY-MM-DD')
+      )
+    </insert>
 
+  <!-- 쿠폰목록 -->
+    <select id="getCpCount">
+      SELECT COUNT(*)
+        FROM CP
+    </select>
+    
+    <select id="getCpList" parameterType="Map" resultType="CpDto">
+      SELECT CP_NUM, CP_NAME, CP_INFO, CP_PRICE, CP_MIN, START_AT, END_AT
+        FROM (SELECT ROW_NUMBER() OVER(ORDER BY CP_NUM DESC) AS RN,   CP_NUM, CP_NAME, CP_INFO, CP_PRICE, CP_MIN, START_AT, END_AT
+                FROM CP)
+       WHERE RN BETWEEN #{begin} AND #{end}
+    </select>
+    
   
 </mapper>

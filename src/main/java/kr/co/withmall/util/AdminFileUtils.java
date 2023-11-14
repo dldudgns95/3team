@@ -7,19 +7,19 @@ import java.util.UUID;
 import org.springframework.stereotype.Component;
 
 @Component  // MyFileUtil 객체로 만들어  불러다 쓰기 @autowired
-public class MyFileUtils {
+public class AdminFileUtils {
     
-  // 제품 작성 시 사용된 이미지가 저장될 경로 반환하기
-  public String getPrdtImagePath() {   
+  // 블로그 작성 시 사용된 이미지가 저장될 경로 반환하기
+  public String getBlogImagePath() {   
     LocalDate today = LocalDate.now();  // 오늘
-    return "/admin/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
+    return "/blog/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
   }
   
-  //  제품 이미지가 저장된 어제 경로를 반환
-  public String getPrdtImagePathInYesterday() {
+  //  블로그 이미지가 저장된 어제 경로를 반환
+  public String getBlogImagePathInYesterday() {
     LocalDate date = LocalDate.now();
     date = date.minusDays(1); // 1일 전
-    return "/admin/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(date);
+    return "/blog/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(date);
 
   }
   

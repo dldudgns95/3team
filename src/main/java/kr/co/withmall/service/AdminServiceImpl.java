@@ -1,6 +1,7 @@
 package kr.co.withmall.service;
 
 import java.io.File;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,8 +19,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import ch.qos.logback.classic.Logger;
 import kr.co.withmall.dao.AdminMapper;
 import kr.co.withmall.dao.MemberMapper;
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.ProductCategoryDto;
 import kr.co.withmall.dto.ProductDto;
@@ -27,7 +30,8 @@ import kr.co.withmall.dto.ProductImageDto;
 import kr.co.withmall.util.MyFileUtils;
 import kr.co.withmall.util.MyPageUtils;
 import lombok.RequiredArgsConstructor;
-
+import lombok.extern.slf4j.Slf4j;
+@Slf4j
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -77,7 +81,7 @@ public class AdminServiceImpl implements AdminService {
   public int addPrdt(HttpServletRequest request) {
 
     int categoryNum = Integer.parseInt(request.getParameter("categoryNum"));
-    // int prdtNum = Integer.parseInt(request.getParameter("prdtNum"));
+   // int prdtNum = Integer.parseInt(request.getParameter("prdtNum"));
     String prdtName = request.getParameter("prdtName");
     String prdtTitle = request.getParameter("prdtTitle");
     int prdtRealPrice = Integer.parseInt(request.getParameter("prdtRealPrice"));
@@ -85,7 +89,7 @@ public class AdminServiceImpl implements AdminService {
     String prdtInfo = request.getParameter("prdtInfo");
     
     ProductDto prdt = ProductDto.builder()
-                         // .prdtNum(prdtNum)
+                      //   .prdtNum(prdtNum)
                          .prdtName(prdtName)
                          .prdtTitle(prdtTitle)
                          .prdtRealPrice(prdtRealPrice)
@@ -105,15 +109,12 @@ public class AdminServiceImpl implements AdminService {
         String src = element.attr("src");
         String filesystemName = src.substring(src.lastIndexOf("/") + 1); 
         ProductImageDto prdtImage = ProductImageDto.builder()
-                                  //  .prdtNum(prdt.getPrdtNum())
-                                  //    .productDto(ProductDto.builder()
-                                  //         .prdtName(prdtName)
-                                  //         .build()
-                                  //         )
-                                     
-                                    .imagePath(myFileUtils.getPrdtImagePath())
-                                    .filesystemName(filesystemName)
-                                    .build();
+                                      .productDto(ProductDto.builder()
+                                                    //.prdtNum(adminMapper.selectPrdtNum())
+                                                    .build())
+                                      .imagePath(myFileUtils.getPrdtImagePath())
+                                      .filesystemName(filesystemName)
+                                      .build();
         adminMapper.insertPrdtImage(prdtImage);
       }
     }
@@ -252,6 +253,59 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public int deleteUser(int num) {
     return adminMapper.deleteUser(num);
+  }
+  
+  // 쿠폰 삽입 쿠폰 이름, 쿠폰정보, 쿠폰가격, 최소주문가격, 시작일, 종료일 
+
+  @Override
+  public int insertCp(HttpServletRequest request) {
+    
+    String cpName = request.getParameter("cpName");
+    String cpInfo = request.getParameter("cpInfo");
+    int cpPrice = Integer.parseInt(request.getParameter("cpPrice"));
+    int cpMin = Integer.parseInt(request.getParameter("cpMin"));
+    String startAt = request.getParameter("startAt");
+    String endAt = request.getParameter("endAt");
+    
+    CpDto cp = CpDto.builder()
+                  .cpName(cpName)
+                  .cpInfo(cpInfo)
+                  .cpPrice(cpPrice)
+                  .cpMin(cpMin)
+                  .startAt(Date.valueOf(startAt))
+                  .endAt(Date.valueOf(endAt))
+                  .build();
+    
+    int addCpResult = adminMapper.insertCp(cp);
+    
+    return addCpResult;
+    
+  }
+  
+  // 쿠폰 목록
+  @Transactional(readOnly = true)
+  @Override
+    public void loadCpList(HttpServletRequest request, Model model) {
+      Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+      int page = Integer.parseInt(opt.orElse("1"));
+      
+      int display = 5;
+      
+      int total = adminMapper.getCpCount();
+      
+      myPageUtils.setPaging(page, total, display);
+      
+      Map<String, Object> map = Map.of("begin", myPageUtils.getBegin()
+                                      , "end", myPageUtils.getEnd());
+      
+      List<CpDto> cpList = adminMapper.getCpList(map);
+
+      model.addAttribute("cpList", cpList);
+      model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath() + "/admin/cpList.do"));
+      model.addAttribute("beginNo", total - (page - 1) * display);
+
+
+      
   }
   
 

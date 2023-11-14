@@ -30,6 +30,7 @@ public class AdminController {
   public String admin() {
     return "admin/admin";
   }
+  
   // 제품 목록 가져오기
   @GetMapping("/prdtList.do")
   public String loadPrdtList(HttpServletRequest request, Model model) {
@@ -75,11 +76,8 @@ public class AdminController {
   public String modifyPrdt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int modifyResult = adminService.modifyPrdt(request);
     redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
-<<<<<<< HEAD
-=======
     System.out.println("modifyPrdt.do - modifyResult: " + modifyResult);
 
->>>>>>> main
     return "redirect:/admin/prdtList.do";
   }
   
@@ -119,7 +117,6 @@ public class AdminController {
     return "admin/user/user";
   }
 
-<<<<<<< HEAD
   // 회원 삭제 deleteUser --- 수정
   @PostMapping("/useRemove.do")
     public String useRemove(@RequestParam(value = "num") int num, RedirectAttributes redirectAttributes) {
@@ -128,9 +125,7 @@ public class AdminController {
       return "redirect:/admin/userList.do";
   }
 
-=======
-  
->>>>>>> main
+
   
   // 매출확인이동
   @GetMapping("/sales.do")
@@ -144,30 +139,42 @@ public class AdminController {
     return "admin/cstm/cstm";
   }
   
-<<<<<<< HEAD
   // 주문관리이동 
-=======
   // 주문관리이동
->>>>>>> main
   @GetMapping("/order.do")
   public String order() {
     return "admin/order/order";
   }
   
-<<<<<<< HEAD
-  // 쿠폰 이동
-  @GetMapping("/coupon.form")
-  public String coupon() {
-    return "admin/coupon/coupon";
+  // 쿠폰 목록 -> 등록
+ 
+  @GetMapping("/cpList.do")
+  public String loadCpList(HttpServletRequest request, Model model) {
+      adminService.loadCpList(request, model);
+      return "admin/coupon/coupon";
   }
- 
+
+  // 쿠폰 등록 페이지이동
+  @GetMapping("/cpWrite.form")
+  public String cpWrite() {
+    return "/admin/coupon/couponWrite";
+  }
   
+
+  
+  // 쿠폰 삽입
+  @PostMapping("/addCp.do")
+  public String addCp(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    int addResult = adminService.insertCp(request);
+    redirectAttributes.addFlashAttribute("addResult", addResult);
+    return "redirect:/admin/cpList.do";
+  }
+  
+
  
-}
-=======
+
 
  
   
  
 }
->>>>>>> main

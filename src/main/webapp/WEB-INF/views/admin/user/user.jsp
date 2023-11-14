@@ -65,8 +65,8 @@
   로그인 방법 : 0 일반가입, 1 네이버 간편 가입
   회원 등급 : (0 일반,1 정지, 2 탈퇴, 9 관리) 기본설정은 0
   
-  <div>
-    <table border="1">
+  <div class="table-responsive">
+    <table border="1" class="table align-middle">
       <thead>
         <tr>
           <td>순번</td>

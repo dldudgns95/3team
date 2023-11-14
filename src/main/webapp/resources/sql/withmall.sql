@@ -100,7 +100,7 @@ CREATE TABLE PRODUCT(
 	PRDT_NUM        NUMBER(5)        NOT NULL,       -- 제품 식별 번호
 	PRDT_NAME       VARCHAR2(60)     NOT NULL,	     -- 제품 이름
 	PRDT_TITLE      VARCHAR2(100)    NOT NULL,	     -- 제품 타이틀
-	PRDT_INFO       VARCHAR2(1000)   NOT NULL,       -- 제품 정보
+	PRDT_INFO       VARCHAR2(4000)   NOT NULL,       -- 제품 정보
 	PRDT_REAL_PRICE NUMBER(7)        NOT NULL,       -- 제품 원가
 	PRDT_STOCK      NUMBER(7)        NOT NULL,
     PRDT_HIT        NUMBER(8)        DEFAULT 0,
@@ -432,3 +432,21 @@ SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO
   FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
  WHERE I.PRDT_NUM = P.PRDT_NUM
    AND P.CATEGORY_NUM = C.CATEGORY_NUM;
+   
+   
+   
+         INSERT INTO CP (
+          CP_NUM
+        , CP_INFO
+        , CP_PRICE
+        , CP_MIN
+        , START_AT
+        , END_AT
+      ) VALUES (
+         1
+        , '쿠폰1',
+        , 500,
+        , #{cpMin},
+        , TO_CHAR('YYYY-MM-DD')
+        , TO_CHAR('YYYY-MM-DD')
+      )

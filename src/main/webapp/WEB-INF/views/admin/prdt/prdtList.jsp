@@ -60,7 +60,7 @@
     <a href="${contextPath}/admin/prdtWrite.form">
       <button type="button" class="btn btn-outline-primary" >제품 카테고리 등록</button>
     </a>    
-    <a href="${contextPath}/admin/coupon.form">
+    <a href="${contextPath}/admin/cpList.do">
       <button type="button" class="btn btn-outline-primary" >쿠폰 등록</button>
     </a>        
   </div>

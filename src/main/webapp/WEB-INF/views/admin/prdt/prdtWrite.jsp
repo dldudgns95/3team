@@ -42,7 +42,7 @@
 
   
   <div  class="wrap wrap_9">
-    <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do" enctype="multipart/form-data">
+    <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do">
       <h1 class="head">제품작성</h1>
       <div class="mb-3">
           <label for="categoryNum">카테고리</label>
