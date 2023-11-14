@@ -20,7 +20,124 @@
     </div>
   </div>
   
- 
+  
+  <button type="button" class="btn btn-primary" id="openModalBtn">쿠폰 받기</button>
+
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <!-- 모달 내용이 들어갈 자리 -->
+      </div>
+    </div>
+  </div>
+  
+  <script>
+  
+    $(document).ready(function () {
+      
+      // 모달 열기 버튼 클릭 시
+      $("#openModalBtn").on("click", function () {
+        if('${sessionScope.member}' === '') {
+          if(confirm('로그인이 필요한 기능입니다. 로그인 하시겠습니까?')){
+            location.href='${contextPath}//member/login.form';
+          } else {
+            return;            
+          }          
+        }
+        fnCouponAjax();
+        fnGetMemberCoupon();
+      });
+      
+      
+      const fnCouponAjax = () => {
+        // AJAX 요청
+        $.ajax({
+          method: "GET", // 또는 "POST" 등 적절한 HTTP 메소드 사용
+          url: "${contextPath}/main/couponList.do", // AJAX 요청을 처리할 서버 측 파일 경로
+          data: "num=${sessionScope.member.num}",
+          dataType: "json", // 응답 데이터 타입 설정 (JSON 등)
+          success: function (resData) {
+            // AJAX 요청이 성공하면 모달 내용 업데이트
+            updateModalContent(resData);
+            // 모달 열기
+            $("#myModal").modal("show");
+          },
+  
+          error: function (error) {
+            console.error("AJAX 오류:", error);
+          },
+        }); 
+      }
+      
+      // 쿠폰 받기버튼 클릭 시 
+      const fnGetMemberCoupon = () => {
+        $(document).on('click', '.btn_get_coupon', (ev) => {
+          $.ajax({
+            method: 'POST',
+            url: '${contextPath}/main/addMemberCoupon.do',
+            data: $(ev.target).closest('.frm_add_coupon').serialize(),
+            dataType: 'json',
+            success: (resData) => {
+              alert('성공!');
+              fnCouponAjax();
+            }
+          })        
+        });
+      }
+      
+  
+      // 모달 내용 업데이트 함수
+      function updateModalContent(resData) {
+        // 받아온 데이터를 사용하여 모달 내용 업데이트
+        // 예: 모달 내용을 구성하는 HTML을 동적으로 생성하거나 수정
+        var modalContent = '';
+        if(resData.hasCouponList.length > 0) {
+          modalContent +='<h1>발급 완료된 쿠폰</h1>';
+          $.each(resData.hasCouponList, (i, c) => {
+            const endAt = new Date(c.endAt);
+            const date  = moment(endAt).format('YYYY/MM/DD');
+            modalContent += '<div class="coupon_list">';
+            modalContent += '  <div>';
+            modalContent += '    <div>' + c.cpName + '(~' + date + ')' + '</div>';
+            modalContent += '    <div>' + c.cpInfo + '</div>';
+            modalContent += '  </div>';
+            modalContent += '  <div>';
+            modalContent += '    <h2>발급완료</h2>';
+            modalContent += '  </div>';
+            modalContent += '</div>';
+            modalContent += '<hr>';
+          })  
+        }
+        if(resData.dontHaveCouponList.length > 0) {
+          modalContent += '<h1>받지 않은 쿠폰</h1>';
+          $.each(resData.dontHaveCouponList, (i, c) => {
+            const endAt = new Date(c.endAt);
+            const date  = moment(endAt).format('YYYY/MM/DD');
+            modalContent += '<div class="coupon_list">';
+            modalContent += '  <div>';
+            modalContent += '    <div>' + c.cpName + '(~' + date + ')' + '</div>';
+            modalContent += '    <div>' + c.cpInfo + '</div>';
+            modalContent += '  </div>';
+            modalContent += '  <div>';
+            modalContent += '    <form class="frm_add_coupon">';
+            modalContent += '      <input type="hidden" name="cpNum" value="'+c.cpNum+'">';
+            modalContent += '      <input type="hidden" name="num"   value="${sessionScope.member.num}">';
+            modalContent += '      <button type="button" class="btn_get_coupon">';
+            modalContent += '        <i class="fa-solid fa-download fa-2xl" style="color: #000000;"></i>';
+            modalContent += '      </button>';
+            modalContent += '    </form>';
+            modalContent += '  </div>';
+            modalContent += '</div>';
+            modalContent += '<hr>';
+          })
+        }
+        
+        // 모달 내용 업데이트
+        $(".modal-content").html(modalContent);
+      }
+    });
+    
+  </script>
   
   
   <div class="main_list">
