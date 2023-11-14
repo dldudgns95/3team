@@ -55,8 +55,8 @@ public class MainServiceImpl implements MainService {
     int cpNum = Integer.parseInt(request.getParameter("cpNum"));
     int num = Integer.parseInt(request.getParameter("num"));
     CpIssueDto cpIssue = CpIssueDto.builder()
-                                   .cp(CpDto.builder().cpNum(cpNum).build())
-                                   .member(MemberDto.builder().num(num).build())
+                                   .cpDto(CpDto.builder().cpNum(cpNum).build())
+                                   .memberDto(MemberDto.builder().num(num).build())
                                    .build();
     int addResult = mainMapper.addMemberCoupon(cpIssue);
     return Map.of("addResult", addResult);
@@ -65,6 +65,12 @@ public class MainServiceImpl implements MainService {
   @Override
   public List<ProductImageDto> getZzimProductList(int num) {
     return mainMapper.getZzimProductList(num);
+  }
+  
+  @Override
+  public Map<String, Object> getUnusedCouponList(int num) {
+    List<CpDto> productList = mainMapper.getUnusedCouponList(num);
+    return Map.of("productList", productList);
   }
   
 }

@@ -143,6 +143,19 @@
         // 모달 내용 업데이트
         $(".modal-body").html(modalContent);
       }
+      
+      // 모달창이 닫히면 이벤트
+      $('#myModal').on('hidden.bs.modal', () => {
+        $.ajax({
+          method: 'GET',
+          url: '${contextPath}/main/unusedCouponList.do',
+          data: 'num=${sessionScope.member.num}',
+          dataType: 'json',
+          success: (resData) => {
+            console.log(resData);
+          } 
+        })
+      })
     });
     
   </script>

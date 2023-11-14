@@ -74,6 +74,36 @@
     </association>
   </resultMap>
   
+  <resultMap type="CpIssueDto" id="CpIssueMap">
+    <result column="CP_USE" property="cpUse" />
+    <association javaType="MemberDto" property="memberDto">
+      <id     column="NUM"           property="num" />
+      <result column="NAME"          property="name" />
+      <result column="PW"            property="pw" />
+      <result column="MOBILE"        property="mobile" />
+      <result column="EMAIL"         property="email" />
+      <result column="POSTCODE"      property="postcode" />
+      <result column="JIBUNADDRESS"  property="jibunaddress" />
+      <result column="ROADADDRESS"   property="roadaddress" />
+      <result column="DETAILADDRESS" property="detailaddress" />
+      <result column="BIRTH"         property="birth" />
+      <result column="GENDER"        property="gender" />
+      <result column="MDATE"         property="mdate" />
+      <result column="AUTH"          property="auth" />
+      <result column="STATUS"        property="status" />
+      <result column="REG_DATE"      property="regDate" />
+    </association>
+    <association javaType="CpDto" property="cpDto">
+      <id column="CP_NUM" property="cpNum" />
+      <result column="CP_NAME"  property="cpName" />
+      <result column="CP_INFO"  property="cpInfo" />
+      <result column="CP_PRICE" property="cpPrice" />
+      <result column="CP_MIN"   property="cpMin" />
+      <result column="START_AT" property="startAt" />
+      <result column="END_AT"   property="endAt" />
+    </association>
+  </resultMap>
+  
   <select id="getProductList" resultMap="ProductMap">
     SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
       FROM PRODUCT P INNER JOIN PRODUCT_CATEGORY C
@@ -133,10 +163,17 @@
     , CP_NUM
     ) VALUES (
       1
-    , #{member.num}
-    , #{cp.cpNum}
+    , #{memberDto.num}
+    , #{cpDto.cpNum}
     )
   </insert>
+  
+  <select id="getUnusedCouponList" parameterType="int" resultType="CpDto">
+    SELECT CI.CP_NUM, C.CP_NAME, C.CP_INFO, C.CP_PRICE, C.CP_MIN, C.START_AT, C.END_AT
+		  FROM CP C INNER JOIN CP_ISSUE CI
+		    ON C.CP_NUM = CI.CP_NUM
+		 WHERE CI.CP_USE = 1 AND CI.NUM = #{num}
+  </select>
   
   <!-- 찜한 제품 가져오기 -->
   <select id="getZzimProductList" parameterType="int" resultMap="ProductImageMap">
