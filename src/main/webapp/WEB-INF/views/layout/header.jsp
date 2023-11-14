@@ -28,7 +28,8 @@
 <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/decoupled-document/ckeditor.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+<!-- Momment를 사용하기 위한 cdn -->
+<script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
 <link rel="stylesheet" href="${contextPath}/resources/css/cart.css?dt=${dt}" />
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css?dt=${dt}" />
@@ -77,8 +78,8 @@
       </form>
       <div class="margin_right">
         <a href="${contextPath}/member/mypage.do"><i class="fa-solid fa-user-large fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="${contextPath}/cart/list.do"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
-        <a href="${contextPath}/cart/list/${member.num}"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/cart/list/num/${member.num}"><i class="fa-solid fa-cart-shopping fa-2xl" style="color: #ffffff;"></i></a>
+        <a href="${contextPath}/main/zzimList.do?num=${sessionScope.member.num}"><i class="fa-solid fa-star fa-2xl" style="color: #ffffff;"></i></a>
       </div>
     </div>
   </div>
@@ -87,7 +88,7 @@
     <div class="category"><a href="${contextPath}/main/list.do?categoryName=하의"><h3>하의</h3></a></div>
     <div class="category"><a href="${contextPath}/main/list.do?categoryName=아우터"><h3>아우터</h3></a></div>
     <div class="category"><a href="${contextPath}/main/list.do?categoryName=기타"><h3>기타</h3></a></div>
-  </div>
+  </div>  
   
   <script>
    const fnSearch = () => {

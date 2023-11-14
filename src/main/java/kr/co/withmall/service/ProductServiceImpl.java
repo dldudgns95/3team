@@ -26,5 +26,10 @@ public class ProductServiceImpl implements ProductService {
   public ProductImageDto getProductImage(int prdtNum) {
     return productMapper.getProductImage(prdtNum);
   }
+  
+  @Override
+  public int increseHit(int prdtNum) {
+    return productMapper.updateHit(prdtNum);
+  }
 
 }

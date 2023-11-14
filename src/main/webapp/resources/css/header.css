@@ -98,3 +98,18 @@
   .frm_search {
     display: flex;
   }
+  
+  .coupon_list {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .btn_get_coupon {
+    border: none;
+    background-color: transparent;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+  }
