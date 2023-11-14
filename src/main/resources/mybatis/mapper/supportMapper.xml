@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="kr.co.withmall.dao.SupportMapper">
+  <!-- 공지사항 갯수 -->
+  <select id="getSupportCount" resultType="int">
+    SELECT COUNT(*)
+      FROM BOARD_ANNOUNCE
+  </select>
+  <!-- 공지사항 목록 -->
+   <select id="getSupportList" parameterType="Map" resultType="SupportDto">
+    SELECT A.ANN_NUM, A.ANN_TITLE, A.ANN_CONTENT, A.ANN_FILE, A.ANN_DATE
+      FROM (SELECT ROW_NUMBER() OVER(ORDER BY ANN_NUM DESC) AS RN, ANN_NUM, ANN_TITLE, ANN_CONTENT, ANN_FILE, ANN_DATE
+              FROM BOARD_ANNOUNCE) A
+     WHERE A.RN BETWEEN #{begin} AND #{end}
+  </select>
+   
+  
+</mapper>
