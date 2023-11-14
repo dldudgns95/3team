@@ -42,4 +42,7 @@ public interface AdminService {
 //  // 회원 별 매출액
 //  //public void getSalesUser(HttpServletRequest request, Model model);
 
+  
+  // 회원 삭제
+  public int deleteUser(int num);
 }

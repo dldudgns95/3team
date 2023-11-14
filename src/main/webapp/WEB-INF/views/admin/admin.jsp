@@ -44,7 +44,7 @@
   
   
   <div class="icon_main">
-    <a href="prdtList.do"><i class="fa-solid fa-tags icon"></i>상품등록</a>
+    <a href="prdtList.do"><i class="fa-solid fa-tags icon"></i>상품/쿠폰등록</a>
     <a href="userList.do"><i class="fa-solid fa-user icon"></i>회원관리</a>
     <a href="sales.do"><i class="fa-solid fa-calculator icon"></i>매출확인</a>
     <a href="order.do"><i class="fa-solid fa-check-to-slot"></i>주문관리</a>

@@ -61,7 +61,7 @@
 
 
   <hr>
-  
+  삭제 알람창 안뜸
   로그인 방법 : 0 일반가입, 1 네이버 간편 가입
   회원 등급 : (0 일반,1 정지, 2 탈퇴, 9 관리) 기본설정은 0
   
@@ -76,6 +76,7 @@
           <td>구매누적금액</td>
           <td>로그인방법</td>
           <td>회원등급</td>
+          <td>강제탈퇴</td>
         </tr>
       </thead>
       <tbody>      
@@ -89,13 +90,20 @@
             <td>${m.orderDto.orderTotalPrice}</td>
             <td>${m.status}</td>
             <td>${m.auth}</td>
+            <td>
+              <!-- 회원삭제버튼 -->
+              <form class="frm_remove" method="post" action="${contextPath}/admin/useRemove.do" style="display: inline;">
+                  <input type="hidden" name="num" value="${m.num}">
+                  <button type="submit">삭제</button>
+              </form>
+            </td>
           </tr>
           
           <tr class="blind write_tr">
             <td colspan="5">
-              <form method="post" action="${contextPath}/admin/modifyUser.do">
-                <label for=""></label>
-              </form>
+
+
+
           </tr>
         </c:forEach>
       </tbody>
@@ -108,7 +116,28 @@
   </div>
 
   <script>
+  const fnRemove = () => {
+	  $('.frm_remove').submit((ev) => {
+		  if(!confirm('회원을 삭제할까요?')){
+			  ev.preventDefault();
+			  return;
+		  }
+	  })
+  }
   
+  const fnRemoveResult = () => {
+	    let removeResult = '${removeResult}';
+	    if(removeResult !== ''){
+	      if(removeResult === '1'){
+	        alert('회원이 삭제되었습니다.');
+	      } else {
+	        alert('회원이 삭제되지 않았습니다.');
+	      }
+	    }
+	  }
+	  
+  fnRemove();
+  fnRemoveResult();
   
 
   </script>

@@ -100,7 +100,7 @@ CREATE TABLE PRODUCT(
 	PRDT_NUM        NUMBER(5)        NOT NULL,       -- 제품 식별 번호
 	PRDT_NAME       VARCHAR2(60)     NOT NULL,	     -- 제품 이름
 	PRDT_TITLE      VARCHAR2(100)    NOT NULL,	     -- 제품 타이틀
-	PRDT_INFO       VARCHAR2(4000)   NOT NULL,       -- 제품 정보
+	PRDT_INFO       VARCHAR2(1000)   NOT NULL,       -- 제품 정보
 	PRDT_REAL_PRICE NUMBER(7)        NOT NULL,       -- 제품 원가
 	PRDT_STOCK      NUMBER(7)        NOT NULL,
     PRDT_HIT        NUMBER(8)        DEFAULT 0,
@@ -145,6 +145,21 @@ CREATE TABLE BOARD_ANNOUNCE (
 	ANN_DATE DATE DEFAULT SYSDATE NOT NULL,             -- 등록일
 	CONSTRAINT PK_BOARD_ANNOUNCE PRIMARY KEY (ANN_NUM)
 );
+
+-- 공지사항
+INSERT INTO BOARD_ANNOUNCE(ANN_NUM,ANN_TITLE,ANN_CONTENT,ANN_DATE) VALUES(BOARD_ANNOUNCE_SEQ.NEXTVAL
+                            ,'첫번째 공지사항입니다.'
+                            ,'오늘 한시쿠폰 발표입니다.'
+                            ,SYSDATE);
+INSERT INTO BOARD_ANNOUNCE(ANN_NUM,ANN_TITLE,ANN_CONTENT,ANN_DATE) VALUES(BOARD_ANNOUNCE_SEQ.NEXTVAL
+                            ,'두번째 공지사항입니다.'
+                            ,'오늘 두시쿠폰 발표입니다.'
+                            ,SYSDATE);
+INSERT INTO BOARD_ANNOUNCE(ANN_NUM,ANN_TITLE,ANN_CONTENT,ANN_DATE) VALUES(BOARD_ANNOUNCE_SEQ.NEXTVAL
+                            ,'세번째 공지사항입니다.'
+                            ,'오늘 세시쿠폰 발표입니다.'
+                            ,SYSDATE);
+
 
 
 -- FAQ 정보를 저장하기 위한 테이블
@@ -319,11 +334,11 @@ INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (3, '/w
 INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (4, '/withmall/resources/images/top', 't4.jpg');
 INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (5, '/withmall/resources/images/top', 't5.jpg');
 -- 하의
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (6, '/withmall/resources/images/bottom', 'b1.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (7, '/withmall/resources/images/bottom', 'b2.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (8, '/withmall/resources/images/bottom', 'b3.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (9, '/withmall/resources/images/bottom', 'b4.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (10, '/withmall/resources/images/bottom', 'b5.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (6, '/withmall/resources/images/bottom', 'b1.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (7, '/withmall/resources/images/bottom', 'b2.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (8, '/withmall/resources/images/bottom', 'b3.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (9, '/withmall/resources/images/bottom', 'b4.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (10, '/withmall/resources/images/bottom', 'b5.jpeg');
 -- 아우터
 INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (11, '/withmall/resources/images/outer', 'o1.jpg');
 INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (12, '/withmall/resources/images/outer', 'o2.jpg');

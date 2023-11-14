@@ -44,6 +44,9 @@ public interface AdminMapper {
   public int getSearchCount(Map<String, Object> map);
   public List<MemberDto> getSearchList(Map<String, Object> map);
   
+  // 회원 삭제
+  public int deleteUser(int PrdtNum);
+  
   
 //  //////////////////////////////////////////////////////////
 //  

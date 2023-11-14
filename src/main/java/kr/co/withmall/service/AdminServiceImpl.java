@@ -248,6 +248,11 @@ public class AdminServiceImpl implements AdminService {
     }
   
   
+  // 회원 삭제
+  @Override
+  public int deleteUser(int num) {
+    return adminMapper.deleteUser(num);
+  }
   
 
 }

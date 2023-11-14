@@ -75,8 +75,6 @@ public class AdminController {
   public String modifyPrdt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int modifyResult = adminService.modifyPrdt(request);
     redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
-    System.out.println("modifyPrdt.do - modifyResult: " + modifyResult);
-
     return "redirect:/admin/prdtList.do";
   }
   
@@ -116,7 +114,14 @@ public class AdminController {
     return "admin/user/user";
   }
 
-  
+  // 회원 삭제 deleteUser --- 수정
+  @PostMapping("/useRemove.do")
+    public String useRemove(@RequestParam(value = "num") int num, RedirectAttributes redirectAttributes) {
+      int removeResult = adminService.deleteUser(num);
+      redirectAttributes.addFlashAttribute("removeResult", removeResult);
+      return "redirect:/admin/userList.do";
+  }
+
   
   // 매출확인이동
   @GetMapping("/sales.do")
@@ -130,13 +135,17 @@ public class AdminController {
     return "admin/cstm/cstm";
   }
   
-  // 주문관리이동
+  // 주문관리이동 
   @GetMapping("/order.do")
   public String order() {
     return "admin/order/order";
   }
   
-
+  // 쿠폰 이동
+  @GetMapping("/coupon.form")
+  public String coupon() {
+    return "admin/coupon/coupon";
+  }
  
   
  

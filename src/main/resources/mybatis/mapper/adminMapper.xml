@@ -149,7 +149,18 @@
     )
     WHERE RN BETWEEN #{begin} AND #{end}
   </select>
-
   
+  <!-- 회원 탈퇴 -->
+  <delete id="deleteUser" parameterType="MemberDto">
+    DELETE 
+      FROM MEMBER
+     WHERE NUM = #{num}
+  </delete>
+  
+  
+  <!-- 매출 -->
+
+  <!-- 특정 회원 매출 총액 -->
+
   
 </mapper>
