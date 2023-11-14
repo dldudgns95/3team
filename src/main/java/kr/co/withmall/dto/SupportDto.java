@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class SupportDto {
 	//번호
-	private int annNo;
+	private int annNum;
 	//제목
 	private String annTitle;  
 	//내용

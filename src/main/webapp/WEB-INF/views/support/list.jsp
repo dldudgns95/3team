@@ -14,9 +14,9 @@
 
   <div class="text-center mb-3">
     <a href="${contextPath}/support/write.form">
-      <button type="button" class="btn btn-outline-primary">새글작성</button>
+        <button type="button" class="btn btn-dark">새글작성</button>
     </a>
-  </div>
+</div>
   
   <div class="table-responsive">
     <table class="table align-middle">
@@ -33,7 +33,8 @@
         <c:forEach items="${supportList}" var="s" varStatus="vs">
           <tr class="align-bottom">
             <td>${beginNo - vs.index}</td>
-            <td>${s.annTitle}</td>
+            <!-- 제목에 상세보기 요청 -->
+            <td><a href="${contextPath}/supoort/detail.do?annNo=${s.annNum}">${s.annTitle}</a></td>
             <td>${s.annContent}</td>
             <td>${s.annFile}</td>
             <td>${s.annDate}</td>
@@ -47,8 +48,8 @@
       </tfoot>
     </table>
   </div>
-
-<script>
+</div>
+<!--  <script>
 
   const fnAddResult = () => {
     let addResult = '${addResult}';  // '', '1', '0'
@@ -77,5 +78,5 @@
   fnRemoveResult();
   
 </script>
-
+!-->
 <%@ include file="../layout/footer.jsp" %>
