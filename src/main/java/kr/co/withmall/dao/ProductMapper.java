@@ -9,4 +9,5 @@ import kr.co.withmall.dto.ProductImageDto;
 public interface ProductMapper {
   public ProductDto getProduct(int prdtNum);
   public ProductImageDto getProductImage(int prdtNum);
+  public int updateHit(int prdtNum);
 }

@@ -1,5 +1,6 @@
 package kr.co.withmall.service;
 
+<<<<<<< HEAD
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -45,4 +46,8 @@ public interface AdminService {
   
   // 회원 삭제
   public int deleteUser(int num);
+=======
+public class AdminService {
+
+>>>>>>> main
 }
