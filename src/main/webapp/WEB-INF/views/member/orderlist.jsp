@@ -8,18 +8,13 @@
 
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="마이페이지" name="title"/>
+  <jsp:param value="주문내역" name="title"/>
 </jsp:include>
+
+
 <div>
-<h1>내 정보</h1>
-	<ul>
-		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
-		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
-		<li><a href="${contextPath}/member/cart.do">장바구니</a></li>
-		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
-		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
-		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
-	</ul>
+<h1> 주문내역</h1>
+
 </div>
 
 <%@ include file="../layout/footer.jsp" %>

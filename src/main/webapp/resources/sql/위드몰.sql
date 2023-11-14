@@ -52,10 +52,10 @@ CREATE TABLE MEMBER (
     ROADADDRESS      VARCHAR2(90 BYTE)      NULL,  
     DETAILADDRESS    VARCHAR2(90 BYTE)      NULL,
     BIRTH            VARCHAR2(10 BYTE)      NULL,
-    GENDER           VARCHAR2(10 BYTE)      NULL,
-    MDATE            DATE,                              
+    GENDER           VARCHAR2(10 BYTE)      NOT NULL,
+    MDATE            DATE                   NULL,                              
     AUTH             NUMBER(5)              NULL,       -- 회원등급(0:일반,1:정지,2:탈퇴,9:관리) 기본설정은 0
-    STATUS           NUMBER,                            -- 일반로그인0,네이버로그인1
+    STATUS           NUMBER                 NOT NULL,   -- 일반로그인0,네이버로그인1
     AGREE            NUMBER                 NOT NULL,   -- 서비스 동의 여부(0:필수, 1:이벤트)
     REG_DATE         DATE                   NOT NULL,
     CONSTRAINT PK_WM_MEMBER PRIMARY KEY(NUM)
@@ -75,7 +75,7 @@ CREATE TABLE MEMBER_INACTIVE (
     GENDER           VARCHAR2(10 BYTE)      NULL,
     MDATE            DATE                   NULL,                              
     AUTH             NUMBER(5)              NULL,       -- 회원등급(0:일반,1:정지,2:탈퇴,9:관리) 기본설정은 0
-    STATUS           NUMBER,                            -- 일반로그인0,네이버로그인1
+    STATUS           NUMBER                 NOT NULL,   -- 일반로그인0,네이버로그인1
     AGREE            NUMBER                 NOT NULL,   -- 서비스 동의 여부(0:필수, 1:이벤트)    
     REG_DATE         DATE                   NOT NULL,
     STOP_DATE        DATE                   NOT NULL,
@@ -88,7 +88,6 @@ CREATE TABLE MEMBER_EXP (
     REG_DATE       DATE,                               -- 가입일
     EXP_DATE       DATE                                -- 탈퇴일
 );
-
 
 CREATE TABLE PRODUCT_CATEGORY (
   CATEGORY_NUM       NUMBER(5) NOT NULL,
@@ -341,8 +340,7 @@ INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (20, '/
 COMMIT;
 
 
-
- 회원 추가
+-- 회원 추가
 INSERT INTO MEMBER(NUM, NAME, PW,MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER,MDATE, AUTH, STATUS, AGREE, REG_DATE
 	 ) VALUES(MEMBER_SEQ.NEXTVAL, 'mem1',  STANDARD_HASH('1111', 'SHA256'), '010-1111-1111', 'mem1@naver.com', '11244', '서울 금천구 가산디지털2로 95 3층 305호'
               , '가산동 550-7', '구디아카데미', TO_DATE('20001001', 'YYYYMMDD'), '1', TO_DATE('20231009', 'YYYYMMDD'), 0, 0, 0, SYSDATE);
@@ -380,7 +378,6 @@ INSERT INTO MEMBER(NUM, NAME, PW,MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDR
               , '가산동 550-9', '매머드커피', TO_DATE('19931201', 'YYYYMMDD'), '2', TO_DATE('20231115', 'YYYYMMDD'), 9, 0, 0, SYSDATE);
 commit;              
 
-	
 
 -- 쿠폰 정보 테이블 삽입
 INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '1000원 할인 쿠폰', '5000원이상 구매 시, 1000원 할인해드립니다!', 1000, 5000, SYSDATE, SYSDATE + 14);

@@ -9,5 +9,6 @@ import kr.co.withmall.dto.MemberDto;
 @Mapper
 public interface MemberMapper {
 	public MemberDto getMember(Map<String, Object> map);
-	public int insertMember(MemberDto Member);	
+	public int insertMember(MemberDto Member);
+	public int insertNaverMember(MemberDto member);	
 }

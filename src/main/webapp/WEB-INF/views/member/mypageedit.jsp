@@ -11,42 +11,35 @@
   <jsp:param value="개인정보수정" name="title"/>
 </jsp:include>
 
-<script src="${contextPath}/resources/js/modify.js?dt=${dt}"></script>
 
-
-<div class="wrap wrap_6">
-
-  <h1 class="title">마이페이지</h1>
+  <h1 class="text-center title">개인정보수정</h1>
 
   <form id="frm_mypage" method="post">
     
-    <c:if test="${sessionScope.user.state == 0}">
+    <c:if test="${sessionScope.member.state == 0}">
       <div class="text-center">
         <div class="mb-2">비밀번호 변경</div>
         <button type="button" id="btn_modify_pw" class="btn btn-danger">비밀번호변경하기</button>
       </div>      
-      <hr class="my-3">
     </c:if>
-    
-    <div class="text-center mb-4">개인정보 변경</div>
-    <div class="row mb-4">
+       <div class="row mb-4">
       <div class="col-sm-3">이메일</div>
-      <div class="col-sm-9">${sessionScope.user.email}</div>
+      <div class="col-sm-9">${sessionScope.member.email}</div>
     </div>
     <div class="row mb-4">
       <div class="col-sm-3">가입일</div>
-      <div class="col-sm-9">${sessionScope.user.joinedAt}</div>
+      <div class="col-sm-9">${sessionScope.member.regDate}</div>
     </div>
     <div class="row mb-2">
       <label for="name" class="col-sm-3 col-form-label">이름</label>
-      <div class="col-sm-9"><input type="text" name="name" value="${sessionScope.user.name}" id="name" class="form-control"></div>
+      <div class="col-sm-9"><input type="text" name="name" value="${sessionScope.member.name}" id="name" class="form-control"></div>
       <div class="col-sm-3"></div>
       <div class="col-sm-9 mb-3" id="msg_name"></div>
     </div>
     
     <div class="row mb-2">
       <label for="mobile" class="col-sm-3 col-form-label">휴대전화번호</label>
-      <div class="col-sm-9"><input type="text" name="mobile" value="${sessionScope.user.mobile}" id="mobile" class="form-control"></div>
+      <div class="col-sm-9"><input type="text" name="mobile" value="${sessionScope.member.mobile}" id="mobile" class="form-control"></div>
       <div class="col-sm-3"></div>
       <div class="col-sm-9 mb-3" id="msg_mobile"></div>
     </div>
@@ -67,25 +60,22 @@
       </div>
     </div>
     <script>
-      $(':radio[value=${sessionScope.user.gender}]').prop('checked', true);
+      $(':radio[value=${sessionScope.member.gender}]').prop('checked', true);
     </script>
-    
-    <hr class="my-3">
     
     <div class="row mb-2">
       <label for="postcode" class="col-sm-3 col-form-label">주소</label>
-      <div class="col-sm-4"><input type="text" name="postcode" value="${sessionScope.user.postcode}" id="postcode" class="form-control" onclick="execDaumPostcode()" placeholder="우편번호" readonly></div>
+      <div class="col-sm-4"><input type="text" name="postcode" value="${sessionScope.member.postcode}" id="postcode" class="form-control" onclick="execDaumPostcode()" placeholder="우편번호" readonly></div>
       <div class="col-sm-5"><input type="button" class="btn btn-outline-success" onclick="execDaumPostcode()" value="우편번호 찾기"></div>
     </div>
     
     <div class="row mb-2">
-      <div class="col-sm-6"><input type="text" name="roadAddress" value="${sessionScope.user.roadAddress}" id="roadAddress" class="form-control" placeholder="도로명주소" readonly></div>
-      <div class="col-sm-6"><input type="text" name="jibunAddress" value="${sessionScope.user.jibunAddress}" id="jibunAddress" class="form-control" placeholder="지번주소" readonly></div>
+      <div class="col-sm-6"><input type="text" name="roadaddress" value="${sessionScope.member.roadaddress}" id="roadaddress" class="form-control" placeholder="도로명주소" readonly></div>
+      <div class="col-sm-6"><input type="text" name="jibunaddress" value="${sessionScope.member.jibunaddress}" id="jibunaddress" class="form-control" placeholder="지번주소" readonly></div>
     </div>
     <div class="col-sm-12"><span id="guide" style="color:#999;display:none"></span></div>
     <div class="row mb-2">
-      <div class="col-sm-6"><input type="text" name="detailAddress" value="${sessionScope.user.detailAddress}" id="detailAddress" class="form-control" placeholder="상세주소"></div>
-      <div class="col-sm-6"><input type="text" id="extraAddress" class="form-control" placeholder="참고항목"></div>
+      <div class="col-sm-6"><input type="text" name="detailaddress" value="${sessionScope.member.detailaddress}" id="detailaddress" class="form-control" placeholder="상세주소"></div>
     </div>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
@@ -159,23 +149,20 @@
       </div>
     </div>
     <script>
-      if('${sessionScope.user.agree}' === '0'){
+      if('${sessionScope.member.agree}' === '0'){
         $('#event_off').prop('checked', true);
-      } else if('${sessionScope.user.agree}' === '1'){
+      } else if('${sessionScope.member.agree}' === '1'){
         $('#event_on').prop('checked', true);
       }
     </script>
     
-    <hr class="my-3">
-    
+
     <div class="text-center">
-      <input type="hidden" name="userNo" value="${sessionScope.user.userNo}">
-      <button type="button" id="btn_leave" class="btn btn-dark">회원탈퇴</button>
+      <input type="hidden" name="num" value="${sessionScope.member.num}">
       <button type="button" id="btn_modify" class="btn btn-success">개인정보수정</button>
     </div>
     
   </form>
 
-</div>
 
 <%@ include file="../layout/footer.jsp" %>

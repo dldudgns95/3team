@@ -10,6 +10,8 @@
   <jsp:param value="회원가입" name="title"/>
 </jsp:include>
 
+<script src="${contextPath}/resources/js/join.js?dt=${dt}"></script>
+
 <div class="wrap wrap_7">
 
   <h1 class="title">회원가입</h1>
@@ -160,4 +162,4 @@
   </form>
 
 </div>
-
+<%@ include file="../layout/footer.jsp" %>

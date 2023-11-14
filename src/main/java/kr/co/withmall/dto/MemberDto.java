@@ -19,12 +19,14 @@ public class MemberDto {
 	private String email;
 	private String postcode;
 	private String jibunaddress;
+	private String roadaddress;
 	private String detailaddress;
 	private String birth;
-	private int gender;
+	private String gender;
 	private Date mdate;
 	private int auth;
 	private int status;
+	private int agree;
 	private Date regDate;
 	
 }
