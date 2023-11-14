@@ -433,20 +433,5 @@ SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO
  WHERE I.PRDT_NUM = P.PRDT_NUM
    AND P.CATEGORY_NUM = C.CATEGORY_NUM;
    
-   
-   
-         INSERT INTO CP (
-          CP_NUM
-        , CP_INFO
-        , CP_PRICE
-        , CP_MIN
-        , START_AT
-        , END_AT
-      ) VALUES (
-         1
-        , '쿠폰1',
-        , 500,
-        , #{cpMin},
-        , TO_CHAR('YYYY-MM-DD')
-        , TO_CHAR('YYYY-MM-DD')
-      )
+
+       
