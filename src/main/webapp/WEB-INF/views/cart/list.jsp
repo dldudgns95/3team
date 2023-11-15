@@ -69,7 +69,7 @@
       <td class="prdt-mod">
         <div class="table_text_align_center quantity_div">
           <button class="qty_btn minus_btn"><i id="qtyMinus" class="fa-solid fa-square-minus"></i></button>
-          <input type="text" value="${ci.prdtQty}" class="qty_input">  
+          <input type="text" value="${ci.prdtQty}" class="quantity_input">  
           <button class="qty_btn plus_btn"><i id="qtyPlus" class="fa-solid fa-square-plus"></i></button>
         </div>
         <a class="btn btn-light qty_modify_btn" data-cartnum="${ci.cartNum}">수정</a>
@@ -149,7 +149,7 @@ $(".all-check").on("click", function(){
 function setTotalInfo() {
   let totalPrice = 0; // 총 가격
   let totalKind = 0; // 총 종류
-  let coupon = 0;
+  let coupon = 10000;
   let finalTotalPrice = 0;
 
   $(".prdt-check").each(function (index, element) {
@@ -158,7 +158,7 @@ function setTotalInfo() {
           // 총 가격
           totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
           // 쿠폰
-          coupon = parseInt($(element).find(".individual_coupon_input").val());      
+                
           // 총 종류
           totalKind += 1;
       }
