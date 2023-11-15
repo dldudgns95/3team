@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="메인화면" name="title"/>
+  <jsp:param value="${categoryName}카테고리화면" name="title"/>
 </jsp:include>
 
   <!-- 나중에 바꾸기 -->
@@ -15,9 +15,7 @@
       <select name="orderBy" id="orderBy">
         <option value="new">최신순</option>
         <option value="hit">조회순</option>
-        <!-- 
         <option value="zzim">찜한순</option>
-        -->
         <option value="topPrice">높은가격순</option>
         <option value="lowPrice">낮은가격순</option>
       </select>    

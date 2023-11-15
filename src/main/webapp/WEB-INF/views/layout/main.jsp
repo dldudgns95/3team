@@ -111,7 +111,7 @@
             modalContent += '    <div>' + c.cpInfo + '</div>';
             modalContent += '    <div>최소주문금액: ' + c.cpMin + '원</div>';
             modalContent += '  </div>';
-            modalContent += '  <div>';
+            modalContent += '  <div class="check_coupon">';
             modalContent += '    <h2>발급완료</h2>';
             modalContent += '  </div>';
             modalContent += '</div>';

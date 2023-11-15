@@ -1,5 +1,7 @@
 package kr.co.withmall.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,9 +19,21 @@ public class CartDto {
   private int prdtQty; //제품 수량
   
   // product
+  private ProductDto productDto;
   private String prdtTitle;                 // 제품타이틀
   private int prdtRealPrice;                // 제품원가
   private int prdtStock;                    // 제품재고
+  
+  
+  // coupon 
+  private CpDto cpDto;
+  private int cpPrice;
+  private int cpMin;
+  
+  // image
+  private List<ProductImageDto> imageList;
+  
+  
   
   
 }

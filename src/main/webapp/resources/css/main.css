@@ -110,3 +110,7 @@
   #orderBy {
     float: right;
   }
+  
+  .check_coupon {
+    width: 128px;
+  }
