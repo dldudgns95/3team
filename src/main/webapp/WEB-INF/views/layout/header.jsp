@@ -84,10 +84,10 @@
     </div>
   </div>
   <div class="navigation_bar">
-    <div class="category"><a href="${contextPath}/main/list.do?categoryName=상의"><h3>상의</h3></a></div>
-    <div class="category"><a href="${contextPath}/main/list.do?categoryName=하의"><h3>하의</h3></a></div>
-    <div class="category"><a href="${contextPath}/main/list.do?categoryName=아우터"><h3>아우터</h3></a></div>
-    <div class="category"><a href="${contextPath}/main/list.do?categoryName=기타"><h3>기타</h3></a></div>
+    <div class="category"><h3><a href="${contextPath}/main/list.do?categoryName=상의">상의</a></h3></div>
+    <div class="category"><h3><a href="${contextPath}/main/list.do?categoryName=하의">하의</a></h3></div>
+    <div class="category"><h3><a href="${contextPath}/main/list.do?categoryName=아우터">아우터</a></h3></div>
+    <div class="category"><h3><a href="${contextPath}/main/list.do?categoryName=기타">기타</a></h3></div>
   </div>  
   
   <script>
