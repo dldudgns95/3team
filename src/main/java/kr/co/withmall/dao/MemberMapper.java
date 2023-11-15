@@ -15,4 +15,6 @@ public interface MemberMapper {
 	public int insertNaverMember(MemberDto member);
 	public LeaveMemberDto getLeaveMember(Map<String, Object> map);
 	public InactiveMemberDto getInactiveMember(Map<String, Object> map);
+	public int insertLeaveMember(MemberDto member);
+	public int deleteMember(MemberDto member);
 }
