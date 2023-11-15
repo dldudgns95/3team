@@ -117,13 +117,34 @@
 		   AND P.CATEGORY_NUM = C.CATEGORY_NUM
   </select>
   
-  <select id="getProductTotalListByCategory" parameterType="String" resultMap="ProductImageMap">
-    SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
-		  FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
-		 WHERE I.PRDT_NUM = P.PRDT_NUM
-		   AND P.CATEGORY_NUM = C.CATEGORY_NUM
-		   AND CATEGORY_NAME = #{categoryName}
-  </select>
+  <select id="getProductTotalListByCategory" parameterType="Map" resultMap="ProductImageMap">
+	  SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+	    FROM PRODUCT_IMAGE I INNER JOIN PRODUCT P 
+	      ON I.PRDT_NUM = P.PRDT_NUM INNER JOIN PRODUCT_CATEGORY C 
+	      ON P.CATEGORY_NUM = C.CATEGORY_NUM
+	   WHERE CATEGORY_NAME = #{categoryName}
+	   <if test="orderBy != null">
+	     ORDER BY
+	    <choose>
+	      <!-- 최신순 -->
+	      <when test="orderBy == 'new'">
+	        P.PRDT_NUM DESC
+	      </when>
+	      <!-- 조회순 -->
+	      <when test="orderBy == 'hit'">
+	        P.PRDT_HIT DESC
+	      </when>
+	      <!-- 높은가격순 -->
+	      <when test="orderBy == 'topPrice'">
+	        P.PRDT_REAL_PRICE DESC
+	      </when>
+	      <!-- 낮은가격순 -->
+	      <when test="orderBy == 'lowPrice'">
+	        P.PRDT_REAL_PRICE ASC
+	      </when>
+	    </choose>
+	  </if>
+	</select>
   
   <select id="getProductHitTop10List" resultMap="ProductImageMap">
     SELECT IMAGE_PATH, FILESYSTEM_NAME, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM, CATEGORY_NAME
@@ -186,5 +207,5 @@
 		                        FROM ZZIM
 		                       WHERE NUM = #{num})
   </select>
-
+  
 </mapper>

@@ -13,7 +13,6 @@ import kr.co.withmall.dto.CpIssueDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
-import kr.co.withmall.dto.ZzimDto;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -33,8 +32,10 @@ public class MainServiceImpl implements MainService {
   }
   
   @Override
-  public List<ProductImageDto> getProductTotalListByCategory(String categoryName) {
-    return mainMapper.getProductTotalListByCategory(categoryName);
+  public List<ProductImageDto> getProductTotalListByCategory(HttpServletRequest request) {
+    String orderBy = (request.getParameter("orderBy") == null) ? "new" : request.getParameter("orderBy");
+    Map<String, Object> map = Map.of("categoryName", request.getParameter("categoryName"), "orderBy", orderBy);
+    return mainMapper.getProductTotalListByCategory(map);
   }
   
   @Override

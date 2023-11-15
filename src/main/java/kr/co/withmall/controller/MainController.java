@@ -23,9 +23,9 @@ public class MainController {
   private final MainService mainService;
   
   @GetMapping("/list.do")
-  public String getProductListByCategory(@RequestParam("categoryName") String categoryName, Model model) {
-    model.addAttribute("categoryName", categoryName);
-    model.addAttribute("productList", mainService.getProductTotalListByCategory(categoryName));
+  public String getProductListByCategory(HttpServletRequest request, Model model) {
+    model.addAttribute("categoryName", request.getParameter("categoryName"));
+    model.addAttribute("productList", mainService.getProductTotalListByCategory(request));
     return "main/categoryList";
   }
   
