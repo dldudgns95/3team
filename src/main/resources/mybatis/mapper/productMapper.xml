@@ -37,6 +37,41 @@
     </association>
   </resultMap>
   
+    <!-- 찜 resultmap -->
+  <resultMap type="ZzimDto" id="ZzimMap">
+    <id column="ZZIM_NUM"        property="zzimNum" />
+    <association javaType="MemberDto" property="memberDto">
+      <id     column="NUM"           property="num" />
+      <result column="NAME"          property="name" />
+      <result column="PW"            property="pw" />
+      <result column="MOBILE"        property="mobile" />
+      <result column="EMAIL"         property="email" />
+      <result column="POSTCODE"      property="postcode" />
+      <result column="JIBUNADDRESS"  property="jibunaddress" />
+      <result column="ROADADDRESS"   property="roadaddress" />
+      <result column="DETAILADDRESS" property="detailaddress" />
+      <result column="BIRTH"         property="birth" />
+      <result column="GENDER"        property="gender" />
+      <result column="MDATE"         property="mdate" />
+      <result column="AUTH"          property="auth" />
+      <result column="STATUS"        property="status" />
+      <result column="REG_DATE"      property="regDate" />
+    </association>
+    <association javaType="ProductDto" property="productDto">
+      <id     column="PRDT_NUM"        property="prdtNum" />
+      <result column="PRDT_NAME"       property="prdtName" />
+      <result column="PRDT_TITLE"      property="prdtTitle" />
+      <result column="PRDT_INFO"       property="prdtInfo" />
+      <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
+      <result column="PRDT_STOCK"      property="prdtStock" />
+      <result column="PRDT_HIT"        property="prdtHit" />
+      <association javaType="ProductCategoryDto" property="categoryDto">
+        <id     column="CATEGORY_NUM"    property="categoryNum" />
+        <result column="CATEGORY_NAME"   property="categoryName" />
+      </association>
+    </association>
+  </resultMap>
+  
   
   <!-- 제품카테고리 신규등록 -->
   <insert id="insertProductCategory" parameterType="String">
@@ -113,5 +148,26 @@
         ON C.CP_NUM = CI.CP_NUM
      WHERE CI.CP_USE = 1 AND CI.NUM = #{num}
   </select>
+  
+  <!-- 찜하기 -->
+  <insert id="insertZzim" parameterType="Map">
+    INSERT INTO ZZIM (
+      ZZIM_NUM
+    , NUM
+    , PRDT_NUM
+    ) VALUES (
+      ZZIM_SEQ.NEXTVAL
+    , #{num}
+    , #{prdtNum}
+    )
+  </insert>
+  
+  <!-- 찜한상품 -->
+  <select id="getZzimPrdt" parameterType="Map" resultMap="ZzimMap">
+    SELECT ZZIM_NUM, NUM, PRDT_NUM
+      FROM ZZIM
+     WHERE NUM = #{num} AND PRDT_NUM = #{prdtNum}
+  </select>
+  
 
 </mapper>
