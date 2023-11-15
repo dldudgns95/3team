@@ -35,7 +35,28 @@ public class MainServiceImpl implements MainService {
   public List<ProductImageDto> getProductTotalListByCategory(HttpServletRequest request) {
     String orderBy = (request.getParameter("orderBy") == null) ? "new" : request.getParameter("orderBy");
     Map<String, Object> map = Map.of("categoryName", request.getParameter("categoryName"), "orderBy", orderBy);
-    return mainMapper.getProductTotalListByCategory(map);
+    List<ProductImageDto> list;
+    if(orderBy.equals("zzim")) { // 정렬기준이 찜이면
+      list = mainMapper.getZzimestProductTotalListByCategory(map);
+    } else { // 찜이 아니면 
+      list = mainMapper.getProductTotalListByCategory(map);
+    }
+    return list;
+  }
+  
+  @Override
+  public List<ProductImageDto> getProductListByQuery(HttpServletRequest request) {
+    String column = request.getParameter("column");
+    String query = request.getParameter("query");
+    String orderBy = (request.getParameter("orderBy") == null) ? "new" : request.getParameter("orderBy");
+    Map<String, Object> map = Map.of("column", column, "query", query, "orderBy", orderBy);
+    List<ProductImageDto> list;
+    if(orderBy.equals("zzim")) { // 정렬기준이 찜이면
+      list = mainMapper.getZzimestProductListByQuery(map);
+    } else { // 찜이 아니면 
+      list = mainMapper.getProductListByQuery(map);
+    }
+    return list;
   }
   
   @Override

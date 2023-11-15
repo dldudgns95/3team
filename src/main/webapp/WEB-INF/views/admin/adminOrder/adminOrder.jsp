@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
 <jsp:include page="../../layout/header.jsp">
   <jsp:param value="관리자페이지" name="title"/>
@@ -37,24 +38,37 @@
 
 </style>
 
-<%
-    // 현재 날짜를 가져오기
-    java.util.Calendar calendar = java.util.Calendar.getInstance();
-    
-    // 현재 날짜에서 7일 전 날짜로 설정
-    calendar.add(java.util.Calendar.DAY_OF_MONTH, -7);
-    
-    // 날짜 형식을 지정
-    String pattern = "yyyy-MM-dd";
-    java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat(pattern);
-    
-    // 일주일 전 날짜를 문자열로 변환
-    String oneWeekAgo = sdf.format(calendar.getTime());
-%>
-
-  <h1 class="head">매출관리</h1>
+  <h1 class="head">주문관리</h1>
   
-  <h3>매출 조회 기간 : <%= oneWeekAgo %>부터 현재까지</h3>
+  <div class="table-responsive">
+    <table border="1" class="table align-middle">
+     <thead>
+         <tr>
+          <td>주문번호</td>
+          <td>회원번호</td>
+          <td>구매금액</td>
+          <td>결제방법</td>
+          <td>배송방법</td>
+        </tr>
+      </thead>
+      <tbody>
+        <c:forEach items="${orderList}" var="o">
+        <tr>
+          <td>${o.orderNum}</td>
+          <td>${o.num}</td>
+          <td>${o.orderTotalPrice}</td>
+          <td>${o.payMethod}</td>
+          <td>${o.deliveryMethod}</td>
+         </tr>
+        </c:forEach>
+      </tbody>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  
+
   
 
   

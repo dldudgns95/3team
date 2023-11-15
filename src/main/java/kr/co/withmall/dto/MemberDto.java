@@ -28,5 +28,6 @@ public class MemberDto {
 	private int status;
 	private int agree;
 	private Date regDate;
+	private OrderDto orderDto;
 	
 }
