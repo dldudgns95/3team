@@ -19,7 +19,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import ch.qos.logback.classic.Logger;
 import kr.co.withmall.dao.AdminMapper;
 import kr.co.withmall.dao.MemberMapper;
 import kr.co.withmall.dto.CpDto;
@@ -336,6 +335,13 @@ public class AdminServiceImpl implements AdminService {
 
 
       
+  }
+  
+  // 쿠폰 정보
+  @Transactional(readOnly=true)
+  @Override
+  public CpDto getCp(int cpNum) {
+    return adminMapper.getCp(cpNum);
   }
   
  

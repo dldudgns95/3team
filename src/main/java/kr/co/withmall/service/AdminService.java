@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
 
 public interface AdminService {
@@ -55,6 +56,10 @@ public interface AdminService {
   
   // 쿠폰 등록
   public int insertCp(HttpServletRequest request);
+  
+  // 쿠폰 정보
+  public CpDto getCp(int cpNum);
+
   
   // 주문 목록
   public void loadOrderList(HttpServletRequest request, Model model);

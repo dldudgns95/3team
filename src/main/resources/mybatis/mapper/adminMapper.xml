@@ -229,7 +229,11 @@
     
     
   <!-- 쿠폰 정보 가져오기 -->
-
+    <select id="getCp" parameterType="int" resultType="CpDto">
+      SELECT CP_NUM, CP_NAME, CP_INFO, CP_PRICE, CP_MIN, START_AT, END_AT
+        FROM CP
+       WHERE CP_NUM = #{cpNum}
+    </select>
   
   
   

@@ -170,14 +170,7 @@ public class AdminController {
     return "redirect:/admin/cpList.do";
   }
   
-//  // 편집
-//  @GetMapping("/prdtEdit.form")
-//  public String edit(@RequestParam("prdtNum") int prdtNum, Model model) {
-//    //System.out.println(prdtNum);
-//    ProductDto prdt = adminService.getPrdt(prdtNum);
-//    model.addAttribute("prdt", prdt);
-//    return "admin/prdt/prdtEdit";
-//  }
+
   
 //  // 쿠폰 수정 페이지로 이동
 //  @GetMapping("/edtitCp.form")
@@ -187,12 +180,14 @@ public class AdminController {
 //    return "/admin/coupon/couponEdit";
 //  }
   
-  // 쿠폰 수정 페이지로 이동
-  @GetMapping("/edtitCp.form")
-  public String edtitCp() {
-    return "/admin/coupon/couponEdit";
-  }
-
+//  // 쿠폰 수정 페이지로 이동
+//  @GetMapping("/edtitCp.form")
+//  public String edtitCp(@RequestParam("cpNum") int cpNum, Model model) {
+//    CpDto cp = adminService.getCp(cpNum);
+//    model.addAttribute("cpNum", cpNum);
+//    return "/admin/coupon/couponEdit";
+//  }
+  
   
   // 쿠폰 수정
   @PostMapping("/modifyCp.do")
