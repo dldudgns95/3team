@@ -1,5 +1,10 @@
 Manifest-Version: 1.0
+<<<<<<< HEAD
 Built-By: ZenBook
 Build-Jdk: 11.0.19
+=======
+Built-By: yej93
+Build-Jdk: 11.0.20
+>>>>>>> bacf7243deb2053e5358779d803e21e383ef9b48
 Created-By: Maven Integration for Eclipse
 
