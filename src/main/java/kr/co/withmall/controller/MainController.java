@@ -57,7 +57,7 @@ public class MainController {
   public String getProductListByQuery(HttpServletRequest request, Model model) {
     model.addAttribute("column", request.getParameter("column"));
     model.addAttribute("query", request.getParameter("query"));
-    model.addAttribute("productList", mainService.getProductListByQuery(request));
+    mainService.getProductListByQuery(request, model);
     return "main/searchList";
   }
   

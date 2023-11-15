@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import kr.co.withmall.dao.MainMapper;
 import kr.co.withmall.dto.CpDto;
@@ -45,7 +46,7 @@ public class MainServiceImpl implements MainService {
   }
   
   @Override
-  public List<ProductImageDto> getProductListByQuery(HttpServletRequest request) {
+  public void getProductListByQuery(HttpServletRequest request, Model model) {
     String column = request.getParameter("column");
     String query = request.getParameter("query");
     String orderBy = (request.getParameter("orderBy") == null) ? "new" : request.getParameter("orderBy");
@@ -56,7 +57,12 @@ public class MainServiceImpl implements MainService {
     } else { // 찜이 아니면 
       list = mainMapper.getProductListByQuery(map);
     }
-    return list;
+    if(!list.isEmpty()) {
+      model.addAttribute("productList", list);
+    } else {
+      list = mainMapper.getProductHitTop10List();
+      model.addAttribute("productTop10List", list);
+    }
   }
   
   @Override
