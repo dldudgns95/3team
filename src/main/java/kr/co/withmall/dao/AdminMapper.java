@@ -32,6 +32,10 @@ public interface AdminMapper {
   // 제품 삭제
   public int deletePrdt(int prdtNum);
   
+  //제품 검색
+  public int getSearchPrdtCount(Map<String, Object> map);
+  public List<ProductDto> getSearchPrdtList(Map<String, Object> map);
+  
   ///////////////////////////////////////////////////
   
   // 회원목록 가져오기

@@ -88,6 +88,15 @@ public class AdminController {
     return "redirect:/admin/prdtList.do";
   }
   
+  // 제품 검색
+  @GetMapping("/searchPrdt.do")
+  public String searchPrdt(HttpServletRequest request, Model model) {
+    adminService.loadSearchPrdtList(request, model);
+    return "admin/prdt/prdtList";
+  }
+  
+
+  
   // 회원관리이동
   @GetMapping("/userList.do")
   public String user(HttpServletRequest request, Model model) {

@@ -186,7 +186,40 @@ public class AdminServiceImpl implements AdminService {
   public int deletePrdt(int prdtNum) {
     return adminMapper.deletePrdt(prdtNum);
   }
+
   
+  // 제품 검색
+  @Override
+  public void loadSearchPrdtList(HttpServletRequest request, Model model) {
+    
+    String column = request.getParameter("column");
+    String searchText = request.getParameter("searchText");
+    
+    Map<String, Object> map = new HashMap<>();
+    map.put("column", column);
+    map.put("searchText", searchText);
+    
+    int total = adminMapper.getSearchPrdtCount(map);
+    
+    
+    Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+    String strPage =  opt.orElse("1");
+    int page = Integer.parseInt(strPage);
+    
+    int display = 5;
+    
+    myPageUtils.setPaging(page, total, display);
+
+    map.put("begin", myPageUtils.getBegin());
+    map.put("end", myPageUtils.getEnd());
+    
+    List<ProductDto> prdtList = adminMapper.getSearchPrdtList(map);
+    
+    model.addAttribute("prdtList", prdtList);
+    model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath()+ "/amdin/searchPrdt.do", "column=" + column + "&searchText=" + searchText));
+    model.addAttribute("beginNo", total - (page - 1) * display);
+    
+  }
   
   // 회원 목록---------------------------------------------------------------
   @Transactional(readOnly = true)

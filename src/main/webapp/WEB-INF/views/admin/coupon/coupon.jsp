@@ -41,6 +41,7 @@
 
   <h1 class="head">쿠폰</h1>
   
+      <div><a href="${contextPath}/admin/cpWrite.form"><button type="button" id="btn_cpWrite" class="btn btn-secondary">쿠폰등록</button></a></div>
 
   <div class="table-responsive">
     <form action="">
@@ -76,7 +77,6 @@
           </tr>
         </tfoot>
       </table>
-      <div><a href="${contextPath}/admin/cpWrite.form"><button type="button" id="btn_cpWrite" class="btn btn-secondary">쿠폰등록</button></a></div>
       
     </form>
   </div>

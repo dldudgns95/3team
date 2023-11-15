@@ -122,6 +122,29 @@
      WHERE PRDT_NUM = #{prdtNum}
   </delete>
   
+  <!-- 제품 검색 -->
+  <select id="getSearchPrdtCount" parameterType="Map" resultType="int">
+    SELECT COUNT(*)
+      FROM PRODUCT
+     WHERE ${column} LIKE '%' || #{searchText} || '%' 
+  </select>
+  
+  <select id="getSearchPrdtList" parameterType="Map" resultType="ProductDto">
+    SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM 
+     FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRDT_NUM DESC) AS RN, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM
+             FROM PRODUCT
+            WHERE 
+            <choose>
+              <when test ="column == 'PRDT_NAME'">
+                PRDT_NAME LIKE '%' || #{searchText} || '%'
+              </when>
+              <when test="column == 'PRDT_NUM'">
+                PRDT_NUM LIKE '%' || #{searchText} || '%'
+              </when>
+            </choose>
+             )
+        WHERE RN BETWEEN #{begin} AND #{end}
+  </select>
   
   
   

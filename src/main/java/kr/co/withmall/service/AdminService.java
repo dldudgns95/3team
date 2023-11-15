@@ -20,8 +20,9 @@ public interface AdminService {
   //이미지 저장...
   public Map<String, Object> imageUpload(MultipartHttpServletRequest multipartRequest);
 
-  // 제품 목록
-  public void loadPrdtList(HttpServletRequest request, Model model);  
+  // 제품 목록, 검색
+  public void loadPrdtList(HttpServletRequest request, Model model); 
+  public void loadSearchPrdtList(HttpServletRequest request, Model model);
   
   //제품 삽입 저장
   public int addPrdt(HttpServletRequest request);

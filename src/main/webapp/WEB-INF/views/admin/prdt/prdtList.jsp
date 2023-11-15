@@ -43,12 +43,15 @@
 <div class="wrap wrap_8">
   
   <div class="search text-center mb-3">
-    <select>
-      <option>제품명</option>
-      <option>번호</option>
-    </select>
-    <input type="text" >
-    <button type="button">검색</button>
+   <form action="${contextPath}/admin/searchPrdt.do" method="get">
+      <select name="column">
+        <option value="PRDT_NAME">제품명</option>
+        <option value="PRDT_NUM">번호</option>
+      </select>
+      <input type="text" name="searchText" placeholder="검색어를 입력하세요." class="mb-3"> 
+      <button type="submit">검색</button>
+     <a href="${contextPath}/admin/prdtList.do"><button type="button" id="btn_memLIst">전체 제품 목록</button></a>
+    </form>
   </div>
 
   

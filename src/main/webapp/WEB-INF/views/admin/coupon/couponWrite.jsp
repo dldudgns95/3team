@@ -10,6 +10,8 @@
   <jsp:param value="관리자페이지" name="title"/>
 </jsp:include>
 <style>
+
+
  
  .head {
  margin: 60px;
@@ -37,6 +39,12 @@
 }
 
 </style>
+<script>
+
+
+</script>
+
+
 
             
   <h1 class="head">쿠폰</h1>
@@ -63,11 +71,11 @@
       </div>
       <div>
         <label for="startAt">시작일</label>
-        <input type="text" name="startAt" class="form-control" placeholder="ex) 2023-12-25">
+        <input type="text" name="startAt" class="form-control" placeholder="ex) 2023-12-25"  pattern="^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$">
       </div>
       <div>
         <label for="endAt">종료일</label>
-        <input type="text" name="endAt" class="form-control" placeholder="ex) 2023-12-25">
+        <input type="text" name="endAt" class="form-control" placeholder="ex) 2023-12-25"  pattern="^\d{4}-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$">
       </div>
       
       <div>
