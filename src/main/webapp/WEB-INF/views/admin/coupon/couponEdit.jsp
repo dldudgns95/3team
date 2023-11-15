@@ -40,7 +40,7 @@
 
 
             
-  <h1 class="head">쿠폰</h1>
+  <h1 class="head">쿠폰 수정</h1>
   
 
   <div class="table-responsive">
@@ -48,30 +48,31 @@
       
       <div>
         <label for="cpName">쿠폰 이름</label>
-        <input type="text" name="cpName" class="form-control" value="${c.cpName}">
+        <input type="text" name="cpName" class="form-control" value="${cp.cpName}">
       </div>
       <div>
         <label for="cpInfo">쿠폰 정보</label>
-        <input type="text" name="cpInfo" class="form-control" value="${c.cpInfo}">
+        <input type="text" name="cpInfo" class="form-control" value="${cp.cpInfo}">
       </div>
       <div>
         <label for="cpPrice">쿠폰 가격</label>
-        <input type="text" name="cpPrice" class="form-control" value="${c.cpPrice}">
+        <input type="text" name="cpPrice" class="form-control" value="${cp.cpPrice}">
       </div>
       <div>
         <label for="cpMin">최소주문가격</label>
-        <input type="text" name="cpMin" class="form-control" ${c.startAt}>
+        <input type="text" name="cpMin" class="form-control"  value="${cp.cpMin}">
       </div>
       <div>
         <label for="startAt">시작일</label>
-        <input type="text" name="startAt" class="form-control" placeholder="ex) 2023-12-25" ${c.startAt}>
+        <input type="text" name="startAt" class="form-control" value="${cp.startAt}">
       </div>
       <div>
         <label for="endAt">종료일</label>
-        <input type="text" name="endAt" class="form-control" placeholder="ex) 2023-12-25" ${c.endAt}>
+        <input type="text" name="endAt" class="form-control" value="${cp.endAt}">
       </div>
       
       <div>
+        <input type="hidden" name="cpNum" value="${cp.cpNum}">
         <a><button type="submit" class="btn btn-secondary">수정완료</button></a>
       </div>
             

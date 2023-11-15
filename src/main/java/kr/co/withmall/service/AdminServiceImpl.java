@@ -172,9 +172,6 @@ public class AdminServiceImpl implements AdminService {
     
     int modifyResult = adminMapper.updatePrdt(prdt);
     
-    System.out.println(modifyResult);
-    
-    
     return modifyResult;
   }
   
@@ -260,6 +257,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public int insertCp(HttpServletRequest request) {
     
+    
     String cpName = request.getParameter("cpName");
     String cpInfo = request.getParameter("cpInfo");
     int cpPrice = Integer.parseInt(request.getParameter("cpPrice"));
@@ -287,6 +285,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public int modifyCp(HttpServletRequest request) {
    
+    int cpNum = Integer.parseInt(request.getParameter("cpNum"));
     String cpName = request.getParameter("cpName");
     String cpInfo = request.getParameter("cpInfo");
     int cpPrice = Integer.parseInt(request.getParameter("cpPrice"));
@@ -295,6 +294,7 @@ public class AdminServiceImpl implements AdminService {
     String endAt = request.getParameter("endAt");
     
     CpDto cp = CpDto.builder()
+                  .cpNum(cpNum)
                   .cpName(cpName)
                   .cpInfo(cpInfo)
                   .cpPrice(cpPrice)
@@ -337,12 +337,12 @@ public class AdminServiceImpl implements AdminService {
       
   }
 
-//  // 쿠폰 정보
-//  @Transactional(readOnly=true)
-//  @Override
-//  public CpDto getCp(int cpNum) {
-//    return adminMapper.getCp(cpNum);
-//  }
+  // 쿠폰 정보
+  @Transactional(readOnly=true)
+  @Override
+  public CpDto getCp(int cpNum) {
+    return adminMapper.getCp(cpNum);
+  }
   
 
  

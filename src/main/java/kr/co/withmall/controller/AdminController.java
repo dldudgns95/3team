@@ -76,8 +76,6 @@ public class AdminController {
   public String modifyPrdt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int modifyResult = adminService.modifyPrdt(request);
     redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
-    System.out.println("modifyPrdt.do - modifyResult: " + modifyResult);
-
     return "redirect:/admin/prdtList.do";
   }
   
@@ -172,24 +170,16 @@ public class AdminController {
   
 
   
-//  // 쿠폰 수정 페이지로 이동
-//  @GetMapping("/edtitCp.form")
-//  public void edtitCp(@RequestParam ("cpNum")  int cpNum, Model model) {
-//    CpDto cp = adminService.getCp(cpNum);
-//    model.addAttribute("cpNum", cpNum);
-//    return "/admin/coupon/couponEdit";
-//  }
+  // 쿠폰 수정 페이지로 이동
+  @GetMapping("/edtitCp.form")
+  public String edtitCp(@RequestParam ("cpNum")  int cpNum, Model model) {
+    CpDto cp = adminService.getCp(cpNum);
+    model.addAttribute("cp", cp);
+    return "/admin/coupon/couponEdit";
+  }
+
   
-//  // 쿠폰 수정 페이지로 이동
-//  @GetMapping("/edtitCp.form")
-//  public String edtitCp(@RequestParam("cpNum") int cpNum, Model model) {
-//    CpDto cp = adminService.getCp(cpNum);
-//    model.addAttribute("cpNum", cpNum);
-//    return "/admin/coupon/couponEdit";
-//  }
-  
-  
-  // 쿠폰 수정
+  // 쿠폰 수정 modifyCp.do
   @PostMapping("/modifyCp.do")
   public String modifyCp(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int modifyCpResult = adminService.modifyCp(request);

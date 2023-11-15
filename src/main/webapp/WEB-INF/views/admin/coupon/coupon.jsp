@@ -65,7 +65,8 @@
             <td>${c.cpMin}</td>
             <td>${c.startAt}</td>
             <td>${c.endAt}</td>
-            <td><a href="${contextPath}/admin/edtitCp.form"><button type="button" class="btn btn-secondary">수정</button></a></td>
+                        
+            <td><a href="${contextPath}/admin/edtitCp.form?cpNum=${c.cpNum}"><button type="button" class="btn btn-secondary">수정</button></a></td>
           </tr>
           </c:forEach>
         </tbody>

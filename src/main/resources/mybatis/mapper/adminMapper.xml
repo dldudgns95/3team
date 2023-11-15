@@ -202,17 +202,17 @@
       )
     </insert>
     
-    <!-- 쿠폰수정 -->
-    <update id="modifyCp" parameterType="CpDto" >
-      UPDATE CP
-         SET CP_NAME = #{cpName}
-           , CP_INFO = #{cpInfo}
-           , CP_PRICE = #{cpPrice}
-           , CP_MIN  = #{cpMin}
-           , START_AT = #{startAt}
-           , END_AT = #{endAt}
-       WHERE CP_NUM = #{cpNum}
-    </update>
+  <!-- 쿠폰수정 -->
+  <update id="modifyCp" parameterType="CpDto" >
+    UPDATE CP
+       SET CP_NAME = #{cpName}
+         , CP_INFO = #{cpInfo}
+         , CP_PRICE = #{cpPrice}
+         , CP_MIN  = #{cpMin}
+         , START_AT = #{startAt}
+         , END_AT = #{endAt}
+     WHERE CP_NUM = #{cpNum}
+  </update>
 
   <!-- 쿠폰목록 -->
     <select id="getCpCount">
