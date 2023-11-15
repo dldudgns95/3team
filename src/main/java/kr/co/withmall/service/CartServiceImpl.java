@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.withmall.dao.CartMapper;
 import kr.co.withmall.dao.ProductMapper;
 import kr.co.withmall.dto.CartDto;
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.ProductImageDto;
 import lombok.RequiredArgsConstructor;
@@ -125,5 +126,25 @@ public class CartServiceImpl implements CartService {
     return cartMapper.modifyCount(cartDto);
   }
   
+  @Override
+  public List<CartDto> getCartCp(int num) { 
+    System.out.println("여기" + cartMapper.getCp(num));  
+    
+    int totalPrice;
+    
+    List<CartDto> cartCp = cartMapper.getCp(num);
+    
+    for (CartDto cartDto : cartCp) {
+      int cpMin = cartDto.getCpMin();
+      
+      if (1>cpMin) {
+        
+      }
+  }
+    
+    return cartCp;
+  }
+  
+
   
 }

@@ -102,6 +102,7 @@ public class CartController {
       
       // cartService.getCartList(num) 메소드를 호출하여 어떤 결과가 나오는지 확인
       List<CartDto> cartInfo = cartService.getCartList(num);
+      List<CartDto> cpInfo = cartService.getCartCp(num);
   
       // 디버깅 정보 로깅
       logger.debug("cartList: {}", cartInfo);

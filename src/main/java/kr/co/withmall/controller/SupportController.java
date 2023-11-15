@@ -7,10 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
 
 import kr.co.withmall.dto.SupportDto;
 import kr.co.withmall.service.SupportService;
@@ -24,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class SupportController {
 
   private final SupportService supportService;
-	
+	// 목록보기
   @GetMapping("/list.do") // 매개변수 컨트롤러가 서비스에게 넘겨줄걸 선언
   public String list(HttpServletRequest request, Model model) {  //HttpServletRequest request 는 form이나 contextpath
     supportService.loadSupportList(request, model); // 서비스에게 자기가 선언한거 주기만 한다
@@ -45,12 +49,46 @@ public class SupportController {
 	 public String write() {
 	   return "support/write";
  }
-	 // 작성 디비로 보내는 코드
-	 /*@PostMapping("/addSupport.do")
-	  public String addSupport(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-	    int addResult = supportService.addSupport(request);
+	 // 자주 묻는 질문 게시판
+	 @GetMapping("/faqList.do")
+	 public String faqList() {
+		 return "support/faq/list";
+	 }
+	 // 문의사항 게시판
+	 @GetMapping("/askList.do")
+	 public String askList() {
+		 return "support/ask/list";
+	 }
+	 
+	 
+	 // 작성 디비로 추가하기
+	 @PostMapping("/add.do") 
+	  public String addSupport(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) throws Exception {
+		int addResult = supportService.addSupport(multipartRequest);
 	    redirectAttributes.addFlashAttribute("addResult", addResult);
-	    return "redirect:/Support/list.do";
+	    return "redirect:/support/list.do";
 	  }
-*/
+	 /*
+	// 편집 하기
+	  @PostMapping("/edit.form")
+	  public String edit(@ModelAttribute("support") supportDto support) {
+	    return "support/edit";
+	  }
+	  // 수정하기
+	  @PostMapping("/modifySupport.do")
+	  public String modifySupport(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	    int modifyResult = supportService.modifySupport(request);
+	    redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
+	    return "redirect:/support/detail.do?annNum=" + request.getParameter("annNum");
+	  }
+	  // 지우기
+	  @PostMapping("/remove.do")
+	  public String remove(@RequestParam(value="annNum", required=false, defaultValue="0") int blogNo
+	                     , RedirectAttributes redirectAttributes) {
+	    int deleteResult = supportService.deleteSupport(annNum);
+	    redirectAttributes.addFlashAttribute("deleteResult", deleteResult);
+	    return "redirect:/support/list.do";    
+	  }
+	  */
+
 }

@@ -1,5 +1,7 @@
 package kr.co.withmall;
 
+import static org.junit.Assert.fail;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -10,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import kr.co.withmall.dao.CartMapper;
 import kr.co.withmall.dto.CartDto;
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -80,8 +83,27 @@ public class CartMapperTest {
     for (ProductDto prdt : list) {
       System.out.println(prdt);
     }
-    
   }
+  
+//getCp 테스트
+@Test
+public void getCpTest() {
+    try {
+        int num = 1;
+        List<CartDto> list = cartMapper.getCp(num);
+
+        if (list != null && !list.isEmpty()) {
+            for (CartDto cartDto : list) {
+                System.out.println(cartDto);
+            }
+        } else {
+            System.out.println("No results found for num: " + num);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        fail("Exception occurred during getCpTest");
+    }
+}
   
   
 

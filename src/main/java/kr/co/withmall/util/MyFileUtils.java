@@ -57,7 +57,9 @@ public class MyFileUtils {
     return System.currentTimeMillis() + "";
   }
   
-  
+  public String getSupportImagePath() {
+    return null;
+  }
   
   
   

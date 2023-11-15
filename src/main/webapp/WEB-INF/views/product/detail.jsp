@@ -46,7 +46,9 @@
       <div>
         총 결제금액: ${product.prdtRealPrice} 원
         <input type="hidden" name="prdtNum" value="${product.prdtNum}">    
-        <i class="fa-regular fa-star"></i>    <!-- 찜하기 된 제품은 색깔있는 별 <i class="fa-solid fa-star"></i> -->
+        <form id="frm_zzim">
+          <button type="button" id="btn_zzim"><i class="fa-regular fa-star"></i></button>
+        </form>
         <button type="button" id="btn_cart" class="btn btn-light">장바구니</button>
         <button type="button" id="btn_order" class="btn btn-primary">구매하기</button>
         </div>  
@@ -64,8 +66,14 @@
   console.log(${couponList});
   // 버튼을 클릭하면 수량 변경(1개 이하는 불가능)
   let quantity = $('.quantity_input').val();
-  $('.plus_btn').on('click', function(){
+  $('.plus_btn').on('click', function(ev){
+    if(quantity >= ${product.prdtStock}){
+    alert('최대 구매수량을 초과했습니다.');
+    ev.preventDefault();
+    return;      
+    } else {
     $('.quantity_input').val(++quantity);
+    }
   });
   $('.minus_btn').on('click', function(){
     if(quantity > 1) {
@@ -82,12 +90,12 @@
   const form = {
       num : '${sessionScope.member.num}',  // 멤버번호
       prdtNum : '${product.prdtNum}',      // 제품번호
-      prdtCount : ''                       // 제품수량
+      prdtQty : ''                       // 제품수량
   }
   
   // 장바구니 추가
   $('#btn_cart').on('click', function(e){
-    form.prdtCount = $('.quantity_input').val();
+    form.prdtQty = $('.quantity_input').val();
     $.ajax({
       type: 'post',
       url: '${contextPath}/cart/add.do',
@@ -109,7 +117,7 @@
       }
     })
   });
-  
+
   // 상세 페이지로 들어갈 때 멤버의 쿠폰리스트 가져오기
    $.ajax({
           type: 'get',
@@ -127,9 +135,49 @@
             })
           } 
         })
+   
+        
+   // 찜하기
+   
+   $('#btn_zzim').on('click', () => {
+     if(!$('#btn_zzim').hasClass('zzimClass')){
+     $.ajax({
+       type: 'post',
+       url: '${contextPath}/product/addZzim.do',
+       contentType: 'application/json',
+       data: JSON.stringify ({
+         num: ${sessionScope.member.num},
+         prdtNum: ${product.prdtNum}         
+       }),
+       dataType: 'json',
+       success: (resData) => {
+         if(resData.addResult === 1){
+           document.getElementById('btn_zzim').innerHTML = '<i class="fa-solid fa-star"></i>';
+           document.getElementById('btn_zzim').attr('disable', 'true');
+         }
+       }
+       
+     })
+     } 
+ })       
+ 
+  const fnCheckZzim = () => {
+  $.ajax({
+       type: 'get',
+       url: '${contextPath}/product/zzimPrdt.do',
+       data: "num=${sessionScope.member.num}&prdtNum=${product.prdtNum}",         
+       dataType: 'json',
+       success: (resData) => {
+         if(resData.lenght !== 0)
+           document.getElementById('btn_zzim').innerHTML = '<i class="fa-solid fa-star"></i>';
+         $('#btn_zzim').attr('disabled', 'disabled');
+       }
+       
+     })
+  }
   
   
-  
+  fnCheckZzim();
   </script>
 
 
