@@ -119,5 +119,11 @@ public class CartServiceImpl implements CartService {
     return productMapper.getProductImage(prdtNum);
   }
   
+  @Override
+  public int modifyCount(CartDto cartDto) throws Exception {
+    // TODO Auto-generated method stub
+    return cartMapper.modifyCount(cartDto);
+  }
+  
   
 }

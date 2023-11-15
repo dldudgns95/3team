@@ -16,9 +16,9 @@ public interface CartMapper {
   /* 카트 추가*/
   public int insertCart(CartDto cartDto) throws DataAccessException;
   /* 카트 삭제 */
-  public void deleteCart(int cartNum) throws DataAccessException;
+  public void deleteCart(int cartNum);
   /* 제품 수량 수정 */
-  public void modiftQty(CartDto cartDto) throws DataAccessException;
+  public int modifyCount(CartDto cartDto) throws DataAccessException;
   /* 카트 확인 */ 
   public int getPrdtCount(CartDto cartDto) throws DataAccessException;
   /* 제품 확인 */

@@ -5,8 +5,8 @@
   height:20px;
 }   
 .image_wrap{
-			width: 100%;
-			height: 100%;
+  width: 100%;
+  height: 100%;
 }
 .cart-table {
   table-layout: fixed;
@@ -51,7 +51,22 @@
   visibility: hidden;
   opacity: 0;
 }
+
+.qty_input {
+  width: 50px;
+}
+.qty_modify_btn {
+  margin-top: 10px;
+  font-size: 13px;
+  background-color: black;
+  color: white;
+}
 .order-area {
   font-size: 25px;
   
+}
+
+.bottom-space {
+  height: 100px;
+  width: 100%;
 }

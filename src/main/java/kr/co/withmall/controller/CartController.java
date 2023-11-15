@@ -11,11 +11,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -79,12 +81,17 @@ public class CartController {
     return result+"";
     }
   
-  
+  @PostMapping(value = "/modify.do", produces = "application/json;charset=UTF-8")
   @ResponseBody
-  @GetMapping(value="/delete.do", produces=MediaType.APPLICATION_JSON_VALUE)
-  public String deleteCart(CartDto cart) throws Exception {
-    cartService.deleteCart(cart.getCartNum());
-    return "redirect:/cart/" + cart.getNum();
+  public ResponseEntity<String> modifyCart(@RequestBody CartDto cartDto) throws Exception {
+      cartService.modifyCount(cartDto);
+      return ResponseEntity.ok("{\"result\": \"Success\"}");
+  }
+  
+  @PostMapping(value="/delete.do")
+  public String deleteCart(CartDto cartDto) throws Exception {
+    cartService.deleteCart(cartDto.getCartNum());
+    return "redirect:/cart/list/num/" + cartDto.getNum();
   }
 
   @GetMapping(value="/list/num/{num}", produces=MediaType.APPLICATION_JSON_VALUE)

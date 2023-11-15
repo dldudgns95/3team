@@ -23,14 +23,14 @@
 <!-- 장바구니 상단 (전체선택, 선택삭제) -->
 <div class="cart cart-top">
 <div>
-  <span class="all-check">
-    <label class="cart_checkbox">
-      <input type="checkbox" class="all_check_input input_size_20" checked="checked"><span class="all_chcek_span">전체선택 </span>
+  <span class="all-check-div">
+    <label class="cart-checkbox">
+      <input type="checkbox" class="all-check input_size_20" checked="checked"><span class="all_chcek_span">전체선택 </span>
     </label>
   </span>
   </div>
   <div>
-    <input class="btn" type="button" value="선택삭제" onclick="location.href='${contextPath}/cart/delete.do'">
+    <input class="btn btn-primary" type="button" value="선택삭제" onclick="location.href='${contextPath}/cart/delete.do'">
   </div>
 </div>
 
@@ -43,7 +43,7 @@
     </div>
 </c:if>    
 <c:if test="${!empty cartInfo}">
-<form id="cart cart-order" action="${contextPath}/order/list.do" method="post">
+
 <table class="cart-table">
   <tbody>
    <c:forEach items="${cartInfo}" var="ci">
@@ -54,6 +54,7 @@
         <input type="hidden" class="individual_prdtRealPrice_input" value="${ci.productDto.prdtRealPrice}">
         <input type="hidden" class="individual_prdtQty_input" value="${ci.prdtQty}">
         <input type="hidden" class="individual_totalPrice_input" value="${ci.productDto.prdtRealPrice * ci.prdtQty}">
+        <input type="hidden" class="individual_prdtNum_input" value="${ci.prdtNum}">
       </td>
       <td class="cart-prdt prdt-image">
         <div class="image_wrap" data-prdtNum="${ci.imageList[0].productDto}" data-path="${ci.imageList[0].imagePath}" data-filename="${ci.imageList[0].filesystemName}">
@@ -65,9 +66,17 @@
         <del>원가가 : <fmt:formatNumber value="${ci.productDto.prdtRealPrice}" pattern="#,### 원" /></del><br>
         판매가 : <span class="red_color"><fmt:formatNumber value="${ci.productDto.prdtRealPrice}" pattern="#,### 원" /></span><br>
       </td>
-      <td class="prdt-qty">제품 수량 ${ci.prdtQty} 개 
-      <button>수정</button>
-      <button>삭제</button>  
+      <td class="prdt-mod">
+        <div class="table_text_align_center quantity_div">
+          <button class="qty_btn minus_btn"><i id="qtyMinus" class="fa-solid fa-square-minus"></i></button>
+          <input type="text" value="${ci.prdtQty}" class="qty_input">  
+          <button class="qty_btn plus_btn"><i id="qtyPlus" class="fa-solid fa-square-plus"></i></button>
+        </div>
+        <a class="btn btn-light qty_modify_btn" data-cartnum="${ci.cartNum}">수정</a>
+      </td>
+      <td class="prdy-del">
+      <button class="btn btn-primary delete_btn" data-cartnum="${ci.cartNum}">삭제</button>
+      <input class="btn btn-primary delete_btn" type="button" data-cartnum="${ci.cartNum}" value="삭제" />
       </td>
       
     </tr>
@@ -75,16 +84,30 @@
   </tbody>
 </table>
 
+<!-- 수량 조정 form -->
+<form action="${contextPath}/cart/modify.do" method="post" class="qty_modify_form">
+  <input type="hidden" name="cartNum" class="modify-cartNum">
+  <input type="hidden" name="prdtQty" class="modify-prdtQty">
+  <input type="hidden" name="num" value="${member.num}">
+</form> 
+<!-- 삭제 form -->
+<form action="${contextPath}/cart/delete.do" method="post" class="qty_delete_form">
+  <input type="hidden" name="cartNum" class="delete_cartNum">
+  <input type="hidden" name="num" value="${member.num}">
+</form>  
+
 
 <!-- 하단 플로팅 바 (총주문액 계산, 주문버튼) -->
 <div class="cart-floating">
   <div class="order-area">
     <span>총주문액 <span class="totalPrice_span"></span> 원 - 쿠폰 <span class="coupon_span"></span> 원 = <span class="finalTotalPrice_span"></span>원 </span>
-    <input type="submit" value="주문하기" class="button">
+    <input type="submit" value="주문하기" class="btn btn-light">
   </div>
 </div>
-</form>
+
 </c:if>
+
+<div class="cart-bottom bottom-space">  </div>
 
 <script>
   /* 체크여부에따른 종합 정보 변화 */
@@ -97,9 +120,9 @@ $(".individual_checkbox").on("change", function(){
 $(".all-check").on("click", function(){
   /* 체크박스 체크/해제 */
   if($(".all-check").prop("checked")){
-    $(".individual_checkbox").attr("checked", true);
+    $(".individual_checkbox").prop("checked", true);
   } else{
-    $(".individual_checkbox").attr("checked", false);
+    $(".individual_checkbox").prop("checked", false);
   }
   
   /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
@@ -114,7 +137,7 @@ $(".all-check").on("click", function(){
     // 여기에 추가적인 작업을 수행하거나 식을 추가할 수 있습니다.
     // 예시: alert("현재 체크된 항목 개수는 " + checkedCount + "개입니다.");
     
-    // 반환하고 싶은 값이 있다면 리턴도 가능합니다.
+    // 반환하고 싶은 값이 있다면 리턴
     // return checkedCount;
     }
   
@@ -156,6 +179,70 @@ function setTotalInfo() {
   $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
 }
 
+  
+/* 수량버튼 */
+$(".plus_btn").on("click", function(){
+  let quantity = $(this).parent("div").find("input").val();
+  $(this).parent("div").find("input").val(++quantity);
+});
+$(".minus_btn").on("click", function(){
+  let quantity = $(this).parent("div").find("input").val();
+  if(quantity > 1){
+    $(this).parent("div").find("input").val(--quantity);    
+  }
+});
+
+
+/* 수량 수정 버튼 */
+$(".qty_modify_btn").on("click", function(){
+  let cartNum = $(this).data("cartnum");
+  let prdtQty = $(this).parent("td").find("input").val();
+
+  if (prdtQty < 1) {
+    alert("수량은 1 이상이어야 합니다.");
+    return;
+  }
+
+
+  $.ajax({
+	  type: "POST",
+	  url: "/withmall/cart/modify.do",
+	  contentType: "application/json;charset=UTF-8",
+	  data: JSON.stringify({
+	    cartNum: cartNum,
+	    prdtQty: prdtQty
+	  }),
+	  success: function(response) {
+	    console.log("수량 수정 성공", response.result);
+	    alert("수량이 변경되었습니다");
+	  },
+	  error: function(error) {
+	    console.error("수량 수정 실패", error);
+	  }
+	});
+});
+
+/* 장바구니 삭제 버튼 */
+$(".delete_btn").on("click", function(e){
+	
+	
+  e.preventDefault();
+  // 현재 클릭된 버튼의 cartNum 값을 가져옴
+  const cartNum = $(this).data("cartnum");
+
+  // 삭제 여부를 사용자에게 확인하는 창 표시
+  var confirmation = window.confirm("정말로 삭제하시겠습니까?");
+
+  if (confirmation) {
+    // 확인을 선택한 경우에만 삭제를 진행
+    $(".delete_cartNum").val(cartNum);
+    $(".qty_delete_form").submit();
+  } else {
+    // 취소한 경우 아무 동작 안함
+    console.log('삭제가 취소되었습니다.');
+  }
+});
+  
 
   // 하단 주문 플로팅바 스크롤바 최하단에서 사라지도록 조정
   const fnFloatHidden = () => {
@@ -179,8 +266,6 @@ function setTotalInfo() {
       }
     });
   };
-  
-
   
   
 $(document).ready(function() {

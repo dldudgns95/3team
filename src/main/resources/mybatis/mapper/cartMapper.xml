@@ -115,13 +115,13 @@
   <!-- 장바구니 삭제 -->
   <delete id="deleteCart" parameterType="int">
       <![CDATA[
-        DELETE FROM CART WHERE CART_NUM=#{CART_NUM}
+        DELETE FROM CART WHERE CART_NUM=#{cartNum}
       ]]>
   </delete>
   
   <!-- 제품 수량 변경 -->
   <update id="modifyCount">
-    UPDATE CART SET PRDT_QTY=#{PRDT_QTY} WHERE CART_NUM =#{CART_NUM}
+    UPDATE CART SET PRDT_QTY=#{prdtQty} WHERE CART_NUM =#{cartNum}
   </update>
 
   
