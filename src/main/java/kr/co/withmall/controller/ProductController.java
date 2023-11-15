@@ -27,18 +27,13 @@ public class ProductController {
   private final ProductService productService;
   
   @GetMapping("/detail.do")
-  public String detail(HttpServletRequest request
+  public String detail(@RequestParam(value="prdtNum") int prdtNum
                       , Model model) {
-    int prdtNum = Integer.parseInt(request.getParameter("prdtNum"));
-    HttpSession session = request.getSession();
-    MemberDto member = (MemberDto)session.getAttribute("member");
-    System.out.println(member);
     ProductDto product = productService.getProduct(prdtNum);
     ProductImageDto productImage = productService.getProductImage(prdtNum); 
     
     model.addAttribute("product", product);
-    model.addAttribute("productImage", productImage);
-    model.addAttribute("couponList", productService.getCouponList(prdtNum));
+    model.addAttribute("productImage", productImage);   
     productService.increseHit(prdtNum);
     return "product/detail";
   }
