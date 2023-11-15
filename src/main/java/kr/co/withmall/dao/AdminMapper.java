@@ -65,10 +65,18 @@ public interface AdminMapper {
   public int getOrderCount();
   public List<OrderDto> getOderList(Map<String, Object> map);
   
+<<<<<<< HEAD
   // 쿠폰 정보 가져오기
   public CpDto getCp(int cpNum);
+=======
+  
+>>>>>>> main
  
   
   //
   public int selectPrdtNum();
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

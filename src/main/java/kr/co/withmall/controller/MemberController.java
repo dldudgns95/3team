@@ -138,4 +138,9 @@ public class MemberController {
 	public String zimlist() {
 		return "member/zimlist";
 	}
+	
+	@PostMapping("/memberout.do")
+	public void memberout(HttpServletRequest request, HttpServletResponse response) {
+		memberService.memberout(request, response);
+	}
 }

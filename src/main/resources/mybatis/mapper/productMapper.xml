@@ -105,5 +105,13 @@
        SET PRDT_HIT = PRDT_HIT + 1
      WHERE PRDT_NUM = #{prdtNum}
   </update>
+  
+  <!-- 상세페이지에서 미사용쿠폰목록 가져오기 -->
+  <select id="getCouponList" parameterType="int" resultType="CpDto">
+    SELECT CI.CP_USE, CI.NUM, CI.CP_NUM, C.CP_NAME, C.CP_INFO, C.CP_PRICE, C.CP_MIN, C.START_AT, C.END_AT
+      FROM CP C INNER JOIN CP_ISSUE CI
+        ON C.CP_NUM = CI.CP_NUM
+     WHERE CI.CP_USE = 1 AND CI.NUM = #{num}
+  </select>
 
 </mapper>
