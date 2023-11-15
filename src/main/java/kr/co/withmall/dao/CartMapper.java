@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.dao.DataAccessException;
 
 import kr.co.withmall.dto.CartDto;
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
 
 @Mapper
@@ -22,7 +23,9 @@ public interface CartMapper {
   /* 카트 확인 */ 
   public int getPrdtCount(CartDto cartDto) throws DataAccessException;
   /* 제품 확인 */
-  public List<ProductDto> getPrdtList(CartDto cartDto) throws DataAccessException; 
+  public List<ProductDto> getPrdtList(CartDto cartDto) throws DataAccessException;
+  /* 쿠폰 확인 */
+  public List<CartDto> getCp(int num); 
   
   
 

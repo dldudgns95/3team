@@ -5,6 +5,24 @@
 
 <mapper namespace="kr.co.withmall.dao.OrderMapper">
 
-
+<resultMap id="OrderMap" type="OrderDto">
+  <id column="ORDER_NUM" property="orderNum"/>
+  <result property="num" column="NUM" />
+  <result property="orderTotalPrice" column="ORDER_TOTAL_PRICE" />
+  <result property="orderStatus" column="ORDER_STATUS" />
+  <result property="orderDate" column="ORDER_DATE" />
+  <result property="orderNotice" column="ORDER_NOTICE" />
+  <result property="receiverName" column="RECEIVER_NAME" />
+  <result property="receiverPhone" column="RECEIVER_PHONE" />
+  <result property="ordererName" column="ORDERER_NAME" />
+  <result property="ordererPhone" column="ORDERER_PHONE" />
+  <result property="deliveryMethod" column="DELIVERY_METHOD" />
+  <result property="payMethod" column="PAY_METHOD" />
+  <result property="cardName" column="CARD_NAME" />
+  <result property="cardPay" column="CARD_PAY" />
+  <association javaType="MemberDto" property="memberDto">
+      <id     column="NUM"        property="num" />
+  </association>
+</resultMap>
 
 </mapper>

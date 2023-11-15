@@ -18,9 +18,14 @@
       <result column="PRDT_REAL_PRICE" property="prdtRealPrice" />
       <result column="PRDT_STOCK" property="prdtStock"/>
     </association>
+    <association javaType="CpDto" property="cpDto">
+        <id column="CP_NUM" property="cpNum" />
+        <result column="CP_PRICE" property="cpPrice" />
+        <result column="CP_MIN" property="cpMin" />
+    </association>
   </resultMap>
   
-  <!-- 제품 목록 (장바구니에 표시할 상품 정보 저장하는 resultMap -->
+  <!-- 제품 목록 (장바구니에 표시할 상품 정보 저장하는 resultMap) -->
   <resultMap id="PrdtMap" type="ProductDto">
     <id column="PRDT_NUM" property="prdtNum" />
     <result column="PRDT_NAME" property="prdtName"/>
@@ -124,5 +129,17 @@
     UPDATE CART SET PRDT_QTY=#{prdtQty} WHERE CART_NUM =#{cartNum}
   </update>
 
+  <!-- 해당 쿠폰 조회 -->
+  <select id="getCp" resultType="CartDto" parameterType="int">
+    <![CDATA[
+      SELECT C.CP_PRICE, C.CP_MIN
+        FROM CP C INNER JOIN CP_ISSUE CI
+          ON C.CP_NUM = CI.CP_NUM INNER JOIN MEMBER M
+          ON M.NUM = CI.NUM
+       WHERE M.NUM=${num}
+       ORDER BY C.CP_NUM
+    ]]>
+</select>
+  
   
 </mapper>

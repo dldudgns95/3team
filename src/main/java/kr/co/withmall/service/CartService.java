@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import kr.co.withmall.dto.CartDto;
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductImageDto;
 
 public interface CartService {
@@ -17,5 +18,6 @@ public interface CartService {
 //  public Map<String,List> cartList(CartDto cartDto) throws Exception; // 카트 정보
   public List<CartDto> getCartList(int num) throws Exception;
   public ProductImageDto getCartImage(int prdtNum);
+  public List<CartDto> getCartCp(int num);
   
 }
