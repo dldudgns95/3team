@@ -16,23 +16,23 @@
 </select>
 
 <insert id="insertMember" parameterType="MemberDto">
-    INSERT INTO MEMBER(
-    NUM,
-    NAME,
-    PW,
-    MOBILE,
-    EMAIL,
-    POSTCODE,
-    JIBUNADDRESS,
-    ROADADDRESS,
-    DETAILADDRESS,
-    GENDER,
-    MDATE,
-    AUTH,
-    STATUS,
-    AGREE,
-    REG_DATE
-   ) VALUES (
+    INSERT INTO MEMBER (
+        NUM,
+        NAME,
+        PW,
+        MOBILE,
+        EMAIL,
+        POSTCODE,
+        JIBUNADDRESS,
+        ROADADDRESS,
+        DETAILADDRESS,
+        GENDER,
+        MDATE,
+        AUTH,
+        STATUS,
+        AGREE,
+        REG_DATE
+    ) VALUES (
         MEMBER_SEQ.NEXTVAL,
         #{name},
         #{pw},
@@ -43,12 +43,12 @@
         #{roadaddress},
         #{detailaddress},
         #{gender},
-        SYSDATE, <!-- 여기 수정: SYSDATE를 콤마로 구분 -->
-        #{auth},
-        #{status},
+        SYSDATE,
+        0,
+        0,
         #{agree},
         SYSDATE
-    );
+    )
 </insert>
     
 <insert id="insertNaverMember" parameterType="MemberDto">
@@ -74,7 +74,24 @@
         SYSDATE
     )
 </insert>
-
+  <insert id="insertLeaveMember" parameterType="MemberDto">
+    INSERT INTO MEMBER_EXP (
+        EMAIL
+      , REG_DATE
+      , EXP_DATE
+    ) VALUES (
+        #{email}
+      , #{regDate}
+      , SYSDATE
+    ) 
+  </insert>
+  
+  <delete id="deleteMember" parameterType="MemberDto">
+    DELETE
+      FROM MEMBER
+     WHERE NUM = #{num}
+  </delete>
+  
   <select id="getLeaveMember" parameterType="Map" resultType="LeaveMemberDto">
     SELECT EMAIL, REG_DATE, EXP_DATE
       FROM MEMBER_EXP
