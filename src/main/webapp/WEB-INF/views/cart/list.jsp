@@ -96,7 +96,6 @@
   <input type="hidden" name="num" value="${member.num}">
 </form>  
 
-
 <!-- 하단 플로팅 바 (총주문액 계산, 주문버튼) -->
 <div class="cart-floating">
   <div class="order-area">
