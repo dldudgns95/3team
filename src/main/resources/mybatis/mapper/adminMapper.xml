@@ -39,6 +39,8 @@
     </association>
   </resultMap>
   
+
+  
   <!-- 제품신규등록 -->
   <insert id="insertProduct" parameterType="ProductDto">
   <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
@@ -82,6 +84,11 @@
 
 
   <!-- 이미지 삭제 -->
+  <select id="getPrdtImageInYesterday" resultType="ProductImageDto">
+    SELECT PRDT_NUM, IMAGE, IMAGE_PATH, FILESYSTEM_NAME
+      FROM PRODUCT_IMAGE
+      WHERE IMAGE_PATH = '/admin/' || TO_CHAR(SYSDATE - 1, 'YYYY/MM/DD')
+  </select>
   
   
   <!-- 제품목록 가져오기 -->
@@ -202,7 +209,7 @@
   <!-- 매출 -->
 
   <!-- 특정 회원 매출 총액 -->
-  
+
   
   <!-- 쿠폰 -->
     <insert id="insertCp" parameterType="CpDto" >
@@ -277,6 +284,19 @@
           WHERE RN BETWEEN #{begin} AND #{end}
     </select> 
   
+  
+  
+  
+  
+  
+  
+  <!-- 제품 별 판매 금액 -->
+  <select id="">
+    SELECT OD.PRDT_NUM, P.PRDT_NAME, P.PRDT_REAL_PRICE, SUM(OD.ORDER_QTY) AS SQ, SUM(OD.ORDER_QTY * P.PRDT_REAL_PRICE) AS TS
+      FROM ORDER_DETAIL OD INNER JOIN PRODUCT P 
+        ON OD.PRDT_NUM = P.PRDT_NUM
+     GROUP BY OD.PRDT_NUM, P.PRDT_NAME, P.PRDT_REAL_PRICE, OD.ORDER_QTY;
+  </select>
   
 
 

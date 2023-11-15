@@ -20,6 +20,9 @@ public interface AdminMapper {
   // 제품 이미지
   public int insertPrdtImage(ProductImageDto prdtImage);
   
+  // 임시 이미지 삭제
+  public List<ProductImageDto> getPrdtImageInYesterday();
+  
   // 제품목록 가져오기
   public int getPrdtCount();  
   public List<ProductDto> getPrdtList(Map<String, Object> map);

@@ -1,11 +1,14 @@
 package kr.co.withmall.service;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.withmall.dao.AdminMapper;
-import kr.co.withmall.dao.MemberMapper;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.OrderDto;
@@ -40,7 +42,6 @@ public class AdminServiceImpl implements AdminService {
   private final AdminMapper adminMapper;
   private final MyFileUtils myFileUtils;
   private final MyPageUtils myPageUtils;
-  private final MemberMapper memberMapper;
   
   // 이미지 저장
   @Override
@@ -101,27 +102,65 @@ public class AdminServiceImpl implements AdminService {
                          .build();
     int addResult = adminMapper.insertProduct(prdt);
     
+    for(String editorImage : getPrdtImageList(prdtInfo)) {
+     ProductImageDto prdtImage = ProductImageDto.builder()
+                                       // prdtNum 시퀀스..
+                                       .imagePath(myFileUtils.getPrdtImagePath())
+                                       .filesystemName(editorImage)
+                                       .build();
+         adminMapper.insertPrdtImage(prdtImage);
+    }
+    
+    return addResult;
+                   
+                         
+  }
+  
+  // 잘못저장된 이미지 지우기
+  @Transactional(readOnly=true)
+  @Override
+  public void prdtImageBatch() {
+    // 1. 어제 작성된 블로그의 이미지 목록 (DB)
+    List<ProductImageDto> prdtImageList = adminMapper.getPrdtImageInYesterday();
+    
+    // 2. List<BlogImageDto> -> List<Path> (Path는 경로+파일명으로 구성)
+    List<Path> prdtImagePathList = prdtImageList.stream()
+                                                .map(prdtImageDto -> new File(prdtImageDto.getImagePath(), prdtImageDto.getFilesystemName()).toPath())
+                                                .collect(Collectors.toList());
+    
+    // 3. 어제 저장된 블로그 이미지 목록 (디렉토리)
+    File dir = new File(myFileUtils.getPrdtImagePathInYesterday());
+    
+    // 4. 삭제할 File 객체들
+    File[] targets = dir.listFiles(file -> !prdtImagePathList.contains(file.toPath()));
+
+    // 5. 삭제
+    if(targets != null && targets.length != 0) {
+      for(File target : targets) {
+        target.delete();
+      }
+    }
+  }  
+  
+  // 이미지 목록 반환
+  @Override
+  public List<String> getPrdtImageList(String prdtInfo) {
+    
+    List<String> editorImageList = new ArrayList<>();
+
     Document document = Jsoup.parse(prdtInfo);
     Elements elements =  document.getElementsByTag("img");
     
     if(elements != null) {
       for(Element element : elements) {
         String src = element.attr("src");
-        String filesystemName = src.substring(src.lastIndexOf("/") + 1); 
-        ProductImageDto prdtImage = ProductImageDto.builder()
-                                      .productDto(ProductDto.builder()
-                                                    //.prdtNum(adminMapper.selectPrdtNum())
-                                                    .build())
-                                      .imagePath(myFileUtils.getPrdtImagePath())
-                                      .filesystemName(filesystemName)
-                                      .build();
-        adminMapper.insertPrdtImage(prdtImage);
+        String filesystemName = src.substring(src.lastIndexOf("/") + 1);
+        editorImageList.add(filesystemName);
       }
     }
     
-    return addResult;
-                         
-                         
+    return editorImageList;
+    
   }
   
   

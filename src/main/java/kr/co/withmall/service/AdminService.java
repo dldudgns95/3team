@@ -1,5 +1,6 @@
 package kr.co.withmall.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +16,11 @@ public interface AdminService {
    //public int addAdmin(HttpServletRequest request);
    //public Map<String, Object> imageUpload(MultipartHttpServletRequest httpServletRequest);
   
-
+ // 이미지 목록 반환
+  public List<String> getPrdtImageList(String prdtInfo);
+  
+  // 어제 저장된 임시 이미지 삭제
+  public void prdtImageBatch();
   
   //이미지 저장...
   public Map<String, Object> imageUpload(MultipartHttpServletRequest multipartRequest);
