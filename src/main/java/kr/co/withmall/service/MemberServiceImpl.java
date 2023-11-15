@@ -9,6 +9,7 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.SecureRandom;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -194,14 +195,14 @@ public class MemberServiceImpl implements MemberService {
 	    
 	    JSONObject obj = new JSONObject(responseBody.toString());
 	    JSONObject response = obj.getJSONObject("response");
-	    MemberDto user = MemberDto.builder()
+	    MemberDto member = MemberDto.builder()
 	                    .email(response.getString("email"))
 	                    .name(response.getString("name"))
 	                    .gender(response.getString("gender"))
 	                    .mobile(response.getString("mobile"))
 	                    .build();
 	    
-	    return user;
+	    return member;
 	    
 	  }
 	  
@@ -282,15 +283,15 @@ public class MemberServiceImpl implements MemberService {
 		    String event = request.getParameter("event");
 		   
 		    MemberDto member = MemberDto.builder()
-		                    .email(email)
+		    				.name(name)
 		                    .pw(pw)
-		                    .name(name)
-		                    .gender(gender)
 		                    .mobile(mobile)
+		                    .email(email)
 		                    .postcode(postcode)
 		                    .roadaddress(roadaddress)
 		                    .jibunaddress(jibunaddress)
 		                    .detailaddress(detailaddress)
+		                    .gender(gender)
 		                    .agree(event.equals("on") ? 1 : 0)
 		                    .build();
 		    
@@ -346,6 +347,53 @@ public class MemberServiceImpl implements MemberService {
 	    return new ResponseEntity<>(Map.of("code", code), HttpStatus.OK);
 	    
 	  }
-	  
+	  @Override
+	  public void memberout(HttpServletRequest request, HttpServletResponse response) {
+		  Optional<String> opt = Optional.ofNullable(request.getParameter("num"));
+		    int num = Integer.parseInt(opt.orElse("0"));
+		    
+		    MemberDto member = memberMapper.getMember(Map.of("num", num));
+		    
+		    if(member == null) {
+		      try {
+		        response.setContentType("text/html; charset=UTF-8");
+		        PrintWriter out = response.getWriter();
+		        out.println("<script>");
+		        out.println("alert('회원 탈퇴를 수행할 수 없습니다.')");
+		        out.println("location.href='" + request.getContextPath() + "/main.do'");
+		        out.println("</script>");
+		        out.flush();
+		        out.close();
+		      } catch (Exception e) {
+		        e.printStackTrace();
+		      }
+		    }
+		    
+		    int insertLeaveMemberResult = memberMapper.insertLeaveMember(member);
+		    int deleteMemberResult = memberMapper.deleteMember(member);
+		    
+		   try {
+		      
+		      response.setContentType("text/html; charset=UTF-8");
+		      PrintWriter out = response.getWriter();
+		      out.println("<script>");
+		      if(insertLeaveMemberResult == 1 && deleteMemberResult == 1) {
+		        HttpSession session = request.getSession();
+		        session.invalidate();
+		        out.println("alert('회원 탈퇴되었습니다. 그 동안 이용해 주셔서 감사합니다.')");
+		        out.println("location.href='" + request.getContextPath() + "/main.do'");
+		      } else {
+		        out.println("alert('회원 탈퇴되지 않았습니다.')");
+		        out.println("history.back()");
+		      }
+		      out.println("</script>");
+		      out.flush();
+		      out.close();
+		      
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		    }
+		    
+	}
 	  
 }
