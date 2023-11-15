@@ -23,6 +23,7 @@
     <typeAlias alias="ProductImageDto"     type="kr.co.withmall.dto.ProductImageDto"/>
     <typeAlias alias="SupportDto"          type="kr.co.withmall.dto.SupportDto"/>
     <typeAlias alias="ZzimDto"             type="kr.co.withmall.dto.ZzimDto"/>
+    <typeAlias alias="OrderDto"             type="kr.co.withmall.dto.OrderDto"/>
   </typeAliases>
 
 </configuration>
