@@ -15,7 +15,7 @@
 	<ul>
 		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
 		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
-		<li><a href="${contextPath}/member/cart.do">장바구니</a></li>
+		<li><a href="${contextPath}/cart/list.do">장바구니</a></li>
 		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
 		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
 		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
@@ -59,11 +59,11 @@
         <label class="form-check-label" for="none">선택안함</label>
       </div>
       <div class="col-sm-3">
-        <input type="radio" name="gender" value="M" id="man" class="form-check-input">
+        <input type="radio" name="gender" value="1" id="man" class="form-check-input">
         <label class="form-check-label" for="man">남자</label>
       </div>
       <div class="col-sm-3">
-        <input type="radio" name="gender" value="F" id="woman" class="form-check-input">
+        <input type="radio" name="gender" value="2" id="woman" class="form-check-input">
         <label class="form-check-label" for="woman">여자</label>
       </div>
     </div>
