@@ -20,6 +20,9 @@
     </div>
   </div>
   
+  <select id="coupon_select">
+    <option>쿠폰을 선택하세요.</option>
+  </select>
   
   <button type="button" class="btn btn-primary" id="openModalBtn">쿠폰 받기</button>
 
@@ -143,6 +146,26 @@
         // 모달 내용 업데이트
         $(".modal-body").html(modalContent);
       }
+      
+      // 모달창이 닫히면 이벤트
+      $('#myModal').on('hidden.bs.modal', () => {
+        $.ajax({
+          method: 'GET',
+          url: '${contextPath}/main/unusedCouponList.do',
+          data: 'num=${sessionScope.member.num}',
+          dataType: 'json',
+          success: (resData) => {
+                                               // 여기에 아이디 입력
+            const select = document.getElementById('coupon_select');
+            // #pets에 select 아이디 입력
+            $('#coupon_select option').remove();
+            $(select).append("<option>쿠폰을 선택하세요.</option>")
+            $.each(resData.productList, (i, c) => {
+              $(select).append("<option value='"+ c.cpNum+"'>" + c.cpName + "</option>")
+            })
+          } 
+        })
+      })
     });
     
   </script>

@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.withmall.dto.SupportDto;
 import kr.co.withmall.service.SupportService;
@@ -32,13 +32,25 @@ public class SupportController {
     }
   
   //상세 보기
- /*@GetMapping("/detail.do")
+ @GetMapping("/detail.do")
  public String detail(@RequestParam(value="annNum", required=false, defaultValue="0") int annNum		 
                     , Model model) {
-    // annNo정보 가져오기 
+    // annNum정보 가져오기 
    SupportDto support = supportService.getSupport(annNum);
    model.addAttribute("support", support);
    return "support/detail";
  }
- */ 
+ // 공지사항 작성하기
+	 @GetMapping("/write.form")
+	 public String write() {
+	   return "support/write";
+ }
+	 // 작성 디비로 보내는 코드
+	 /*@PostMapping("/addSupport.do")
+	  public String addSupport(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+	    int addResult = supportService.addSupport(request);
+	    redirectAttributes.addFlashAttribute("addResult", addResult);
+	    return "redirect:/Support/list.do";
+	  }
+*/
 }

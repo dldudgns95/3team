@@ -40,5 +40,6 @@
       <img src="${contextPath}/resources/images/btnG_축약형.png" width="200px">
     </a>
   </div>
-</body>
-</html>
+
+
+<%@ include file="../layout/footer.jsp" %>

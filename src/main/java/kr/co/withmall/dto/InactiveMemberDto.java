@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Builder
-public class MemberDto {
+public class InactiveMemberDto {
 	private int num;
 	private String name;
 	private String pw;
@@ -28,6 +28,5 @@ public class MemberDto {
 	private int status;
 	private int agree;
 	private Date regDate;
-	private OrderDto orderDto;
-	
+	private Date stopDate;
 }

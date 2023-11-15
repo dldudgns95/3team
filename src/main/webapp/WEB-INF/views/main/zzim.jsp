@@ -10,18 +10,7 @@
 </jsp:include>
 
   <!-- 나중에 바꾸기 -->
-    <div style="text-align: center;"><h1>"${categoryName}"카테고리에 대한 전체 검색</h1></div>
-    <div style="width: 1500px;">
-      <select name="orderBy" id="orderBy">
-        <option value="new">최신순</option>
-        <option value="hit">조회순</option>
-        <!-- 
-        <option value="zzim">찜한순</option>
-        -->
-        <option value="topPrice">높은가격순</option>
-        <option value="lowPrice">낮은가격순</option>
-      </select>    
-    </div>
+  <div><h1>찜한 목록</h1></div>
   
   <div class="main_list">
   <c:forEach items="${productList}" var="product">
@@ -35,18 +24,7 @@
   </c:forEach>
   </div>
   
-  <script>
-    $("select[name=orderBy]").change(function(){
-      location.href='${contextPath}/main/list.do?categoryName=${categoryName}&orderBy=' + $(this).val();
-    });
-    
-    const urlParams = new URL(location.href).searchParams;
-    const orderBy = urlParams.get('orderBy');
-    if(orderBy !== null) {
-      const orderBySelect = document.getElementById('orderBy');
-      orderBySelect.value = orderBy;
-    }
-  </script>
+
   
   
 
