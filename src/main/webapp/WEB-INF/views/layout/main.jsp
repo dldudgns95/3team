@@ -20,16 +20,25 @@
     </div>
   </div>
   
+  <select id="coupon_select">
+    <option>쿠폰을 선택하세요.</option>
+  </select>
   
   <button type="button" class="btn btn-primary" id="openModalBtn">쿠폰 받기</button>
 
   <div class="modal" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
-        <!-- 모달 내용이 들어갈 자리 -->
+        <div class="modal-header">
+          <h5 class="modal-title">쿠폰 목록</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <!-- 모달 내용이 들어갈 자리 -->  
+        </div>
       </div>
     </div>
-  </div>
+  </div>  
   
   <script>
   
@@ -78,7 +87,7 @@
             data: $(ev.target).closest('.frm_add_coupon').serialize(),
             dataType: 'json',
             success: (resData) => {
-              alert('성공!');
+              alert('발급 완료!');
               fnCouponAjax();
             }
           })        
@@ -100,6 +109,7 @@
             modalContent += '  <div>';
             modalContent += '    <div>' + c.cpName + '(~' + date + ')' + '</div>';
             modalContent += '    <div>' + c.cpInfo + '</div>';
+            modalContent += '    <div>최소주문금액: ' + c.cpMin + '원</div>';
             modalContent += '  </div>';
             modalContent += '  <div>';
             modalContent += '    <h2>발급완료</h2>';
@@ -117,6 +127,7 @@
             modalContent += '  <div>';
             modalContent += '    <div>' + c.cpName + '(~' + date + ')' + '</div>';
             modalContent += '    <div>' + c.cpInfo + '</div>';
+            modalContent += '    <div>최소주문금액: ' + c.cpMin + '원</div>';
             modalContent += '  </div>';
             modalContent += '  <div>';
             modalContent += '    <form class="frm_add_coupon">';
@@ -133,8 +144,28 @@
         }
         
         // 모달 내용 업데이트
-        $(".modal-content").html(modalContent);
+        $(".modal-body").html(modalContent);
       }
+      
+      // 모달창이 닫히면 이벤트
+      $('#myModal').on('hidden.bs.modal', () => {
+        $.ajax({
+          method: 'GET',
+          url: '${contextPath}/main/unusedCouponList.do',
+          data: 'num=${sessionScope.member.num}',
+          dataType: 'json',
+          success: (resData) => {
+                                               // 여기에 아이디 입력
+            const select = document.getElementById('coupon_select');
+            // #pets에 select 아이디 입력
+            $('#coupon_select option').remove();
+            $(select).append("<option>쿠폰을 선택하세요.</option>")
+            $.each(resData.productList, (i, c) => {
+              $(select).append("<option value='"+ c.cpNum+"'>" + c.cpName + "</option>")
+            })
+          } 
+        })
+      })
     });
     
   </script>

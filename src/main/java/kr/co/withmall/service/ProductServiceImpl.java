@@ -1,9 +1,14 @@
 package kr.co.withmall.service;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import kr.co.withmall.dao.MainMapper;
 import kr.co.withmall.dao.ProductMapper;
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +20,7 @@ public class ProductServiceImpl implements ProductService {
 
 
   private final ProductMapper productMapper;
+  private final MainMapper mainMapper;
   
   @Transactional(readOnly=true)
   @Override
@@ -31,5 +37,12 @@ public class ProductServiceImpl implements ProductService {
   public int increseHit(int prdtNum) {
     return productMapper.updateHit(prdtNum);
   }
+  
+  @Override
+  public List<CpDto> getCouponList(int num) {
+    System.out.println("couponlist: " + mainMapper.getUnusedCouponList(num));
+    return mainMapper.getUnusedCouponList(num);
+  }
+
 
 }

@@ -19,6 +19,7 @@
     <div class="prdt_image" style="float: left; width: 50%; padding-left:50px;">
       <img src="${productImage.imagePath}/${productImage.filesystemName}">  
     </div>
+    
     <!-- 제품정보 출력 -->
     <div class="prdt_info" style="float: left; width: 50%; height:600px; border-bottom: 1px solid gray;">
       <p class="title_box">Product Info</p>
@@ -26,7 +27,6 @@
       <p>${product.prdtInfo}</p>            
       <p>상품조회수 : ${product.prdtHit} 회</p>            
       <p>판매가 : ${product.prdtRealPrice} 원</p>     
-      <!-- <button type="button" name="btn_coupon" class="btn btn-light">쿠폰받기</button>  -->
       <div class="button_quantity" style="padding-bottom: 10px;">
         수량 : 
         <button type="button" class="minus_btn">-</button>
@@ -34,9 +34,14 @@
         <button type="button" class="plus_btn">+</button>
         현재 재고 : ${product.prdtStock} 개
       </div>
-      <p>쿠폰적용가 : 35900 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
-
+      
+      <!-- 사용 가능한 쿠폰리스트 출력하는 div -->
+      <div id="coupon_list">
+        <select id="member_couponList"></select>
+      </div>
+      <p>쿠폰적용가 : ${product.prdtRealPrice} 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
       <hr>
+      
       <!-- 장바구니,찜하기,구매하기로 이동하는 버튼 -->
       <div>
         총 결제금액: ${product.prdtRealPrice} 원
@@ -49,14 +54,14 @@
     </div>
   </div>
   </div> 
- 
+
     <hr>
     <div>상세보기</div>
     
    </div> 
 
   <script>
-  
+  console.log(${couponList});
   // 버튼을 클릭하면 수량 변경(1개 이하는 불가능)
   let quantity = $('.quantity_input').val();
   $('.plus_btn').on('click', function(){
@@ -104,6 +109,25 @@
       }
     })
   });
+  
+  // 상세 페이지로 들어갈 때 멤버의 쿠폰리스트 가져오기
+   $.ajax({
+          type: 'get',
+          url: '${contextPath}/main/unusedCouponList.do',
+          data: 'num=${sessionScope.member.num}',
+          dataType: 'json',
+          success: (resData) => {
+            const select = document.getElementById('member_couponList');
+            // #pets에 select 아이디 입력
+            $('#coupon_select option').remove();
+            $(select).append("<option>----적용가능쿠폰----.</option>")
+            $.each(resData.productList, (i, c) => {
+              $(select).append("<option value='"+ c.cpNum+"'>" + c.cpName + '  ' +  c.cpInfo + "</option>")
+              
+            })
+          } 
+        })
+  
   
   
   </script>

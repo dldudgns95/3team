@@ -5,18 +5,18 @@
 
 <mapper namespace="kr.co.withmall.dao.MemberMapper">
 
-    <select id="getMember" parameterType="Map" resultType="MemberDto">
-        SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, REG_DATE
-        FROM MEMBER
-        <where>
-            <if test="email != null">AND EMAIL = #{email}</if>
-            <if test="pw != null">AND PW = #{pw}</if>
-            <if test="num != null">AND NUM = #{num}</if>
-        </where>
-    </select>
+<select id="getMember" parameterType="Map" resultType="MemberDto">
+    SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, AGREE, REG_DATE
+    FROM MEMBER
+    <where>
+        <if test="email != null">AND EMAIL = #{email}</if>
+        <if test="pw != null">AND PW = #{pw}</if>
+        <if test="num != null">AND NUM = #{num}</if>
+    </where>
+</select>
 
-    <insert id="insertMember" parameterType="MemberDto">
-        INSERT INTO MEMBER(
+<insert id="insertMember" parameterType="MemberDto">
+    INSERT INTO MEMBER (
         NUM,
         NAME,
         PW,
@@ -26,29 +26,84 @@
         JIBUNADDRESS,
         ROADADDRESS,
         DETAILADDRESS,
-        BIRTH,
         GENDER,
         MDATE,
         AUTH,
         STATUS,
+        AGREE,
         REG_DATE
-        ) VALUES(
-        MEMBER_SEQ.NEXTVAL
-        , #{name}
-        , #{pw}
-        , #{mobile}
-        , #{email}
-        , #{postcode}
-        , #{jibunaddress}
-        , #{roadaddress}
-        , #{detailaddress}
-        , #{birth}
-        , #{gender}
-        , #{mdate}
-        , #{auth}
-        , #{status}
-        , SYSDATE
-        );
-    </insert>
+    ) VALUES (
+        MEMBER_SEQ.NEXTVAL,
+        #{name},
+        #{pw},
+        #{mobile},
+        #{email},
+        #{postcode},
+        #{jibunaddress},
+        #{roadaddress},
+        #{detailaddress},
+        #{gender},
+        SYSDATE,
+        0,
+        0,
+        #{agree},
+        SYSDATE
+    )
+</insert>
+    
+<insert id="insertNaverMember" parameterType="MemberDto">
+    INSERT INTO MEMBER (
+        NUM,
+        NAME,
+        MOBILE,
+        EMAIL,
+        GENDER,
+        MDATE,
+        STATUS,
+        AGREE,
+        REG_DATE
+    ) VALUES (
+        MEMBER_SEQ.NEXTVAL,
+        #{name},
+        #{mobile},
+        #{email},
+        #{gender},
+        SYSDATE,
+        1,
+        #{agree},
+        SYSDATE
+    )
+</insert>
+  <insert id="insertLeaveMember" parameterType="MemberDto">
+    INSERT INTO MEMBER_EXP (
+        EMAIL
+      , REG_DATE
+      , EXP_DATE
+    ) VALUES (
+        #{email}
+      , #{regDate}
+      , SYSDATE
+    ) 
+  </insert>
   
+  <delete id="deleteMember" parameterType="MemberDto">
+    DELETE
+      FROM MEMBER
+     WHERE NUM = #{num}
+  </delete>
+  
+  <select id="getLeaveMember" parameterType="Map" resultType="LeaveMemberDto">
+    SELECT EMAIL, REG_DATE, EXP_DATE
+      FROM MEMBER_EXP
+     WHERE EMAIL = #{email}
+  </select>
+  
+  <select id="getInactiveMember" parameterType="Map" resultType="InactiveMemberDto">
+    SELECT NUM, NAME, PW, MOBILE, EMAIL, POSTCODE, JIBUNADDRESS, ROADADDRESS, DETAILADDRESS, BIRTH, GENDER, MDATE, AUTH, STATUS, AGREE, REG_DATE, STOP_DATE
+      FROM MEMBER_INACTIVE
+    <where>
+      <if test="email != null">EMAIL = #{email}</if>
+      <if test="pw != null">AND PW = #{pw}</if>
+    </where>
+  </select>  
 </mapper>

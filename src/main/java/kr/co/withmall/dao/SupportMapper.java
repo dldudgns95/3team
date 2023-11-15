@@ -17,5 +17,5 @@ public interface SupportMapper {
 	// 공지사항 목록
 	public List<SupportDto> getSupportList(Map<String, Object> map);
 	// 상세보기
-	 //public SupportDto getSupport(annNum);
+	 public SupportDto getSupport(int annNum);
 }

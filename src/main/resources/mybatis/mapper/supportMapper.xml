@@ -17,5 +17,12 @@
      WHERE A.RN BETWEEN #{begin} AND #{end}
   </select>
    
-  
+     <!-- 상세보기 -->
+   
+   <select id="getSupport" parameterType="int" resultType="SupportDto">
+    SELECT ANN_NUM, ANN_TITLE, ANN_CONTENT, ANN_FILE, ANN_DATE
+      FROM BOARD_ANNOUNCE
+     WHERE ANN_NUM = #{annNum}
+  </select>
+   
 </mapper>
