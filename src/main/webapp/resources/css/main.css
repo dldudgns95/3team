@@ -106,3 +106,7 @@
     width: 315px;
     height: 395px;
   }
+  
+  #orderBy {
+    float: right;
+  }

@@ -14,12 +14,15 @@
     <div class="owl-carousel owl-theme">
       <c:forEach items="${productTop10List}" var="top10" begin="0" varStatus="i">
         <div class="item">
-          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}&num=${sessionScope.member.num}"><div class="a-images"><img src="${top10.imagePath}/${top10.filesystemName}"></div><div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div><div><p>${top10.productDto.prdtRealPrice}원</p></div></a>
+          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}"><div class="a-images"><img src="${top10.imagePath}/${top10.filesystemName}"></div><div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div><div><p>${top10.productDto.prdtRealPrice}원</p></div></a>
         </div>
       </c:forEach>
     </div>
   </div>
   
+  <select id="coupon_select">
+    <option>쿠폰을 선택하세요.</option>
+  </select>
   
   <button type="button" class="btn btn-primary" id="openModalBtn">쿠폰 받기</button>
 
@@ -152,7 +155,14 @@
           data: 'num=${sessionScope.member.num}',
           dataType: 'json',
           success: (resData) => {
-            console.log(resData);
+                                               // 여기에 아이디 입력
+            const select = document.getElementById('coupon_select');
+            // #pets에 select 아이디 입력
+            $('#coupon_select option').remove();
+            $(select).append("<option>쿠폰을 선택하세요.</option>")
+            $.each(resData.productList, (i, c) => {
+              $(select).append("<option value='"+ c.cpNum+"'>" + c.cpName + "</option>")
+            })
           } 
         })
       })
@@ -163,7 +173,7 @@
   
   <div class="main_list">
   <c:forEach items="${productList}" var="product">
-    <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}&num=${sessionScope.member.num}">
+    <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
       <div class="main_item">
        <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
        <div>${product.productDto.prdtTitle}</div>
