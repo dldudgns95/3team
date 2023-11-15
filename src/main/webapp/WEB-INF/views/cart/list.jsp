@@ -58,7 +58,7 @@
       </td>
       <td class="cart-prdt prdt-image">
         <div class="image_wrap" data-prdtNum="${ci.imageList[0].productDto}" data-path="${ci.imageList[0].imagePath}" data-filename="${ci.imageList[0].filesystemName}">
-          <img>
+          <img src="${productImage.imagePath}/${productImage.filesystemName}">  
         </div>
       </td>
       <td class="cart-prdt prdt-title">${ci.productDto.prdtTitle}</td>
@@ -97,7 +97,7 @@
 </form>  
 <!-- 주문 form -->
 <form action="${contextPath}/order/{num}" method="get" class="order_form">
-  <input type="hidden" name="orders[0].prdtNum" value="${goodsInfo.bookId}">
+  <input type="hidden" name="orders[0].prdtNum" value="${ci.prdtNum}">
   <input type="hidden" name="orders[0].prdtQty" value="">
 </form>
 
@@ -158,7 +158,11 @@ function setTotalInfo() {
           // 총 가격
           totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
           // 쿠폰
+<<<<<<< Updated upstream
                 
+=======
+    
+>>>>>>> Stashed changes
           // 총 종류
           totalKind += 1;
       }
