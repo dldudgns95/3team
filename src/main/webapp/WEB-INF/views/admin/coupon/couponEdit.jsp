@@ -38,40 +38,41 @@
 
 </style>
 
+
             
   <h1 class="head">쿠폰</h1>
   
 
   <div class="table-responsive">
-    <form action="${contextPath}/admin/addCp.do" method="post">
+    <form action="${contextPath}/admin/modifyCp.do" method="post">
       
       <div>
         <label for="cpName">쿠폰 이름</label>
-        <input type="text" name="cpName" class="form-control">
+        <input type="text" name="cpName" class="form-control" value="${c.cpName}">
       </div>
       <div>
         <label for="cpInfo">쿠폰 정보</label>
-        <input type="text" name="cpInfo" class="form-control">
+        <input type="text" name="cpInfo" class="form-control" value="${c.cpInfo}">
       </div>
       <div>
         <label for="cpPrice">쿠폰 가격</label>
-        <input type="text" name="cpPrice" class="form-control">
+        <input type="text" name="cpPrice" class="form-control" value="${c.cpPrice}">
       </div>
       <div>
         <label for="cpMin">최소주문가격</label>
-        <input type="text" name="cpMin" class="form-control">
+        <input type="text" name="cpMin" class="form-control" ${c.startAt}>
       </div>
       <div>
         <label for="startAt">시작일</label>
-        <input type="text" name="startAt" class="form-control" placeholder="ex) 2023-12-25">
+        <input type="text" name="startAt" class="form-control" placeholder="ex) 2023-12-25" ${c.startAt}>
       </div>
       <div>
         <label for="endAt">종료일</label>
-        <input type="text" name="endAt" class="form-control" placeholder="ex) 2023-12-25">
+        <input type="text" name="endAt" class="form-control" placeholder="ex) 2023-12-25" ${c.endAt}>
       </div>
       
       <div>
-        <a><button type="submit" class="btn btn-secondary">쿠폰 작성 완료</button></a>
+        <a><button type="submit" class="btn btn-secondary">수정완료</button></a>
       </div>
             
     </form>

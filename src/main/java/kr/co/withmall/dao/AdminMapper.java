@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
+import kr.co.withmall.dto.OrderDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
 
@@ -52,11 +53,20 @@ public interface AdminMapper {
   // 쿠폰 삽입
   public int insertCp(CpDto cp);
   
+  // 쿠폰 수정
+  public int modifyCp(CpDto cp);
+  
   // 쿠폰 목록
   public int getCpCount();
   public List<CpDto> getCpList(Map<String, Object> map);
   
 
+  // 주문목록
+  public int getOrderCount();
+  public List<OrderDto> getOderList(Map<String, Object> map);
+  
+  
+ 
   
   //
   public int selectPrdtNum();

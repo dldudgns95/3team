@@ -53,6 +53,7 @@
             <td>최소주문가격</td>
             <td>시작일</td>
             <td>종료일</td>
+            <td>수정</td>
           </tr>
         </thead>
         <tbody>
@@ -64,8 +65,7 @@
             <td>${c.cpMin}</td>
             <td>${c.startAt}</td>
             <td>${c.endAt}</td>
-            
-            
+            <td><a href="${contextPath}/admin/edtitCp.form"><button type="button" class="btn btn-secondary">수정</button></a></td>
           </tr>
           </c:forEach>
         </tbody>
@@ -75,7 +75,7 @@
           </tr>
         </tfoot>
       </table>
-      <div><a href="${contextPath}/admin/cpWrite.form"><button type="button" id="btn_cpWrite">쿠폰등록</button></a></div>
+      <div><a href="${contextPath}/admin/cpWrite.form"><button type="button" id="btn_cpWrite" class="btn btn-secondary">쿠폰등록</button></a></div>
       
     </form>
   </div>

@@ -38,19 +38,30 @@
 
 </style>
 
-
   <h1 class="head">주문관리</h1>
   
-  <div>
-    <table>
-      <thead>
+  <div class="table-responsive">
+    <table border="1" class="table align-middle">
+     <thead>
          <tr>
-          <td>상품번호</td>
-          <td>상품이름</td>
-          <td>판매된금액합계</td>
-          <td>판매된상품갯수</td>
+          <td>주문번호</td>
+          <td>회원번호</td>
+          <td>구매금액</td>
+          <td>결제방법</td>
+          <td>배송방법</td>
         </tr>
       </thead>
+      <tbody>
+        <c:forEach items="${orderList}" var="o">
+        <tr>
+          <td>${o.orderNum}</td>
+          <td>${o.num}</td>
+          <td>${o.orderTotalPrice}</td>
+          <td>${o.payMethod}</td>
+          <td>${o.deliveryMethod}</td>
+         </tr>
+        </c:forEach>
+      </tbody>
       <tbody>
 
       </tbody>

@@ -50,10 +50,16 @@ public interface AdminService {
   // 쿠폰 목록
   public void loadCpList(HttpServletRequest request, Model model);
   
+  // 쿠폰 수정
+  public int modifyCp(HttpServletRequest request);
   
   // 쿠폰 등록
   public int insertCp(HttpServletRequest request);
   
-  //
+  // 주문 목록
+  public void loadOrderList(HttpServletRequest request, Model model);
+  
+  
+  
 
 }

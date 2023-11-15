@@ -74,7 +74,7 @@
       , IMAGE_PATH
       , FILESYSTEM_NAME
     ) VALUES(
-        #{productDto.prdtNum}
+        PRODUCT_SEQ.CURRVAL
       , #{imagePath}
       , #{filesystemName}
     )
@@ -201,6 +201,18 @@
         , TO_DATE(#{endAt},'YYYY-MM-DD')
       )
     </insert>
+    
+    <!-- 쿠폰수정 -->
+    <update id="modifyCp" parameterType="CpDto" >
+      UPDATE CP
+         SET CP_NAME = #{cpName}
+           , CP_INFO = #{cpInfo}
+           , CP_PRICE = #{cpPrice}
+           , CP_MIN  = #{cpMin}
+           , START_AT = #{startAt}
+           , END_AT = #{endAt}
+       WHERE CP_NUM = #{cpNum}
+    </update>
 
   <!-- 쿠폰목록 -->
     <select id="getCpCount">
@@ -215,5 +227,27 @@
        WHERE RN BETWEEN #{begin} AND #{end}
     </select>
     
+    
+  <!-- 쿠폰 정보 가져오기 -->
+
+  
+  
+  
+ 
+    
+    <!-- 주문 목록(보여주기) -->
+    
+    <select id="getOrderCount" resultType="int">
+      SELECT COUNT(*)
+        FROM ORDER_T
+    </select>
+   
+    <select id="getOderList" parameterType="Map" resultType="OrderDto">
+       SELECT ORDER_NUM, NUM, ORDER_TOTAL_PRICE, ORDER_STATUS, ORDER_DATE, ORDER_NOTICE, RECEIVER_NAME, RECEIVER_PHONE, ORDERER_NAME, ORDERER_PHONE, DELIVERY_METHOD, PAY_METHOD, CARD_NAME, CARD_PAY 
+         FROM (SELECT ROW_NUMBER() OVER(ORDER BY ORDER_NUM DESC) AS RN, ORDER_NUM, NUM, ORDER_TOTAL_PRICE, ORDER_STATUS, ORDER_DATE, ORDER_NOTICE, RECEIVER_NAME, RECEIVER_PHONE, ORDERER_NAME, ORDERER_PHONE, DELIVERY_METHOD, PAY_METHOD, CARD_NAME, CARD_PAY 
+                 FROM ORDER_T )
+          WHERE RN BETWEEN #{begin} AND #{end}
+    </select> 
+  
   
 </mapper>

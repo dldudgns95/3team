@@ -24,6 +24,7 @@ import kr.co.withmall.dao.AdminMapper;
 import kr.co.withmall.dao.MemberMapper;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
+import kr.co.withmall.dto.OrderDto;
 import kr.co.withmall.dto.ProductCategoryDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
@@ -282,6 +283,35 @@ public class AdminServiceImpl implements AdminService {
     
   }
   
+  
+  // 쿠폰 수정
+  @Override
+  public int modifyCp(HttpServletRequest request) {
+   
+    String cpName = request.getParameter("cpName");
+    String cpInfo = request.getParameter("cpInfo");
+    int cpPrice = Integer.parseInt(request.getParameter("cpPrice"));
+    int cpMin = Integer.parseInt(request.getParameter("cpMin"));
+    String startAt = request.getParameter("startAt");
+    String endAt = request.getParameter("endAt");
+    
+    CpDto cp = CpDto.builder()
+                  .cpName(cpName)
+                  .cpInfo(cpInfo)
+                  .cpPrice(cpPrice)
+                  .cpMin(cpMin)
+                  .startAt(Date.valueOf(startAt))
+                  .endAt(Date.valueOf(endAt))
+                  .build();
+    
+    int modifyCpResult = adminMapper.modifyCp(cp);
+    
+    return modifyCpResult;
+    
+    
+  }
+  
+  
   // 쿠폰 목록
   @Transactional(readOnly = true)
   @Override
@@ -308,5 +338,32 @@ public class AdminServiceImpl implements AdminService {
       
   }
   
+ 
+  
+  // 주문 목록
+  @Transactional(readOnly = true)
+  @Override
+    public void loadOrderList(HttpServletRequest request, Model model) {
+      Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+      int page = Integer.parseInt(opt.orElse("1"));
+      
+      int display = 5;
+      
+      int total = adminMapper.getOrderCount();
+      
+      myPageUtils.setPaging(page, total, display);
+      
+      Map<String, Object> map = Map.of("begin", myPageUtils.getBegin()
+                                      , "end", myPageUtils.getEnd());
+      
+      List<OrderDto> orderList = adminMapper.getOderList(map);
+
+      model.addAttribute("orderList", orderList);
+      model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath() + "/admin/orderList.do"));
+      model.addAttribute("beginNo", total - (page - 1) * display);
+
+
+      
+  }
 
 }

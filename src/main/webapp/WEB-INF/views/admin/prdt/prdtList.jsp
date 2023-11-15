@@ -92,8 +92,7 @@
             
             
             <td><a href="${contextPath}/admin/prdtEdit.form?prdtNum=${p.prdtNum}"><button type="button" id="btn_edit">수정</button></a></td>
-            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" id="btn_remove">삭제</button></a></td>
-         
+            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" id="btn_remove">삭제</button></a></td>         
          
           </tr>
         </c:forEach>
@@ -111,26 +110,18 @@
 
 
 <script>
+const fnRemove = () => {
+	  $('.frm_remove').submit((ev) => {
+		  if(!confirm('회원을 삭제할까요?')){
+			  ev.preventDefault();
+			  return;
+		  }
+	  })
+}
 
-
-
-
-  var frmBtn = $('#frm_btn');
-  
-
-    
-  const fnRemovePrdt = () => {
-      $('#btn_remove').click(() => {
-        if(confirm('상품을 삭제할까요?')){
-          frmBtn.attr('action', '${contextPath}/admin/remove.do');
-          frmBtn.submit();          
-        }
-      })
-    }
-
-
-  fnRemovePrdt();
+fnRemove();
 
 </script>
+
 
 <%@ include file="../../layout/footer.jsp" %>

@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -117,7 +117,7 @@ public class AdminController {
     return "admin/user/user";
   }
 
-  // 회원 삭제 deleteUser --- 수정
+  // 회원 강제 삭제
   @PostMapping("/useRemove.do")
     public String useRemove(@RequestParam(value = "num") int num, RedirectAttributes redirectAttributes) {
       int removeResult = adminService.deleteUser(num);
@@ -170,8 +170,45 @@ public class AdminController {
     return "redirect:/admin/cpList.do";
   }
   
+//  // 편집
+//  @GetMapping("/prdtEdit.form")
+//  public String edit(@RequestParam("prdtNum") int prdtNum, Model model) {
+//    //System.out.println(prdtNum);
+//    ProductDto prdt = adminService.getPrdt(prdtNum);
+//    model.addAttribute("prdt", prdt);
+//    return "admin/prdt/prdtEdit";
+//  }
+  
+//  // 쿠폰 수정 페이지로 이동
+//  @GetMapping("/edtitCp.form")
+//  public void edtitCp(@RequestParam ("cpNum")  int cpNum, Model model) {
+//    CpDto cp = adminService.getCp(cpNum);
+//    model.addAttribute("cpNum", cpNum);
+//    return "/admin/coupon/couponEdit";
+//  }
+  
+  // 쿠폰 수정 페이지로 이동
+  @GetMapping("/edtitCp.form")
+  public String edtitCp() {
+    return "/admin/coupon/couponEdit";
+  }
 
- 
+  
+  // 쿠폰 수정
+  @PostMapping("/modifyCp.do")
+  public String modifyCp(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+    int modifyCpResult = adminService.modifyCp(request);
+    redirectAttributes.addFlashAttribute("modifyCpResult", modifyCpResult);
+    return "redirect:/admin/cpList.do";
+  }
+  
+
+ // 주문 목록 보여주기
+  @GetMapping("/orderList.do")
+  public String orderList(HttpServletRequest request, Model model) {
+    adminService.loadOrderList(request, model);
+    return "admin/adminOrder/adminOrder";
+  }
 
 
  
