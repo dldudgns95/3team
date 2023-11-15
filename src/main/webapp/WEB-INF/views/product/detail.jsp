@@ -36,7 +36,9 @@
       </div>
       
       <!-- 사용 가능한 쿠폰리스트 출력하는 div -->
-      <div id="coupon_list"></div>
+      <div id="coupon_list">
+        <select id="member_couponList"></select>
+      </div>
       <p>쿠폰적용가 : ${product.prdtRealPrice} 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
       <hr>
       
@@ -111,15 +113,18 @@
   // 상세 페이지로 들어갈 때 멤버의 쿠폰리스트 가져오기
    $.ajax({
           type: 'get',
-          url: '${contextPath}/product/detail.do',
+          url: '${contextPath}/main/unusedCouponList.do',
           data: 'num=${sessionScope.member.num}',
           dataType: 'json',
           success: (resData) => {
-            let str = '';
-            str += '<select id="memberCouponList">';
-            str += '<option value="">---사용가능쿠폰목록---</option>';
-            str += '</select>';
-            $('#coupon_list').append(str);
+            const select = document.getElementById('member_couponList');
+            // #pets에 select 아이디 입력
+            $('#coupon_select option').remove();
+            $(select).append("<option>----적용가능쿠폰----.</option>")
+            $.each(resData.productList, (i, c) => {
+              $(select).append("<option value='"+ c.cpNum+"'>" + c.cpName + '  ' +  c.cpInfo + "</option>")
+              
+            })
           } 
         })
   
