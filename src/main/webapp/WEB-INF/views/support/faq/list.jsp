@@ -5,10 +5,10 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
-<jsp:include page="../layout/header.jsp">
-    <jsp:param value="자주묻는질문" name="title"/>
+<jsp:include page="../../layout/header.jsp">
+    <jsp:param value="자주묻는 질문" name="title"/>
 </jsp:include>
    
-<h1>자주묻는 질문 입니다.</h1>
-    
-<%@ include file="../layout/footer.jsp" %>
+<div>faq</div>
+
+<%@ include file="../../layout/footer.jsp" %>
