@@ -25,4 +25,30 @@
      WHERE ANN_NUM = #{annNum}
   </select>
    
+     <insert id="addSupport" parameterType="SupportDto">
+     <!--keyProperty="annNum"걸 불러다가 쓸수 있음 -->
+    <selectKey order="BEFORE" resultType="int" keyProperty="annNum">
+      SELECT BOARD_ANNOUNCE_SEQ.NEXTVAL
+        FROM DUAL
+    </selectKey>
+    INSERT INTO BOARD_ANNOUNCE (
+        ANN_NUM
+      , ANN_TITLE
+      , ANN_CONTENT
+      , ANN_FILE
+      , ANN_DATE
+    ) VALUES (
+        #{annNum}
+      , #{annTitle}
+      , #{annContent}
+      , #{annFile}
+      , SYSDATE
+    ) 
+  </insert>
+   
+   
+   
+   
+   
+   
 </mapper>
