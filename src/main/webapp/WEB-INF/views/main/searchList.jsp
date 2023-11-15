@@ -6,20 +6,25 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="${categoryName}카테고리화면" name="title"/>
+  <jsp:param value="${query}검색화면" name="title"/>
 </jsp:include>
 
   <!-- 나중에 바꾸기 -->
-    <div style="text-align: center;"><h1>"${categoryName}"카테고리에 대한 전체 검색</h1></div>
-    <div style="width: 1500px;">
-      <select name="orderBy" id="orderBy">
-        <option value="new">최신순</option>
-        <option value="hit">조회순</option>
-        <option value="zzim">찜한순</option>
-        <option value="topPrice">높은가격순</option>
-        <option value="lowPrice">낮은가격순</option>
-      </select>    
-    </div>
+    <div style="text-align: center;"><h1>"${query}"에 대한 검색 결과</h1></div>
+    <c:if test="${empty productList}">
+      <div><h1>${query}에 대한 검색 결과는 없습니다.</h1></div>
+    </c:if>
+    <c:if test="${not empty productList}">
+      <div style="width: 1500px;">
+        <select name="orderBy" id="orderBy">
+          <option value="new">최신순</option>
+          <option value="hit">조회순</option>
+          <option value="zzim">찜한순</option>
+          <option value="topPrice">높은가격순</option>
+          <option value="lowPrice">낮은가격순</option>
+        </select>    
+      </div>
+    </c:if>
   
   <div class="main_list">
   <c:forEach items="${productList}" var="product">
@@ -35,7 +40,7 @@
   
   <script>
     $("select[name=orderBy]").change(function(){
-      location.href='${contextPath}/main/list.do?categoryName=${categoryName}&orderBy=' + $(this).val();
+      location.href='${contextPath}/main/search.do?column=${column}&query=${query}&orderBy=' + $(this).val();
     });
     
     const urlParams = new URL(location.href).searchParams;
@@ -45,6 +50,7 @@
       orderBySelect.value = orderBy;
     }
   </script>
+
   
   
 

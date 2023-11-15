@@ -53,6 +53,14 @@ public class MainController {
     return mainService.getUnusedCouponList(num);
   }
   
+  @GetMapping("/search.do")
+  public String getProductListByQuery(HttpServletRequest request, Model model) {
+    model.addAttribute("column", request.getParameter("column"));
+    model.addAttribute("query", request.getParameter("query"));
+    model.addAttribute("productList", mainService.getProductListByQuery(request));
+    return "main/searchList";
+  }
+  
   
   
   

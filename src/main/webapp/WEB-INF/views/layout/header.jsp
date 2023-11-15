@@ -94,9 +94,24 @@
    const fnSearch = () => {
      $('#frm_search').submit((ev) => {
        const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
+       const checkQuery = /^[a-zA-Z0-9가-힣]{2,}$/;
+       const query = $(ev.target).find('.serach_text').val().trim();
+       if(regExp.test(query)){
+         alert('특수문자는 입력할 수 없습니다. 검색어를 확인해주세요.');
+         ev.preventDefault();
+         return;
+       }
+       if(!checkQuery.test(query)){
+         alert('검색어를 2자이상 입력해주세요.');
+         ev.preventDefault();
+         return;
+       }
+       $(ev.target).find('.serach_text').val(query);
        
      })     
    }
+   
+   fnSearch();
   </script>
 
   <div class="main_wrap">
