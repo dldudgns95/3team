@@ -38,7 +38,7 @@ public class SupportServiceImpl implements SupportService {
   	   Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
   	    int page = Integer.parseInt(opt.orElse("1"));
   	    int total = supportMapper.getSupportCount();
-  	    int display = 10;
+  	    int display = 3;
   	    
   	    myPageUtils.setPaging(page, total, display);
   	    
@@ -90,6 +90,16 @@ public class SupportServiceImpl implements SupportService {
 	    return addResult;
 	    
  	}
-	
+	// 수정하기
+	@Override
+		public int modifySupport(SupportDto support) {			
+		 return supportMapper.updateSupport(support);
+	}
+	//삭제하기
+	@Override
+		public int removeSupport(int annNum) {		
+			return supportMapper.deleteSupport(annNum);
+		}
+		 
 	
 }
