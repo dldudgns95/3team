@@ -1,11 +1,14 @@
 package kr.co.withmall.service;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.withmall.dao.AdminMapper;
-import kr.co.withmall.dao.MemberMapper;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.OrderDto;
@@ -31,7 +33,8 @@ import kr.co.withmall.util.MyFileUtils;
 import kr.co.withmall.util.MyPageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-@Slf4j
+
+
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -40,7 +43,6 @@ public class AdminServiceImpl implements AdminService {
   private final AdminMapper adminMapper;
   private final MyFileUtils myFileUtils;
   private final MyPageUtils myPageUtils;
-  private final MemberMapper memberMapper;
   
   // 이미지 저장
   @Override
@@ -101,27 +103,65 @@ public class AdminServiceImpl implements AdminService {
                          .build();
     int addResult = adminMapper.insertProduct(prdt);
     
+    for(String editorImage : getPrdtImageList(prdtInfo)) {
+     ProductImageDto prdtImage = ProductImageDto.builder()
+                                       // prdtNum 시퀀스..
+                                       .imagePath(myFileUtils.getPrdtImagePath())
+                                       .filesystemName(editorImage)
+                                       .build();
+         adminMapper.insertPrdtImage(prdtImage);
+    }
+    
+    return addResult;
+                   
+                         
+  }
+  
+  // 잘못저장된 이미지 지우기
+  @Transactional(readOnly=true)
+  @Override
+  public void prdtImageBatch() {
+    // 1. 어제 작성된 블로그의 이미지 목록 (DB)
+    List<ProductImageDto> prdtImageList = adminMapper.getPrdtImageInYesterday();
+    
+    // 2. List<BlogImageDto> -> List<Path> (Path는 경로+파일명으로 구성)
+    List<Path> prdtImagePathList = prdtImageList.stream()
+                                                .map(prdtImageDto -> new File(prdtImageDto.getImagePath(), prdtImageDto.getFilesystemName()).toPath())
+                                                .collect(Collectors.toList());
+    
+    // 3. 어제 저장된 블로그 이미지 목록 (디렉토리)
+    File dir = new File(myFileUtils.getPrdtImagePathInYesterday());
+    
+    // 4. 삭제할 File 객체들
+    File[] targets = dir.listFiles(file -> !prdtImagePathList.contains(file.toPath()));
+
+    // 5. 삭제
+    if(targets != null && targets.length != 0) {
+      for(File target : targets) {
+        target.delete();
+      }
+    }
+  }  
+  
+  // 이미지 목록 반환
+  @Override
+  public List<String> getPrdtImageList(String prdtInfo) {
+    
+    List<String> editorImageList = new ArrayList<>();
+
     Document document = Jsoup.parse(prdtInfo);
     Elements elements =  document.getElementsByTag("img");
     
     if(elements != null) {
       for(Element element : elements) {
         String src = element.attr("src");
-        String filesystemName = src.substring(src.lastIndexOf("/") + 1); 
-        ProductImageDto prdtImage = ProductImageDto.builder()
-                                      .productDto(ProductDto.builder()
-                                                    //.prdtNum(adminMapper.selectPrdtNum())
-                                                    .build())
-                                      .imagePath(myFileUtils.getPrdtImagePath())
-                                      .filesystemName(filesystemName)
-                                      .build();
-        adminMapper.insertPrdtImage(prdtImage);
+        String filesystemName = src.substring(src.lastIndexOf("/") + 1);
+        editorImageList.add(filesystemName);
       }
     }
     
-    return addResult;
-                         
-                         
+    return editorImageList;
+    
   }
   
   
@@ -172,9 +212,6 @@ public class AdminServiceImpl implements AdminService {
     
     int modifyResult = adminMapper.updatePrdt(prdt);
     
-    System.out.println(modifyResult);
-    
-    
     return modifyResult;
   }
   
@@ -184,12 +221,61 @@ public class AdminServiceImpl implements AdminService {
     return adminMapper.getPrdt(prdtNum);
   }
   
-  // 제품 삭제
   @Override
   public int deletePrdt(int prdtNum) {
     return adminMapper.deletePrdt(prdtNum);
   }
   
+//  // 제품 삭제
+//  @Override
+//  public int deletePrdt(int prdtNum) {
+//   
+//    List<ProductImageDto> prdtImageList = adminMapper.getPrdtImageList(prdtNum);
+//    for(ProductImageDto prdtImage : prdtImageList) {
+//      File file = new File(prdtImage.getImagePath(), prdtImage.getFilesystemName());
+//      if(file.exists()) {
+//        file.delete();
+//      }
+//    }
+//    
+//    adminMapper.deletePrdtImageList(prdtNum);
+//    
+//    return adminMapper.deletePrdt(prdtNum);
+//  }
+
+  
+  // 제품 검색
+  @Override
+  public void loadSearchPrdtList(HttpServletRequest request, Model model) {
+    
+    String column = request.getParameter("column");
+    String searchText = request.getParameter("searchText");
+    
+    Map<String, Object> map = new HashMap<>();
+    map.put("column", column);
+    map.put("searchText", searchText);
+    
+    int total = adminMapper.getSearchPrdtCount(map);
+    
+    
+    Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+    String strPage =  opt.orElse("1");
+    int page = Integer.parseInt(strPage);
+    
+    int display = 5;
+    
+    myPageUtils.setPaging(page, total, display);
+
+    map.put("begin", myPageUtils.getBegin());
+    map.put("end", myPageUtils.getEnd());
+    
+    List<ProductDto> prdtList = adminMapper.getSearchPrdtList(map);
+    
+    model.addAttribute("prdtList", prdtList);
+    model.addAttribute("paging", myPageUtils.getMvcPaging(request.getContextPath()+ "/amdin/searchPrdt.do", "column=" + column + "&searchText=" + searchText));
+    model.addAttribute("beginNo", total - (page - 1) * display);
+    
+  }
   
   // 회원 목록---------------------------------------------------------------
   @Transactional(readOnly = true)
@@ -260,6 +346,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public int insertCp(HttpServletRequest request) {
     
+    
     String cpName = request.getParameter("cpName");
     String cpInfo = request.getParameter("cpInfo");
     int cpPrice = Integer.parseInt(request.getParameter("cpPrice"));
@@ -287,6 +374,7 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public int modifyCp(HttpServletRequest request) {
    
+    int cpNum = Integer.parseInt(request.getParameter("cpNum"));
     String cpName = request.getParameter("cpName");
     String cpInfo = request.getParameter("cpInfo");
     int cpPrice = Integer.parseInt(request.getParameter("cpPrice"));
@@ -295,6 +383,7 @@ public class AdminServiceImpl implements AdminService {
     String endAt = request.getParameter("endAt");
     
     CpDto cp = CpDto.builder()
+                  .cpNum(cpNum)
                   .cpName(cpName)
                   .cpInfo(cpInfo)
                   .cpPrice(cpPrice)
@@ -337,15 +426,19 @@ public class AdminServiceImpl implements AdminService {
       
   }
 
-//  // 쿠폰 정보
-//  @Transactional(readOnly=true)
-//  @Override
-//  public CpDto getCp(int cpNum) {
-//    return adminMapper.getCp(cpNum);
-//  }
+  // 쿠폰 정보
+  @Transactional(readOnly=true)
+  @Override
+  public CpDto getCp(int cpNum) {
+    return adminMapper.getCp(cpNum);
+  }
   
 
- 
+    // 쿠폰 삭제
+  @Override
+    public int deleteCp(int cpNum) {
+     return adminMapper.deleteCp(cpNum);
+    }
   
   // 주문 목록
   @Transactional(readOnly = true)

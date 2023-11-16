@@ -61,11 +61,12 @@
 
 
   <hr>
-  삭제 알람창 안뜸
+
   로그인 방법 : 0 일반가입, 1 네이버 간편 가입
   회원 등급 : (0 일반,1 정지, 2 탈퇴, 9 관리) 기본설정은 0
   
   <div class="table-responsive">
+   <form class="frm_remove" method="post" action="${contextPath}/admin/useRemove.do" style="display: inline;">
     <table border="1" class="table align-middle">
       <thead>
         <tr>
@@ -92,17 +93,12 @@
             <td>${m.auth}</td>
             <td>
               <!-- 회원삭제버튼 -->
-              <form class="frm_remove" method="post" action="${contextPath}/admin/useRemove.do" style="display: inline;">
-                  <input type="hidden" name="num" value="${m.num}">
-                  <button type="submit">삭제</button>
-              </form>
-            </td>
-          </tr>
-          
+              <input type="hidden" name="num" value="${m.num}">
+              <button type="submit">삭제</button>
+             </td>
+          </tr>          
           <tr class="blind write_tr">
             <td colspan="5">
-
-
 
           </tr>
         </c:forEach>
@@ -113,6 +109,7 @@
         </tr>
       </tfoot>
     </table>
+   </form>
   </div>
 
   <script>

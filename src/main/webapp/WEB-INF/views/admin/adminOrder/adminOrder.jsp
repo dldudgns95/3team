@@ -47,18 +47,20 @@
           <td>주문번호</td>
           <td>회원번호</td>
           <td>구매금액</td>
+          <td>주문날짜</td>
           <td>결제방법</td>
           <td>배송방법</td>
         </tr>
       </thead>
       <tbody>
-        <c:forEach items="${orderList}" var="o">
+        <c:forEach items="${orderList}" var="order">
         <tr>
-          <td>${o.orderNum}</td>
-          <td>${o.num}</td>
-          <td>${o.orderTotalPrice}</td>
-          <td>${o.payMethod}</td>
-          <td>${o.deliveryMethod}</td>
+          <td>${order.orderNum}</td>
+          <td>${order.num}</td>
+          <td>${order.orderTotalPrice}</td>
+          <td>${order.orderDate}</td>
+          <td>${order.payMethod}</td>
+          <td>${order.deleveryMethod}</td>
          </tr>
         </c:forEach>
       </tbody>
