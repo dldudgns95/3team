@@ -90,6 +90,15 @@
 		        			                 }                 });
 		        	         });
 
+// 부트 툴팁
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+
+$( function() {
+    $( document ).tooltip();
+  } );
+  
+
 </script>
 
 
@@ -110,17 +119,19 @@
         <input type="text" name="cpInfo" class="form-control">
       </div>
       <div>
-        <label for="cpPrice">쿠폰 가격</label>
-        <input type="text" name="cpPrice" class="form-control">
+        <label for="cpPrice">쿠폰 가격(숫자만 입력 가능합니다.)</label>
+        <input type="text" name="cpPrice" class="form-control" title="숫자를 입력하세요" oninput="this.value = this.value.replace(/\D/g, '');">
       </div>
       <div>
-        <label for="cpMin">최소주문가격</label>
-        <input type="text" name="cpMin" class="form-control">
+        <label for="cpMin">최소주문가격(숫자만 입력 가능합니다.)</label>
+        <input type="text" name="cpMin" class="form-control" oninput="this.value = this.value.replace(/\D/g,'');">
       </div>
       <div>
         <label for="startAt">시작일</label>
         <input type="text" name="startAt" class="form-control" id="startAt" placeholder="ex) 2023-12-25" >
       </div>
+      
+      
       <div class="endAtCss">
         <label for="endAt">종료일</label>
         <input type="text" name="endAt" class="form-control" id="endAt"  placeholder="ex) 2023-12-25" >
@@ -129,6 +140,7 @@
       <div>
         <a><button type="submit" class="btn btn-secondary">쿠폰 작성 완료</button></a>
       </div>
+      
             
     </form>
   </div>

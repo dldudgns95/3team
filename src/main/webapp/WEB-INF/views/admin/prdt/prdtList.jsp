@@ -83,8 +83,8 @@
       <thead>
         <tr>
           <td>제품번호</td>
-          <td>제품사진</td>
           <td>제품이름</td>
+          <td>제품원가</td>
           <td>제품재고</td>
           <td>수정</td>
           <td>삭제</td>
@@ -96,8 +96,8 @@
           <tr>
           
             <td>${p.prdtNum}</td>
-            <td>${productImageDto.filesystemName}</td>
             <td>${p.prdtName}</td>
+            <td>${p.prdtRealPrice}</td>
             <td>${p.prdtStock}</td>
             
             
@@ -117,7 +117,19 @@
   </div>
 </div>
 
+<script>
+const fnRemove = () => {
+	  $('#btn_remove').click((ev) => {
+		  if(!confirm('게시글을 삭제할까요?')){
+			  ev.preventDefault();
+			  return;
+		  }
+	  })
+}
 
+ fnRemove();
+
+</script>
 
 
 
