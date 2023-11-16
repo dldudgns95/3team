@@ -193,7 +193,15 @@ public class AdminController {
     return "redirect:/admin/cpList.do";
   }
   
+  
+
   // 쿠폰 삭제
+  @PostMapping("/cpRemove.do")
+  public String cpRemove(@RequestParam(value = "cpNum") int cpNum, RedirectAttributes redirectAttributes) {
+    int removeResult = adminService.deleteCp(cpNum);
+    redirectAttributes.addFlashAttribute("removeResult", removeResult);
+    return "redirect:/admin/cpList.do";
+  }
   
 
  // 주문 목록 보여주기
@@ -204,7 +212,7 @@ public class AdminController {
   }
 
 
-
+ // 제품 카테고리 등록
  
   
  

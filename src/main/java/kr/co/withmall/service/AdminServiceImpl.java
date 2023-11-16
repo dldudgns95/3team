@@ -434,11 +434,11 @@ public class AdminServiceImpl implements AdminService {
   }
   
 
-  // 쿠폰 삭제
-@Override
-  public int deleteCp(int cpNum) {
-   return adminMapper.deleteCp(cpNum);
-  }
+    // 쿠폰 삭제
+  @Override
+    public int deleteCp(int cpNum) {
+     return adminMapper.deleteCp(cpNum);
+    }
   
   // 주문 목록
   @Transactional(readOnly = true)

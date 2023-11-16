@@ -44,7 +44,6 @@
       <div><a href="${contextPath}/admin/cpWrite.form"><button type="button" id="btn_cpWrite" class="btn btn-secondary">쿠폰등록</button></a></div>
 
   <div class="table-responsive">
-    <form action="">
       <table border="1" class="table align-middle">
         <thead>
           <tr>
@@ -55,22 +54,29 @@
             <td>시작일</td>
             <td>종료일</td>
             <td>수정</td>
+            <td>삭제</td>
           </tr>
         </thead>
         <tbody>
-          <c:forEach items="${cpList}" var="c">          
-          <tr>
-            <td>${c.cpName}</td>
-            <td>${c.cpInfo}</td>
-            <td>${c.cpPrice}</td>
-            <td>${c.cpMin}</td>
-            <td>${c.startAt}</td>
-            <td>${c.endAt}</td>
-                        
-            <td><a href="${contextPath}/admin/edtitCp.form?cpNum=${c.cpNum}"><button type="button" class="btn btn-secondary">수정</button></a></td>
-          </tr>
+          <c:forEach items="${cpList}" var="c">
+              <form action="${contextPath}/admin/cpRemove.do" method="post">
+                  <tr>
+                      <td>${c.cpName}</td>
+                      <td>${c.cpInfo}</td>
+                      <td>${c.cpPrice}</td>
+                      <td>${c.cpMin}</td>
+                      <td>${c.startAt}</td>
+                      <td>${c.endAt}</td>
+                      <td><a href="${contextPath}/admin/editCp.form?cpNum=${c.cpNum}"><button type="button" class="btn btn-secondary">수정</button></a></td>
+                      <td>
+                          <input type="hidden" name="cpNum" value="${c.cpNum}">
+                          <button type="submit" class="btn btn-secondary">삭제</button>
+                      </td>
+                  </tr>
+              </form>
           </c:forEach>
         </tbody>
+
         <tfoot>
           <tr>
             <td colspan="6">${paging}</td>
@@ -78,7 +84,6 @@
         </tfoot>
       </table>
       
-    </form>
   </div>
   
   

@@ -83,6 +83,8 @@ public interface AdminMapper {
 
  // 쿠폰 삭제
   public int deleteCp(int cpNum);
+  
+  
   //
   public int selectPrdtNum();
 

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="관리자페이지" name="title"/>
@@ -48,7 +52,7 @@
     <a href="userList.do"><i class="fa-solid fa-user icon"></i>회원관리</a>
     <a href="cpList.do"><i class="fa-solid fa-calculator icon"></i>쿠폰등록</a>
     <a href="orderList.do"><i class="fa-solid fa-check-to-slot"></i>주문관리</a>
-    <a href="list.do"><i class="fa-solid fa-headphones"></i>고객센터</a>
+    <a href="${contextPath}/support/list.do"><i class="fa-solid fa-headphones"></i>고객센터</a>
   </div>
   
 
