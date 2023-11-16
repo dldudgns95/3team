@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.withmall.dto.BoardAnswerDto;
 import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.CpIssueDto;
@@ -29,4 +30,7 @@ public interface MainMapper {
   public List<BoardAskDto> getQnaList();
   public BoardAskDto getQnaDetail(int askNum);
   public int addBoardAsk(Map<String, Object> map);
+  public int addBoardAnswer(Map<String, Object> map);
+  public int updateBoardAskState(int askNum);
+  public BoardAnswerDto getQnaAnswer(int askNum);
 }

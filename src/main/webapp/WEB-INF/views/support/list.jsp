@@ -77,10 +77,10 @@
 
         </div>
     </div>
-</div>
 
 
-<!-- 
+
+<script>
   const fnAddResult = () => {
     let addResult = '${addResult}';  // '', '1', '0'
     if(addResult !== ''){
@@ -91,7 +91,10 @@
       }
     }
   }
- 
+  
+  fnAddResult();
+  </script>
+ <!--  
   const fnRemoveResult = () => {
 	    let removeResult = '${removeResult}';  // '', '1', '0'
 	    if(removeResult != ''){
@@ -104,10 +107,10 @@
 	    }  
 	   }
 
-  fnAddResult();
+  
   fnRemoveResult();
   
-</script>
+
 !-->
 
 
