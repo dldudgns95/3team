@@ -28,4 +28,5 @@ public interface MainMapper {
   public int deleteEndCoupon();
   public List<BoardAskDto> getQnaList();
   public BoardAskDto getQnaDetail(int askNum);
+  public int addBoardAsk(Map<String, Object> map);
 }
