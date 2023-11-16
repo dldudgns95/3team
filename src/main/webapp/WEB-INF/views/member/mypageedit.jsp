@@ -17,48 +17,84 @@
     li {
         list-style: none;
     }
-	
-</style>
+    div.parent {
+        padding-left: 50px;
+        display: flex;
+        justify-content: flex-start;
+    }
+    /* 개인정보변경 부분 가운데 정렬 */
+    div.child2 {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    div.child1 {
+        width: 10%;
+    }
+    div.child3 {
+        width: 62%;
+    }
 
+    /* 추가 스타일 */
+    div.content-container form {
+        max-width: 400px; /* 폼의 최대 너비를 조절 */
+        width: 100%;
+    }
+
+    div.content-container h1 {
+        text-align: center;
+    }
+
+    /* 헤더와 푸터 제외한 나머지 페이지 */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
+    /* 푸터 스타일 */
+    footer {
+        background-color: #f8f9fa;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
+<div class="parent">
+<div class="child1"> 
 <h1>내 정보</h1>
 	<ul>
 		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
 		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
 		<li><a href="${contextPath}/cart/list.do">장바구니</a></li>
-		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
+		<li><a href="${contextPath}/main/zzimList.do?num=${sessionScope.member.num}">찜한삼품</a></li>
 		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
 		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
 	</ul>
-<div>
+</div>
+<div class="child2">
+    <h1>개인정보변경</h1>
 
-    
-    <h1 class="text-center">개인정보변경</h1>
+<!-- 사용자 정보 변경 폼 -->
 
+ <form id="frm_mypage" method="post"> 
+ <div style="display: flex; flex-direction: row; margin-top: 10px; justify-content: flex-start;">
+    <div style="margin-right: 10px;">
+        <label for="email">이메일</label>
+        <span>${sessionScope.member.email}</span>
+    </div>
 
-  <form id="frm_modify_pw" method="post" action="${contextPath}/member/modifyPw.do">
-     
     <div>
-      <label for="pw">비밀번호</label>
-      <input type="password" name="pw" id="pw">
-      <span id="msg_pw"></span>
+        <label for="regDate">가입일</label>
+        <span>${sessionScope.member.regDate}</span>
     </div>
-    
-    <div>
-      <label for="pw2">비밀번호 확인</label>
-      <input type="password" id="pw2">
-      <span id="msg_pw2"></span>
-    </div>
-    
-    <div>
-      <input type="hidden" name="num" value="${sessionScope.member.num}">
-      <button class="btn btn-dark" type="submit">비밀번호변경하기</button>
-    </div>
-    
-  </form>
-    <div>이메일 : ${sessionScope.member.email}</div>
-    <div>가입일 : ${sessionScope.member.regDate}</div>
- 
- <form id="frm_mypage" method="post">   
+</div>  
     <div>
       <label for="name">이름</label>
       <input type="text" name="name" id="name" value="${sessionScope.member.name}">
@@ -170,7 +206,29 @@
     </div>
     
   </form>
+<div class="child3">
+<form id="frm_modify_pw" method="post" action="${contextPath}/member/modifyPw.do">
+    <div style="display: flex;  margin-top: 10px;">
+        <div style="margin-right: 10px;">
+            <label for="pw">비밀번호</label>
+            <input type="password" name="pw" id="pw">
+            <span id="msg_pw"></span>
+        </div>
 
+        <div>
+            <label for="pw2">비밀번호 확인</label>
+            <input type="password" id="pw2">
+            <span id="msg_pw2"></span>
+        </div>
+    </div>
+
+    <div>
+        <input type="hidden" name="num" value="${sessionScope.member.num}">
+        <button class="btn btn-dark" type="submit">비밀번호변경하기</button>
+    </div>
+</form>
+</div>
+</div>
 </div>
 
 <%@ include file="../layout/footer.jsp" %>

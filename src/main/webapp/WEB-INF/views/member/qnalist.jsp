@@ -15,19 +15,37 @@
     li {
         list-style: none;
     }
+    
+    div.child1 {
+        width: 10%;
+    }
+    div.parent {
+        padding-left: 50px;
+        display: flex;
+        justify-content: flex-start;
+    }    
+    div.child2 {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        
+    }    
 </style>
+<div class="parent">
+<div class="child1"> 
 <h1>내 정보</h1>
 	<ul>
 		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
 		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
 		<li><a href="${contextPath}/cart/list.do">장바구니</a></li>
-		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
+		<li><a href="${contextPath}/main/zzimList.do?num=${sessionScope.member.num}">찜한삼품</a></li>
 		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
 		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
 	</ul>
-<div>
+</div>
+<div class="child2">
 <h1 class="text-center"> 문의내역</h1>
-
+</div>
 </div>
 
 <%@ include file="../layout/footer.jsp" %>
