@@ -29,9 +29,10 @@
       <table border="1" class="table align-middle">
         <thead>
           <tr>
-            <td>쿠폰 이름</td>
-            <td>쿠폰 정보</td>
-            <td>쿠폰 가격</td>
+            <td>쿠폰번호</td>
+            <td>쿠폰이름</td>
+            <td>쿠폰정보</td>
+            <td>쿠폰가격</td>
             <td>최소주문가격</td>
             <td>시작일</td>
             <td>종료일</td>
@@ -43,6 +44,7 @@
           <c:forEach items="${cpList}" var="c">
               <form action="${contextPath}/admin/cpRemove.do" method="post">
                   <tr>
+                      <td>${c.cpNum}</td>
                       <td>${c.cpName}</td>
                       <td>${c.cpInfo}</td>
                       <td>${c.cpPrice}</td>
@@ -73,8 +75,8 @@
   <script>
   
   const fnRemove = () => {
-	  $('#btb_removeCp').click((ev) => {
-		  if(!confirm('게시글을 삭제할까요?')){
+	  $('#btb_removeCp').submit((ev) => {
+		  if(!confirm('삭제할까요?')){
 			  ev.preventDefault();
 			  return;
 		  }

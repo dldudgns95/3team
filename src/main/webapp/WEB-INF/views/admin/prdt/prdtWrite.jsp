@@ -44,6 +44,7 @@
   <div  class="wrap wrap_9">
   
     <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do">
+     <c:if test="${9 == sessionScope.member.auth}">
       <h1 class="head">제품작성</h1>
       <div class="mb-3">
           <label for="categoryNum">카테고리</label>
@@ -95,7 +96,7 @@
       </a>    
     </div>
     
-    
+    </c:if>
     </form>
   </div>
   

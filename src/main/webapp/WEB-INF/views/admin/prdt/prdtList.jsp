@@ -102,7 +102,7 @@
             
             
             <td><a href="${contextPath}/admin/prdtEdit.form?prdtNum=${p.prdtNum}"><button type="button" id="btn_edit">수정</button></a></td>
-            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" id="btn_remove">삭제</button></a></td>          
+            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" class="btn_remove">삭제</button></a></td>          
          
           </tr>
         </c:forEach>
@@ -118,16 +118,15 @@
 </div>
 
 <script>
-const fnRemove = () => {
-	  $('#btn_remove').click((ev) => {
-		  if(!confirm('게시글을 삭제할까요?')){
-			  ev.preventDefault();
-			  return;
-		  }
-	  })
-}
+  const fnPrdtRemove = () => {
+      $(document).on('click', '.btn_remove', (ev) => {
+        if(!confirm('삭제할까요?')){
+          return;
+        }
 
- fnRemove();
+    }
+    
+  fnPrdtRemove();
 
 </script>
 

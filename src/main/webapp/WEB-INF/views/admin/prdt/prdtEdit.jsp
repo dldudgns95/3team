@@ -39,7 +39,7 @@
 
   
   <div  class="wrap wrap_9">
-  
+  <c:if test="${9 == sessionScope.member.auth}">
     <form id="frm_admin_modify"  method="post" action="${contextPath}/admin/modifyPrdt.do">
     
     <h1 style="text-align: center;">${prdt.prdtName} 상품 편집</h1>
@@ -71,7 +71,7 @@
     
     
     </form>
-  
+   </c:if>
   </div>
   
   

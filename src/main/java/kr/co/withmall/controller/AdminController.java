@@ -177,7 +177,7 @@ public class AdminController {
 
   
   // 쿠폰 수정 페이지로 이동
-  @GetMapping("/edtitCp.form")
+  @GetMapping("/editCp.form")
   public String edtitCp(@RequestParam ("cpNum")  int cpNum, Model model) {
     CpDto cp = adminService.getCp(cpNum);
     model.addAttribute("cp", cp);

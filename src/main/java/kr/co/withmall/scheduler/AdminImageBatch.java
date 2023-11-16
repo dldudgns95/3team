@@ -12,7 +12,7 @@ public class AdminImageBatch {
 
   private final AdminService adminService;
   
-  @Scheduled(cron="0 0 1 1/1 * ?")
+  @Scheduled(cron= "0 0 0 * * ?")
  public void excute() {
     adminService.prdtImageBatch();
   }
