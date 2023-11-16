@@ -33,7 +33,7 @@
 
    	<div class="btn-container text-center">
         <a href="${contextPath}/member/agree.form"><button class="btn btn-dark"> 회원가입</button></a>
- 	 	<a href="${contextPath}"><button class="btn btn-dark">아이디/비밀번호 찾기</button></a>
+ 	 	<a href="${contextPath}/member/findpw.do"><button class="btn btn-dark">비밀번호 찾기</button></a>
   	</div>
     <div class="text-center mt-1">
     	<a href="${naverLoginURL}">

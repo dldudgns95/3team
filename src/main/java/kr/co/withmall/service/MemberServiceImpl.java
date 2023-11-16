@@ -348,9 +348,12 @@ public class MemberServiceImpl implements MemberService {
 	    
 	  }
 	  @Override
-	  public void memberout(HttpServletRequest request, HttpServletResponse response) {
-		  Optional<String> opt = Optional.ofNullable(request.getParameter("num"));
+	  	public void memberout(HttpServletRequest request, HttpServletResponse response) {
+
+		    Optional<String> opt = Optional.ofNullable(request.getParameter("num"));
 		    int num = Integer.parseInt(opt.orElse("0"));
+		  
+		    System.out.println(num);
 		    
 		    MemberDto member = memberMapper.getMember(Map.of("num", num));
 		    
@@ -394,6 +397,116 @@ public class MemberServiceImpl implements MemberService {
 		      e.printStackTrace();
 		    }
 		    
+		  }
+	  
+	  @Override
+	  	public ResponseEntity<Map<String, Object>> modify(HttpServletRequest request) {
+		  
+		    // 요청 파라미터에서 사용자 정보 추출
+		    String name = mySecurityUtils.preventXSS(request.getParameter("name"));
+		    String gender = request.getParameter("gender");
+		    String mobile = request.getParameter("mobile");
+		    String postcode = request.getParameter("postcode");
+		    String roadaddress = request.getParameter("roadaddress");
+		    String jibunaddress = request.getParameter("jibunaddress");
+		    String detailaddress = mySecurityUtils.preventXSS(request.getParameter("detailaddress"));
+		    String event = request.getParameter("event");
+		    int agree = event.equals("on") ? 1 : 0; //이벤트 동의 여부가 on이면 1 아니면 0
+		    int num = Integer.parseInt(request.getParameter("num"));
+		    
+		    MemberDto member = MemberDto.builder()
+		        .name(name)
+		        .gender(gender)
+		        .mobile(mobile)
+		        .postcode(postcode)
+		        .roadaddress(roadaddress)
+		        .jibunaddress(jibunaddress)
+		        .detailaddress(detailaddress)
+		        .agree(agree)
+		        .num(num)
+		        .build();
+		    
+		    //userMapper의 updateUser 사용, 위에 생성한 UserDto로 update 하고 그 결과를 modifyResult에 저장
+		    int modifyResult = memberMapper.updateMember(member);
+		    
+		    //modifyResult가 1이면 정보를 업데이트함
+		    if(modifyResult == 1) {
+		      HttpSession session = request.getSession();
+		      MemberDto sessionMember = (MemberDto)session.getAttribute("member");
+		      sessionMember.setName(name);
+		      sessionMember.setGender(gender);
+		      sessionMember.setMobile(mobile);
+		      sessionMember.setPostcode(postcode);
+		      sessionMember.setRoadaddress(roadaddress);
+		      sessionMember.setJibunaddress(jibunaddress);
+		      sessionMember.setDetailaddress(detailaddress);
+		      sessionMember.setAgree(agree);
+		    }
+		    //modifyResult"와 해당 값을 HttpStatus.OK 상태 코드와 함께 응답합니다. 클라이언트는 이 응답을 받고 "modifyResult" 키를 통해 결과를 확인할 수 있습니다.
+		    return new ResponseEntity<>(Map.of("modifyResult", modifyResult), HttpStatus.OK);
+		    
+	}
+		  @Override
+		public void modifyPw(HttpServletRequest request, HttpServletResponse response) {
+			  String pw = mySecurityUtils.getSHA256(request.getParameter("pw"));
+			    int num = Integer.parseInt(request.getParameter("num"));
+			    
+			    MemberDto  member = MemberDto.builder()
+			                    .pw(pw)
+			                    .num(num)
+			                    .build();
+			    
+			    int modifyPwResult = memberMapper.updateMemberPw(member);
+			    
+			    try {
+			      
+			      response.setContentType("text/html; charset=UTF-8");
+			      PrintWriter out = response.getWriter();
+			      out.println("<script>");
+			      if(modifyPwResult == 1) {
+			        HttpSession session = request.getSession();
+			        MemberDto sessionUser = (MemberDto)session.getAttribute("member");
+			        sessionUser.setPw(pw);
+			        out.println("alert('비밀번호가 수정되었습니다.')");
+			        out.println("location.href='" + request.getContextPath() + "/main.do'");
+			      } else {
+			        out.println("alert('비밀번호가 수정되지 않았습니다.')");
+			        out.println("history.back()");
+			      }
+			      out.println("</script>");
+			      out.flush();
+			      out.close();
+			      
+			    } catch (Exception e) {
+			      e.printStackTrace();
+			    }
+			    
+		}
+		
+		@Transactional(readOnly=true)
+		@Override
+		public ResponseEntity<Map<String, Object>> checkPwEmail(String email) {
+		    
+		  Map<String, Object> map = Map.of("email", email);
+		    
+		  boolean pwEmail = memberMapper.getMember(map) != null;
+		  System.out.println(pwEmail);
+		  return new ResponseEntity<>(Map.of("pwEmail", pwEmail), HttpStatus.OK);
+		    
+		}		  
+
+		@Override
+		public void sendPw(String email){	 
+			  	String newpw = mySecurityUtils.getRandomString(10, true, true);
+
+			    // 메일 전송
+			    myJavaMailUtils.sendJavaMail(email
+			                               , "withmall 임시비밀번호"
+			                               , "<div>withmall 임시비밀번호는 <strong>" + newpw + "</strong>입니다.</div>");  
+			    newpw = mySecurityUtils.getSHA256(newpw);
+			    memberMapper.updatepw(Map.of("email", email,"pw", newpw));
+
+		}
+
 	}
 	  
-}

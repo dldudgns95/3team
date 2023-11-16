@@ -11,7 +11,6 @@ import kr.co.withmall.dto.MemberDto;
 
 public interface MemberService {
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception;
-	public void memberout(HttpServletRequest request, HttpServletResponse response);
 	public MemberDto getMember(String email);
 	public void logout(HttpServletRequest request, HttpServletResponse response);
 	public String getNaverLoginURL(HttpServletRequest request) throws Exception;
@@ -22,5 +21,10 @@ public interface MemberService {
 	public void join(HttpServletRequest request, HttpServletResponse response);
 	public ResponseEntity<Map<String, Object>> checkEmail(String email);
 	public ResponseEntity<Map<String, Object>> sendCode(String email);
+	public void memberout(HttpServletRequest request, HttpServletResponse response);
+	public ResponseEntity<Map<String, Object>> modify(HttpServletRequest request);
+	public void modifyPw(HttpServletRequest request, HttpServletResponse response);
+	public void sendPw(String email);
+	public ResponseEntity<Map<String, Object>> checkPwEmail(String email);
 	
 }
