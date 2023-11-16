@@ -182,7 +182,7 @@ CREATE TABLE BOARD_ASK (
 	ASK_CONTENT VARCHAR2(1000) NOT NULL,     -- 문의글 내용
 	ASK_FILE VARCHAR2(100) NULL,              -- 문의글 파일 첨부
 	ASK_DATE DATE DEFAULT SYSDATE NOT NULL,  -- 문의글 작성 날짜
-    AKS_STATE NUMBER(1) DEFAULT 0 NOT NULL,   -- 문의글 상태
+    ASK_STATE NUMBER(1) DEFAULT 0 NOT NULL,   -- 문의글 상태
 	CONSTRAINT PK_BOARD_ASK PRIMARY KEY (ASK_NUM),
 	CONSTRAINT FK_BOARD_ASK FOREIGN KEY (NUM) REFERENCES MEMBER(NUM) ON DELETE CASCADE
 );
@@ -399,7 +399,11 @@ INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '1000원 할인 쿠폰', '5000원이상 �
 INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '2000원 할인 쿠폰', '10000원이상 구매 시, 2000원 할인해드립니다!', 2000, 10000, SYSDATE, SYSDATE + 14);
 INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '3000원 할인 쿠폰', '15000원이상 구매 시, 3000원 할인해드립니다!', 3000, 15000, SYSDATE, SYSDATE + 14);
 INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '4000원 할인 쿠폰', '20000원이상 구매 시, 4000원 할인해드립니다!', 4000, 20000, SYSDATE, SYSDATE + 14);
-COMMIT;
+INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '8000원 할인 쿠폰', '40000원이상 구매 시, 8000원 할인해드립니다!', 8000, 40000, SYSDATE, SYSDATE + 14);
+INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '10000원 할인 쿠폰', '60000원이상 구매 시, 10000원 할인해드립니다!', 10000, 60000, SYSDATE, SYSDATE + 14);
+INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '11000원 할인 쿠폰', '80000원이상 구매 시, 11000원 할인해드립니다!', 11000, 80000, SYSDATE, SYSDATE + 14);
+INSERT INTO CP VALUES(CP_SEQ.NEXTVAL, '12000원 할인 쿠폰', '100000원이상 구매 시, 12000원 할인해드립니다!', 12000, 100000, SYSDATE, SYSDATE + 14);
+COMMIT; 
 
 -- 쿠폰발급내역 테이블 삽입
 INSERT INTO CP_ISSUE VALUES(1, 1, 1);

@@ -6,7 +6,7 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="메인화면" name="title"/>
+  <jsp:param value="${categoryName}카테고리화면" name="title"/>
 </jsp:include>
 
   <!-- 나중에 바꾸기 -->
@@ -15,24 +15,31 @@
       <select name="orderBy" id="orderBy">
         <option value="new">최신순</option>
         <option value="hit">조회순</option>
-        <!-- 
         <option value="zzim">찜한순</option>
-        -->
         <option value="topPrice">높은가격순</option>
         <option value="lowPrice">낮은가격순</option>
       </select>    
     </div>
   
   <div class="main_list">
-  <c:forEach items="${productList}" var="product">
-    <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
+    <c:forEach items="${productList}" var="product">
       <div class="main_item">
-       <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
-       <div>${product.productDto.prdtTitle}</div>
-       <div><p>${product.productDto.prdtRealPrice}원</p></div>
-     </div>
-   </a>
-  </c:forEach>
+        <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
+          <c:if test="${product.productDto.prdtStock eq 0}">
+            <div class="main_item_image background_image" style="background-image: url(${product.imagePath}/${product.filesystemName});">
+              <img src="${contextPath}/resources/images/soldout.png" class="soldout">
+            </div>
+          </c:if>
+          <c:if test="${product.productDto.prdtStock ne 0}">
+            <div class="main_item_image">
+              <img src="${product.imagePath}/${product.filesystemName}">
+            </div>
+          </c:if>
+          <div>${product.productDto.prdtTitle}</div>
+          <div><p>${product.productDto.prdtRealPrice}원</p></div>
+        </a>
+      </div>
+    </c:forEach>
   </div>
   
   <script>

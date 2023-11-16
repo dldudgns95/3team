@@ -104,6 +104,32 @@
     </association>
   </resultMap>
   
+  <resultMap type="BoardAskDto" id="BoardAskMap">
+    <id column="ASK_NUM" property="askNum" />
+    <result column="ASK_TITLE" property="askTitle" />
+    <result column="ASK_CONTENT" property="askContent" />
+    <result column="ASK_FILE" property="askFile" />
+    <result column="ASK_DATE" property="askDate" />
+    <result column="ASK_STATE" property="askState" />
+    <association javaType="MemberDto" property="memberDto">
+      <id     column="NUM"           property="num" />
+      <result column="NAME"          property="name" />
+      <result column="PW"            property="pw" />
+      <result column="MOBILE"        property="mobile" />
+      <result column="EMAIL"         property="email" />
+      <result column="POSTCODE"      property="postcode" />
+      <result column="JIBUNADDRESS"  property="jibunaddress" />
+      <result column="ROADADDRESS"   property="roadaddress" />
+      <result column="DETAILADDRESS" property="detailaddress" />
+      <result column="BIRTH"         property="birth" />
+      <result column="GENDER"        property="gender" />
+      <result column="MDATE"         property="mdate" />
+      <result column="AUTH"          property="auth" />
+      <result column="STATUS"        property="status" />
+      <result column="REG_DATE"      property="regDate" />
+    </association>
+  </resultMap>
+
   <select id="getProductList" resultMap="ProductMap">
     SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
       FROM PRODUCT P INNER JOIN PRODUCT_CATEGORY C
@@ -145,6 +171,59 @@
 	    </choose>
 	  </if>
 	</select>
+	
+	<select id="getZzimestProductTotalListByCategory" parameterType="Map" resultMap="ProductImageMap">
+	  SELECT IMAGE_PATH, FILESYSTEM_NAME, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM, CATEGORY_NAME  
+		  FROM (SELECT PI.IMAGE_PATH, PI.FILESYSTEM_NAME, P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, C.CATEGORY_NUM, C.CATEGORY_NAME, COUNT(Z.ZZIM_NUM) AS ZZIM_COUNT
+		          FROM PRODUCT_IMAGE PI INNER JOIN PRODUCT P 
+		            ON PI.PRDT_NUM = P.PRDT_NUM INNER JOIN PRODUCT_CATEGORY C 
+		            ON P.CATEGORY_NUM = C.CATEGORY_NUM LEFT OUTER JOIN ZZIM Z
+		            ON P.PRDT_NUM = Z.PRDT_NUM
+		         WHERE CATEGORY_NAME = #{categoryName}
+		         GROUP BY PI.IMAGE_PATH, PI.FILESYSTEM_NAME, P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, C.CATEGORY_NUM, C.CATEGORY_NAME
+		         ORDER BY ZZIM_COUNT DESC)
+	</select>
+	
+	<select id="getProductListByQuery" parameterType="Map" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, P.PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
+      FROM PRODUCT_IMAGE I, PRODUCT P, PRODUCT_CATEGORY C
+     WHERE I.PRDT_NUM = P.PRDT_NUM
+       AND P.CATEGORY_NUM = C.CATEGORY_NUM
+       AND ${column} LIKE '%' || #{query} || '%'
+       <if test="orderBy != null">
+       ORDER BY
+      <choose>
+        <!-- 최신순 -->
+        <when test="orderBy == 'new'">
+          P.PRDT_NUM DESC
+        </when>
+        <!-- 조회순 -->
+        <when test="orderBy == 'hit'">
+          P.PRDT_HIT DESC
+        </when>
+        <!-- 높은가격순 -->
+        <when test="orderBy == 'topPrice'">
+          P.PRDT_REAL_PRICE DESC
+        </when>
+        <!-- 낮은가격순 -->
+        <when test="orderBy == 'lowPrice'">
+          P.PRDT_REAL_PRICE ASC
+        </when>
+      </choose>
+    </if>
+  </select>
+  
+  <select id="getZzimestProductListByQuery" parameterType="Map" resultMap="ProductImageMap">
+    SELECT IMAGE_PATH, FILESYSTEM_NAME, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM, CATEGORY_NAME  
+      FROM (SELECT PI.IMAGE_PATH, PI.FILESYSTEM_NAME, P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, C.CATEGORY_NUM, C.CATEGORY_NAME, COUNT(Z.ZZIM_NUM) AS ZZIM_COUNT
+              FROM PRODUCT_IMAGE PI INNER JOIN PRODUCT P 
+                ON PI.PRDT_NUM = P.PRDT_NUM INNER JOIN PRODUCT_CATEGORY C 
+                ON P.CATEGORY_NUM = C.CATEGORY_NUM LEFT OUTER JOIN ZZIM Z
+                ON P.PRDT_NUM = Z.PRDT_NUM
+             WHERE ${column} LIKE '%' || #{query} || '%'
+             GROUP BY PI.IMAGE_PATH, PI.FILESYSTEM_NAME, P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT, C.CATEGORY_NUM, C.CATEGORY_NAME
+             ORDER BY ZZIM_COUNT DESC)
+  </select>
   
   <select id="getProductHitTop10List" resultMap="ProductImageMap">
     SELECT IMAGE_PATH, FILESYSTEM_NAME, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM, CATEGORY_NAME
@@ -189,12 +268,14 @@
     )
   </insert>
   
-  <!-- 사용하지않은 제품 사용 -->
+  <!-- 사용하지않은 쿠폰 리스트 -->
   <select id="getUnusedCouponList" parameterType="int" resultType="CpDto">
     SELECT CI.CP_NUM, C.CP_NAME, C.CP_INFO, C.CP_PRICE, C.CP_MIN, C.START_AT, C.END_AT
 		  FROM CP C INNER JOIN CP_ISSUE CI
 		    ON C.CP_NUM = CI.CP_NUM
-		 WHERE CI.CP_USE = 1 AND CI.NUM = #{num}
+		 WHERE CI.CP_USE = 1 
+		   AND CI.NUM = #{num}
+		 ORDER BY CP_NUM
   </select>
   
   <!-- 찜한 제품 가져오기 -->
@@ -206,6 +287,29 @@
 		   AND P.PRDT_NUM IN (SELECT PRDT_NUM
 		                        FROM ZZIM
 		                       WHERE NUM = #{num})
+  </select>
+  
+  <!-- 사용기간이 지난 쿠폰 삭제 -->
+  <delete id="deleteEndCoupon">
+    DELETE
+		  FROM CP
+		 WHERE END_AT &lt; SYSDATE
+  </delete>
+  
+  <!-- 1:1문의 리스트 -->
+  <select id="getQnaList" resultMap="BoardAskMap">
+    SELECT ASK_NUM, ASK_TITLE, ASK_CONTENT, ASK_FILE, ASK_DATE, ASK_STATE, M.NUM, M.NAME
+      FROM BOARD_ASK A INNER JOIN MEMBER M
+        ON A.NUM = M.NUM
+     ORDER BY ASK_NUM DESC
+  </select>
+  
+  <!-- 1:1 문의 상세보기 -->
+  <select id="getQnaDetail" parameterType="int" resultMap="BoardAskMap">
+    SELECT ASK_NUM, ASK_TITLE, ASK_CONTENT, ASK_FILE, ASK_DATE, ASK_STATE, M.NUM, M.NAME
+      FROM BOARD_ASK A INNER JOIN MEMBER M
+        ON A.NUM = M.NUM
+     WHERE ASK_NUM = #{askNum}
   </select>
   
 </mapper>

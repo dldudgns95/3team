@@ -24,6 +24,12 @@ public class CartDto {
   private int prdtRealPrice;                // 제품원가
   private int prdtStock;                    // 제품재고
   
+  
+  // coupon 
+  private CpDto cpDto;
+  private int cpPrice;
+  private int cpMin;
+  
   // image
   private List<ProductImageDto> imageList;
   

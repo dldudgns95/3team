@@ -5,14 +5,10 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>고객센터</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header_style.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/eesamsaoh.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer_style.css">
+<jsp:include page="../layout/header.jsp">
+    <jsp:param value="공지사항" name="title"/>
+</jsp:include>
+   
 
     <style>
         .notice-section {
@@ -22,36 +18,31 @@
 
         .table thead th {
             font-weight: bold;
-        }
+       }
+       
+       .wrap_8 {
+         display: flex;
+       }
+       
+       .table-responsive table {
+         margin-left: 200px;
+       	 width: 800px;
+       }
     </style>
-</head>
-<body>
 
-<jsp:include page="../layout/header.jsp">
-    <jsp:param value="공지사항" name="title"/>
-</jsp:include>
 
-<div class="whole">
-    <div class="container">
-        <div class="left-div">
-            <div class="page-name">고객센터</div>
-            <ul class="menu-box">
-                <li><a class="detail-menu" href="list.do">공지사항<img></a></li>
-                <li><a class="detail-menu" href="${pageContext.request.contextPath}/faq/faq.do">자주하는 질문<img></a></li>
-                <li><a class="detail-menu" href="${pageContext.request.contextPath}/ask/ask.do">1:1 문의<img></a></li>
-            </ul>
-        </div>
+	
         <div class="right-div">
 
             <div class="wrap wrap_8">
-                <div class="table-responsive">
+            <div><jsp:include page="../supportMenu/menu.jsp" ></jsp:include></div>
+              <div class="table-responsive">
                     <table class="table align-middle table-hover">
                         <thead>
                             <tr>
                                 <th>번호</th>
                                 <th>제목</th>
                                 <th>내용</th>
-                                <th>첨부파일</th>
                                 <th>등록일</th>
                             </tr>
                         </thead>
@@ -62,7 +53,6 @@
                                     <!-- 제목에 상세보기 요청 -->
                                     <td><a href="${contextPath}/support/detail.do?annNum=${s.annNum}">${s.annTitle}</a></td>
                                     <td>${s.annContent}</td>
-                                    <td>${s.annFile}</td>
                                     <td>${s.annDate}</td>
                                 </tr>
                             </c:forEach>
@@ -75,12 +65,15 @@
                     </table>
                 </div>
 
+            </div>
                 <div class="text-right mb-3">
+                <!-- auth9(관리자)만 새글작성 보이게 -->
+                <c:if test="${sessionScope.member.auth == 9}">  
                     <a href="${contextPath}/support/write.form">
                         <button type="button" class="btn btn-dark">새글작성</button>
                     </a>
+                  </c:if>   
                 </div>
-            </div>
 
         </div>
     </div>
@@ -100,16 +93,16 @@
   }
  
   const fnRemoveResult = () => {
-    let removeResult = '${removeResult}';  // '', '1', '0'
-    if(removeResult !== ''){
-      if(removeResult === '1'){
-        alert('공지사항이 삭제되었습니다.');
-        $('#upload_list').empty();
-      } else {
-        alert('공지사항 삭제가 실패했습니다.');
-      }
-    }
-  }
+	    let removeResult = '${removeResult}';  // '', '1', '0'
+	    if(removeResult != ''){
+	      if(removeResult === '1'){
+	     alert('게시글이 삭제되었습니다.');
+	         $('#upload_list').empty();
+	      } else {
+	     alert('게시글 삭제가 실패하였습니다.');
+	      }
+	    }  
+	   }
 
   fnAddResult();
   fnRemoveResult();
@@ -117,6 +110,5 @@
 </script>
 !-->
 
-</body>
-</html>
+
 <%@ include file="../layout/footer.jsp" %>

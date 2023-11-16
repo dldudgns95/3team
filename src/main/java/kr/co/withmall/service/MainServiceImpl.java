@@ -6,8 +6,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import kr.co.withmall.dao.MainMapper;
+import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.CpIssueDto;
 import kr.co.withmall.dto.MemberDto;
@@ -35,7 +37,33 @@ public class MainServiceImpl implements MainService {
   public List<ProductImageDto> getProductTotalListByCategory(HttpServletRequest request) {
     String orderBy = (request.getParameter("orderBy") == null) ? "new" : request.getParameter("orderBy");
     Map<String, Object> map = Map.of("categoryName", request.getParameter("categoryName"), "orderBy", orderBy);
-    return mainMapper.getProductTotalListByCategory(map);
+    List<ProductImageDto> list;
+    if(orderBy.equals("zzim")) { // 정렬기준이 찜이면
+      list = mainMapper.getZzimestProductTotalListByCategory(map);
+    } else { // 찜이 아니면 
+      list = mainMapper.getProductTotalListByCategory(map);
+    }
+    return list;
+  }
+  
+  @Override
+  public void getProductListByQuery(HttpServletRequest request, Model model) {
+    String column = request.getParameter("column");
+    String query = request.getParameter("query");
+    String orderBy = (request.getParameter("orderBy") == null) ? "new" : request.getParameter("orderBy");
+    Map<String, Object> map = Map.of("column", column, "query", query, "orderBy", orderBy);
+    List<ProductImageDto> list;
+    if(orderBy.equals("zzim")) { // 정렬기준이 찜이면
+      list = mainMapper.getZzimestProductListByQuery(map);
+    } else { // 찜이 아니면 
+      list = mainMapper.getProductListByQuery(map);
+    }
+    if(!list.isEmpty()) {
+      model.addAttribute("productList", list);
+    } else {
+      list = mainMapper.getProductHitTop10List();
+      model.addAttribute("productTop10List", list);
+    }
   }
   
   @Override
@@ -72,6 +100,17 @@ public class MainServiceImpl implements MainService {
   public Map<String, Object> getUnusedCouponList(int num) {
     List<CpDto> productList = mainMapper.getUnusedCouponList(num);
     return Map.of("productList", productList);
+  }
+  
+  @Override
+  public List<BoardAskDto> getQnaList() {
+    System.out.println("qnaList: " + mainMapper.getQnaList());
+    return mainMapper.getQnaList();
+  }
+  
+  @Override
+  public BoardAskDto getQnaDetail(int askNum) {
+    return mainMapper.getQnaDetail(askNum);
   }
   
 }

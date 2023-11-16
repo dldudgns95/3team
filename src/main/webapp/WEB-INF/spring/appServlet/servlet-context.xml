@@ -30,6 +30,7 @@
         <mapping path="/main/zzimList.do"/>
         <mapping path="/cart/list/num/*"/>
         <mapping path="/member/mypage.do"/>
+        <mapping path="/admin/admin.do"/>
         <beans:bean class="kr.co.withmall.intercept.RequiredLoginInterceptor" />
       </interceptor>
       <interceptor>

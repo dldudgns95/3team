@@ -25,7 +25,7 @@
 <div>
   <span class="all-check-div">
     <label class="cart-checkbox">
-      <input type="checkbox" class="all-check input_size_20" checked="checked"><span class="all_chcek_span">전체선택 </span>
+      <input type="checkbox" class="all-check input_size_20" checked="checked"><span class="all_chcek_span">전체선택 (<span class="totalKind_span"></span>) </span>
     </label>
   </span>
   </div>
@@ -35,7 +35,7 @@
 </div>
 
 <!-- 장바구니 목록 -->
-<div><a href="${contextPath}/cart/list/num/${member.num}">장바구니</a></div>
+<div><a href="${contextPath}/cart/list/num/${member.num}">장바구니 </a></div>
 
 <c:if test="${empty cartInfo}">
     <div class="cart cart-noPrdt">
@@ -95,6 +95,11 @@
   <input type="hidden" name="cartNum" class="delete_cartNum">
   <input type="hidden" name="num" value="${member.num}">
 </form>  
+<!-- 주문 form -->
+<form action="${contextPath}/order/{num}" method="get" class="order_form">
+  <input type="hidden" name="orders[0].prdtNum" value="${goodsInfo.bookId}">
+  <input type="hidden" name="orders[0].prdtQty" value="">
+</form>
 
 <!-- 하단 플로팅 바 (총주문액 계산, 주문버튼) -->
 <div class="cart-floating">
@@ -144,7 +149,7 @@ $(".all-check").on("click", function(){
 function setTotalInfo() {
   let totalPrice = 0; // 총 가격
   let totalKind = 0; // 총 종류
-  let coupon = 10000;
+  let coupon = 0;
   let finalTotalPrice = 0;
 
   $(".prdt-check").each(function (index, element) {
@@ -152,6 +157,8 @@ function setTotalInfo() {
       if ($(element).find(".individual_checkbox").is(":checked") === true) { //체크여부
           // 총 가격
           totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
+          // 쿠폰
+          coupon = parseInt($(element).find(".individual_coupon_input").val());      
           // 총 종류
           totalKind += 1;
       }
@@ -169,6 +176,7 @@ function setTotalInfo() {
   console.log("Total Price: " + totalPrice);
 
   $(".totalPrice_span").text(totalPrice.toLocaleString());
+  
   // 쿠폰 
   $(".coupon_span").text(coupon);
   // 총 종류
@@ -272,6 +280,9 @@ $(document).ready(function() {
   setTotalInfo(); 	   
   fnCheckCount();
   fnFloatHidden();
+  
+ 
+  
 });
 </script>
 <%@ include file="../layout/footer.jsp"%>
