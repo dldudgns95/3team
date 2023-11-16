@@ -16,7 +16,7 @@
   <c:forEach items="${productList}" var="product">
     <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
       <div class="main_item">
-       <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
+       <div class="main_item_image"><img src="${contextPath}${product.imagePath}/${product.filesystemName}"></div>
        <div>${product.productDto.prdtTitle}</div>
        <div><p>${product.productDto.prdtRealPrice}원</p></div>
      </div>
