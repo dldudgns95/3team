@@ -6,9 +6,10 @@
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
 <jsp:include page="../../layout/header.jsp">
-    <jsp:param value="문의사항" name="title"/>
+    <jsp:param value="공지사항" name="title"/>
 </jsp:include>
    
-<div>ask</div>
+
+<div>1대1</div>
 
 <%@ include file="../../layout/footer.jsp" %>
