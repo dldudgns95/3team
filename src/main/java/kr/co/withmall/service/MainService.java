@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.ProductDto;
@@ -23,4 +24,5 @@ public interface MainService {
   public Map<String, Object> getUnusedCouponList(int num);
   public List<BoardAskDto> getQnaList();
   public BoardAskDto getQnaDetail(int askNum);
+  public int addBoardAsk(MultipartHttpServletRequest multipartRequest) throws Exception;
 }

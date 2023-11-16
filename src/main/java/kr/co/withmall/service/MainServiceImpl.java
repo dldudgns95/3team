@@ -1,5 +1,6 @@
 package kr.co.withmall.service;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.withmall.dao.MainMapper;
 import kr.co.withmall.dto.BoardAskDto;
@@ -15,6 +18,7 @@ import kr.co.withmall.dto.CpIssueDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
+import kr.co.withmall.util.MyFileUtils;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class MainServiceImpl implements MainService {
   
   private final MainMapper mainMapper;
+  private final MyFileUtils myFileUtils;
   
   @Override
   public List<ProductDto> getProductList() {
@@ -111,6 +116,30 @@ public class MainServiceImpl implements MainService {
   @Override
   public BoardAskDto getQnaDetail(int askNum) {
     return mainMapper.getQnaDetail(askNum);
+  }
+  
+  @Override
+  public int addBoardAsk(MultipartHttpServletRequest multipartRequest) throws Exception {
+    
+    String askTitle = multipartRequest.getParameter("askTitle");
+    String askContent = multipartRequest.getParameter("askContent");
+    String askFile = null;
+    int num = Integer.parseInt(multipartRequest.getParameter("num"));
+    
+    MultipartFile file = multipartRequest.getFile("askFile");
+    if(file != null && !file.isEmpty()) {
+      String Path = myFileUtils.getQnaFilePath();
+      File dir = new File(Path);
+      if(!dir.exists()) {
+        dir.mkdirs();
+      }
+      File uploadFile = new File(dir, file.getOriginalFilename());
+      file.transferTo(uploadFile);
+      askFile =  Path + "/" + file.getOriginalFilename();
+    }
+    Map<String, Object> map = Map.of("askTitle", askTitle, "askContent", askContent, "askFile", askFile, "num", num);
+    int addResult = mainMapper.addBoardAsk(map);
+    return addResult;
   }
   
 }

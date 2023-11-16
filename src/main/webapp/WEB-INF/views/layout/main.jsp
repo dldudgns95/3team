@@ -16,7 +16,7 @@
         <div class="item">
           <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}">
             <div class="a-images">
-              <img src="${top10.imagePath}/${top10.filesystemName}">
+              <img src="${contextPath}${top10.imagePath}/${top10.filesystemName}">
             </div>
             <div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div>
             <div><p>${top10.productDto.prdtRealPrice}원</p></div>
@@ -45,7 +45,8 @@
       </div>
     </div>
   </div>
-  <a href="${contextPath}/main/qnaList.do">qna</a>  
+  <a href="${contextPath}/main/qnaList.do">qna</a>
+    
   
   <script>
   
@@ -183,13 +184,13 @@
       <div class="main_item">
         <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
           <c:if test="${product.productDto.prdtStock eq 0}">
-            <div class="main_item_image background_image" style="background-image: url(${product.imagePath}/${product.filesystemName});">
+            <div class="main_item_image background_image" style="background-image: url(${contextPath}${product.imagePath}/${product.filesystemName});">
               <img src="${contextPath}/resources/images/soldout.png" class="soldout">
             </div>
           </c:if>
           <c:if test="${product.productDto.prdtStock ne 0}">
             <div class="main_item_image">
-              <img src="${product.imagePath}/${product.filesystemName}">
+              <img src="${contextPath}${product.imagePath}/${product.filesystemName}">
             </div>
           </c:if>
           <div>${product.productDto.prdtTitle}</div>

@@ -104,6 +104,7 @@
     </association>
   </resultMap>
   
+  <!-- 1:1문의 resultMap -->
   <resultMap type="BoardAskDto" id="BoardAskMap">
     <id column="ASK_NUM" property="askNum" />
     <result column="ASK_TITLE" property="askTitle" />
@@ -311,5 +312,25 @@
         ON A.NUM = M.NUM
      WHERE ASK_NUM = #{askNum}
   </select>
+  
+  <insert id="addBoardAsk" parameterType="Map">
+    INSERT INTO BOARD_ASK(
+      ASK_NUM
+    , ASK_TITLE
+    , ASK_CONTENT
+    , ASK_FILE
+    , ASK_DATE
+    , ASK_STATE
+    , NUM
+    ) VALUES(
+      BOARD_ASK_SEQ.NEXTVAL
+    , #{askTitle}
+    , #{askContent}
+    , #{askFile}
+    , SYSDATE
+    , 0
+    , #{num}
+    )
+  </insert>
   
 </mapper>

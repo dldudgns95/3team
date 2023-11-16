@@ -37,10 +37,12 @@
     </table>
   </div>
   
-  <script>
-    console.log(${qnaList});
-  </script>
+  <c:if test="${not empty sessionScope.member}">
+    <div>
+      <form action="${contextPath}/main/qnaWrite.form">
+        <button type="submit" id="btn_write" class="btn btn-primary">문의글 작성하기</button>
+      </form>
+    </div>
+  </c:if>
   
-  
-
 <%@ include file="../layout/footer.jsp"%>

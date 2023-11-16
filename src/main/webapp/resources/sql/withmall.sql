@@ -328,29 +328,29 @@ VALUES (PRODUCT_SEQ.NEXTVAL, '기타5', '기타5 타이틀', '기타5 정보', 7
 
 -- PRODUCT_IMAGE 테이블에 데이터 삽입
 -- 상의
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (1, '/withmall/resources/images/top', 't1.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (2, '/withmall/resources/images/top', 't2.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (3, '/withmall/resources/images/top', 't3.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (4, '/withmall/resources/images/top', 't4.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (5, '/withmall/resources/images/top', 't5.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (1, '/resources/images/top', 't1.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (2, '/resources/images/top', 't2.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (3, '/resources/images/top', 't3.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (4, '/resources/images/top', 't4.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (5, '/resources/images/top', 't5.jpg');
 -- 하의
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (6, '/withmall/resources/images/bottom', 'b1.jpeg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (7, '/withmall/resources/images/bottom', 'b2.jpeg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (8, '/withmall/resources/images/bottom', 'b3.jpeg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (9, '/withmall/resources/images/bottom', 'b4.jpeg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (10, '/withmall/resources/images/bottom', 'b5.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (6, '/resources/images/bottom', 'b1.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (7, '/resources/images/bottom', 'b2.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (8, '/resources/images/bottom', 'b3.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (9, '/resources/images/bottom', 'b4.jpeg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (10, '/resources/images/bottom', 'b5.jpeg');
 -- 아우터
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (11, '/withmall/resources/images/outer', 'o1.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (12, '/withmall/resources/images/outer', 'o2.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (13, '/withmall/resources/images/outer', 'o3.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (14, '/withmall/resources/images/outer', 'o4.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (15, '/withmall/resources/images/outer', 'o5.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (11, '/resources/images/outer', 'o1.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (12, '/resources/images/outer', 'o2.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (13, '/resources/images/outer', 'o3.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (14, '/resources/images/outer', 'o4.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (15, '/resources/images/outer', 'o5.jpg');
 -- 기타
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (16, '/withmall/resources/images/etc', 'e1.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (17, '/withmall/resources/images/etc', 'e2.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (18, '/withmall/resources/images/etc', 'e3.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (19, '/withmall/resources/images/etc', 'e4.jpg');
-INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (20, '/withmall/resources/images/etc', 'e5.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (16, '/resources/images/etc', 'e1.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (17, '/resources/images/etc', 'e2.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (18, '/resources/images/etc', 'e3.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (19, '/resources/images/etc', 'e4.jpg');
+INSERT INTO PRODUCT_IMAGE (PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME) VALUES (20, '/resources/images/etc', 'e5.jpg');
 
 COMMIT;
 
