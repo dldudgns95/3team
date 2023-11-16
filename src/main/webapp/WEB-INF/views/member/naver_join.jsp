@@ -9,7 +9,12 @@
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="네이버간편가입" name="title"/>
 </jsp:include>
-
+<style>
+    /* 점 없애기 */
+    li {
+        list-style: none;
+    }
+</style>
 <script>
   
   $(() => {

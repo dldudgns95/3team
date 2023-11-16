@@ -6,40 +6,31 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
-
 <jsp:include page="../layout/header.jsp">
   <jsp:param value="회원탈퇴" name="title"/>
 </jsp:include>
-
-
-
 <style>
     /* 점 없애기 */
     li {
         list-style: none;
     }
 </style>
+    
+</head>
+    <div>
+        <h1>${sessionScope.member.name}님 회원탈퇴를 하시겠습니까?</h1>
+        <ul class="text-center">
+            <li>
+                <form method="post" action="${contextPath}/member/memberout.do">
+                	<input type="hidden" name="num" value="${sessionScope.member.num}">
+                    <button type="submit" class="btn btn-dark">탈퇴하기</button>
+                </form>
+            </li>
+            <li><button class="btn btn-dark" onclick="location.href='${contextPath}/main.do'">취소</button></li>
+        </ul>
+    </div>
 
-<h1>내 정보</h1>
-	<ul>
-		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
-		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
-		<li><a href="${contextPath}/cart/list.do">장바구니</a></li>
-		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
-		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
-		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
-	</ul>
-	
-<div class="text-center">
-<h1>회원 탈퇴</h1>
-      <ul>
-	      <li>
-		      <form method="post" action="memberout.do" >
-		            <button type="submit" class="btn btn-dark">탈퇴하기</button>
-		      </form>
-		  </li>
-  	    <li><button class="btn btn-dark" onclick="location.href='${contextPath}/main.do'">취소</button></li>
-      </ul>
-</div>
+    <jsp:include page="../layout/footer.jsp" />
+</body>
 
-<%@ include file="../layout/footer.jsp" %>
+</html>
