@@ -27,6 +27,12 @@
       <p>${product.prdtInfo}</p>            
       <p>상품조회수 : ${product.prdtHit} 회</p>            
       <p>판매가 : ${product.prdtRealPrice} 원</p> 
+      
+      <!-- 사용 가능한 쿠폰리스트 출력하는 div -->
+      <div id="coupon_list">
+        <select id="member_couponList"></select>
+      </div>
+      
       <!-- 수량 설정 -->    
       <div class="button_quantity" style="padding-bottom: 10px;">
         수량 : 
@@ -36,19 +42,16 @@
         현재 재고 : ${product.prdtStock} 개
       </div>
       
-      <!-- 사용 가능한 쿠폰리스트 출력하는 div -->
-      <div id="coupon_list">
-        <select id="member_couponList"></select>
-      </div>
+      
       <!-- 쿠폰 적용가 출력 -->
       <div>
-      <p id="p_couponPrice">쿠폰 적용가 : ${product.prdtRealPrice} - </p>
+      <p id="p_couponPrice">쿠폰 적용가 :</p>
       </div>
       <hr>
       
       <!-- 장바구니,찜하기,구매하기로 이동하는 버튼 -->
       <div>
-        <p id="total_price">총 결제가격 : ${product.prdtRealPrice}</p>
+        <p id="total_price">총 결제가격 :</p>
         <input type="hidden" name="prdtNum" value="${product.prdtNum}">    
         <form id="frm_zzim">
           <button type="button" id="btn_zzim" class="btn btn-outline-secondary"><i class="fa-regular fa-star"></i></button>
@@ -67,11 +70,10 @@
    </div> 
 
   <script>
-  console.log(${couponList});
   // 버튼을 클릭하면 수량,쿠폰 적용가 변경(재고이상 수량 불가능) 
   let quantity = $('.quantity_input').val();
   let price = ${product.prdtRealPrice};
-  let total = price * quantity;
+  
   $('.plus_btn').on('click', function(ev){
     if(quantity >= ${product.prdtStock}){
       alert('최대 구매수량을 초과했습니다.');
@@ -79,14 +81,15 @@
       return;      
     } else {
     $('.quantity_input').val(++quantity);
-    console.log(total);
+    let total = price * $('#qty').val();
+   $('#p_couponPrice').append(total);
     const value = $("select[id=member_couponList]").val();
     let str = '';
     let qty = $('#qty').val();
-    str += ('${product.prdtRealPrice}' * qty) - value;    
+    str += ('${product.prdtRealPrice}' * qty) - value;
     $('#p_couponPrice').text('쿠폰 적용가 : ');
     $('#p_couponPrice').append(str);
-    $('#total_price').text('총 결제가 : ');
+    $('#total_price').text('총 구매가 : ');
     $('#total_price').append(str);
     }
   });
@@ -101,7 +104,7 @@
     str += ('${product.prdtRealPrice}' * qty) - value;    
     $('#p_couponPrice').text('쿠폰 적용가 : ');
     $('#p_couponPrice').append(str);
-    $('#total_price').text('총 결제가 : ');
+    $('#total_price').text('총 구매가 : ');
     $('#total_price').append(str);
     } else {
       alert('최소 수량은 1개입니다.');
@@ -209,8 +212,8 @@
     let str = '';
     str += ('${product.prdtRealPrice}' * qty) - value;
     $('#p_couponPrice').text('쿠폰 적용가 : ');
-    $('#p_couponPrice').append(str);   
-    $('#total_price').text('총 결제가 : ');
+    $('#p_couponPrice').append(str);
+    $('#total_price').text('총 구매가 : ');
     $('#total_price').append(str);
   })
 
