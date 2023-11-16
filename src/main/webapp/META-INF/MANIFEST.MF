@@ -1,15 +1,5 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Built-By: sujin
 Build-Jdk: 11.0.18
-=======
-<<<<<<< HEAD
-Built-By: seoga-eul
-Build-Jdk: 11.0.20
-=======
-Built-By: ZenBook
-Build-Jdk: 11.0.19
->>>>>>> 4ba5b707d781994f42681d7b90e2390acdbed095
->>>>>>> main
 Created-By: Maven Integration for Eclipse
 
