@@ -50,7 +50,7 @@
         <input type="text" name="cpName" class="form-control">
       </div>
       <div>
-        <label for="cpInfo">쿠폰 정보</label>
+        <label for="cpInfo">쿠 폰 정보</label>
         <input type="text" name="cpInfo" class="form-control">
       </div>
       <div>
