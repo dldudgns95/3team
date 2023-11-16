@@ -54,8 +54,8 @@
           <input type="text" name="prdtTitle" class="form-control" value="${prdt.prdtTitle}">
       </div>
       <div class="mb-3">
-          <label for="prdtRealPrice">제품 가격</label>
-          <input type="text" name="prdtRealPrice" class="form-control" value="${prdt.prdtRealPrice}" >
+          <label for="prdtRealPrice">제품 가격(숫자만 입력 가능합니다.)</label>
+          <input type="text" name="prdtRealPrice" class="form-control" value="${prdt.prdtRealPrice}" oninput="this.value = this.value.replace(/\D/g,'');">
       </div>
       <div>
           <label for="prdtInfo">제품 정보</label>

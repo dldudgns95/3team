@@ -39,6 +39,10 @@
     </association>
   </resultMap>
   
+
+  
+
+  
   <!-- 제품신규등록 -->
   <insert id="insertProduct" parameterType="ProductDto">
   <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
@@ -82,6 +86,11 @@
 
 
   <!-- 이미지 삭제 -->
+  <select id="getPrdtImageInYesterday" resultType="ProductImageDto">
+    SELECT PRDT_NUM, IMAGE, IMAGE_PATH, FILESYSTEM_NAME
+      FROM PRODUCT_IMAGE
+      WHERE IMAGE_PATH = '/admin/' || TO_CHAR(SYSDATE - 1, 'YYYY/MM/DD')
+  </select>
   
   
   <!-- 제품목록 가져오기 -->
@@ -116,12 +125,54 @@
        WHERE PRDT_NUM = #{prdtNum}
   </update>
   
+  <select id="getPrdtImageList" parameterType="int" resultType="ProductImageDto">
+    SELECT PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME
+      FROM PRODUCT
+     WHERE PRDT_NUM = #{prdtNum}
+  </select>
+  
+  <delete id="deletePrdtImage" parameterType="String">
+    DELETE
+      FROM PRODUCT_IMAGE
+     WHERE FILESYSTEM_NAME = #{filesystemName}  
+  </delete>
+
+
+  <delete id="deletePrdtImageList" parameterType="int">
+    DELETE
+      FROM PRODUCT_IMAGE
+     WHERE PRDT_NUM = #{prdtNum}    
+  </delete>
+  
   <delete id="deletePrdt" parameterType="int">
     DELETE
       FROM PRODUCT
      WHERE PRDT_NUM = #{prdtNum}
   </delete>
   
+  <!-- 제품 검색 -->
+  <select id="getSearchPrdtCount" parameterType="Map" resultType="int">
+    SELECT COUNT(*)
+      FROM PRODUCT
+     WHERE ${column} LIKE '%' || #{searchText} || '%' 
+  </select>
+  
+  <select id="getSearchPrdtList" parameterType="Map" resultType="ProductDto">
+    SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM 
+     FROM (SELECT ROW_NUMBER() OVER(ORDER BY PRDT_NUM DESC) AS RN, PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, CATEGORY_NUM
+             FROM PRODUCT
+            WHERE 
+            <choose>
+              <when test ="column == 'PRDT_NAME'">
+                PRDT_NAME LIKE '%' || #{searchText} || '%'
+              </when>
+              <when test="column == 'PRDT_NUM'">
+                PRDT_NUM LIKE '%' || #{searchText} || '%'
+              </when>
+            </choose>
+             )
+        WHERE RN BETWEEN #{begin} AND #{end}
+  </select>
   
   
   
@@ -169,7 +220,7 @@
   </select>
   
   <!-- 회원 탈퇴 -->
-  <delete id="deleteUser" parameterType="MemberDto">
+  <delete id="deleteUser" parameterType="int">
     DELETE 
       FROM MEMBER
      WHERE NUM = #{num}
@@ -179,7 +230,7 @@
   <!-- 매출 -->
 
   <!-- 특정 회원 매출 총액 -->
-  
+
   
   <!-- 쿠폰 -->
     <insert id="insertCp" parameterType="CpDto" >
@@ -202,17 +253,17 @@
       )
     </insert>
     
-    <!-- 쿠폰수정 -->
-    <update id="modifyCp" parameterType="CpDto" >
-      UPDATE CP
-         SET CP_NAME = #{cpName}
-           , CP_INFO = #{cpInfo}
-           , CP_PRICE = #{cpPrice}
-           , CP_MIN  = #{cpMin}
-           , START_AT = #{startAt}
-           , END_AT = #{endAt}
-       WHERE CP_NUM = #{cpNum}
-    </update>
+  <!-- 쿠폰수정 -->
+  <update id="modifyCp" parameterType="CpDto" >
+    UPDATE CP
+       SET CP_NAME = #{cpName}
+         , CP_INFO = #{cpInfo}
+         , CP_PRICE = #{cpPrice}
+         , CP_MIN  = #{cpMin}
+         , START_AT = #{startAt}
+         , END_AT = #{endAt}
+     WHERE CP_NUM = #{cpNum}
+  </update>
 
   <!-- 쿠폰목록 -->
     <select id="getCpCount">
@@ -235,7 +286,12 @@
        WHERE CP_NUM = #{cpNum}
     </select>
 
-  
+  <!-- 쿠폰 삭제 -->
+  <delete id="deleteCp" parameterType="int">
+   DELETE
+     FROM CP
+    WHERE CP_NUM = #{cpNum}
+  </delete>
   
   
  
@@ -254,6 +310,19 @@
           WHERE RN BETWEEN #{begin} AND #{end}
     </select> 
   
+  
+  
+  
+  
+  
+  
+  <!-- 제품 별 판매 금액 -->
+  <select id="">
+    SELECT OD.PRDT_NUM, P.PRDT_NAME, P.PRDT_REAL_PRICE, SUM(OD.ORDER_QTY) AS SQ, SUM(OD.ORDER_QTY * P.PRDT_REAL_PRICE) AS TS
+      FROM ORDER_DETAIL OD INNER JOIN PRODUCT P 
+        ON OD.PRDT_NUM = P.PRDT_NUM
+     GROUP BY OD.PRDT_NUM, P.PRDT_NAME, P.PRDT_REAL_PRICE, OD.ORDER_QTY;
+  </select>
   
 
 

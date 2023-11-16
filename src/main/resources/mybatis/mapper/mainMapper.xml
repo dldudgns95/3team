@@ -130,6 +130,20 @@
       <result column="REG_DATE"      property="regDate" />
     </association>
   </resultMap>
+  
+  <!-- BoardAnswer resultMap -->
+  <resultMap type="BoardAnswerDto" id="BoardAnswerMap">
+    <id column="ANSWER_NUM" property="answerNum" />
+    <result column="ANSWER_TITLE" property="answerTitle" />
+    <result column="ANSWER_CONTENT" property="answerContent" />
+    <result column="ANSWER_DATE" property="answerDate" />
+    <association javaType="MemberDto" property="memberDto">
+      <id     column="NUM"           property="num" />
+    </association>
+    <association javaType="BoardAskDto" property="boardAskDto">
+    <id column="ASK_NUM" property="askNum" />
+    </association>
+  </resultMap>
 
   <select id="getProductList" resultMap="ProductMap">
     SELECT PRDT_NUM, PRDT_NAME, PRDT_TITLE, PRDT_INFO, PRDT_REAL_PRICE, PRDT_STOCK, PRDT_HIT, C.CATEGORY_NUM, CATEGORY_NAME
@@ -332,5 +346,37 @@
     , #{num}
     )
   </insert>
+  
+  <insert id="addBoardAnswer" parameterType="Map">
+    INSERT INTO BOARD_ANSWER(
+      ANSWER_NUM
+    , ANSWER_TITLE
+    , ANSWER_CONTENT
+    , ANSWER_DATE
+    , NUM
+    , ASK_NUM
+    ) VALUES(
+      BOARD_ANSWER_SEQ.NEXTVAL
+    , #{answerTitle}
+    , #{answerContent}
+    , SYSDATE
+    , #{num}
+    , #{askNum}
+    )
+  </insert>
+  
+  <update id="updateBoardAskState" parameterType="int">
+    UPDATE BOARD_ASK
+       SET ASK_STATE = 1
+     WHERE ASK_NUM = #{askNum}  
+  </update>
+  
+  <select id="getQnaAnswer" parameterType="int" resultMap="BoardAnswerMap">
+	  SELECT ANSWER_NUM, ANSWER_TITLE, ANSWER_CONTENT, ANSWER_DATE, ANS.NUM, ANS.ASK_NUM
+	    FROM BOARD_ANSWER ANS INNER JOIN MEMBER M
+	      ON ANS.NUM = M.NUM INNER JOIN BOARD_ASK ASK
+	      ON ANS.ASK_NUM = ASK.ASK_NUM
+	   WHERE ANS.ASK_NUM = #{askNum}
+  </select>
   
 </mapper>

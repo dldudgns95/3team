@@ -17,51 +17,67 @@
 </style>
 
 <div>
-    <h1>${support.annTitle}</h1>
+    <h1>공지사항 수정</h1>
     <div>번호 : ${support.annNum}</div>
+    <div>제목 : ${support.annTitle}</div>
     <div>내용 : ${support.annContent}</div>
+    <img src="${contextPath}${support.annFile}">
     <div>등록일 : ${support.annDate}</div>
 </div>
-
+<div>
 <!-- 관리자만 편집/삭제를 수행할 수 있다. -->
-<c:if test="${sessionScope.member.auth == 9}"> <!-- 로그인한 회원 정보 -->
+<c:if test="${sessionScope.member.auth == 9}">
+    <!-- 로그인한 회원 정보 -->
     <form id="frm_btn" method="post">
-        <input type="hidden" name="blogNo" value="${support.annNum}">
-        <input type="hidden" name="title" value="${support.annTitle}">
-        <input type="hidden" name="contents" value='${support.annContent}'>
-        <button type="button" id="btn_edit" class="btn btn-outline-dark">편집</button>
+        <input type="hidden" name="annNum" value="${support.annNum}">
+        <button type="submit" id="btn_edit" class="btn btn-outline-dark">편집</button>
         <button type="button" id="btn_remove" class="btn btn-outline-dark">삭제</button>
+        <!-- 목록보기를 눌렀을 때 list.do로 이동 -->
+         <a href="${contextPath}/support/list.do" class="btn btn-outline-dark">목록보기</a>
     </form>
 </c:if>
- 
-  <script>
-  <!--편집-->
-  	var frmBtn = $('#frm_btn');
-  
-  	const fnEditSupport = () => {
-  	  $('#btn_edit').click(() => {
-  		frmBtn.attr('action', '${contextPath}/support/edit.form');
-  		frmBtn.submit();
-  	  })
-  	}
-  	<!--삭제-->
-  	const fnRemoveBlog= () => {
-    $('#btn_remove').click(() => {
-   	if(confirm(' 삭제할까요?')){
-  		  frmBtn.attr('action', '${contextPath}/support/remove.do');
-  		  frmBtn.submit();
-   	}  
-    })
-  	}
-  	
-  	
-  	fnEditSupport();
-  	fnRemoveSupport();
-  </script>
+</div>
+<!-- 수정과 삭제의 이벤트 -->
+<script>
+    const frmBtn = $('#frm_btn');
+    
 
+    // 수정하러 가기
+    const fnEditSupport = () => {
+        $('#btn_edit').click(() => {
+            frmBtn.attr('action', '${contextPath}/support/edit.form');
+            frmBtn.submit();
+        });
+    }
+    
+    
 
+    // 삭제하기
+    const fnRemoveSupport = () => {
+        $('#btn_remove').click(() => {
+            if(confirm('삭제할까요?')){
+                frmBtn.attr('action', '${contextPath}/support/remove.do');
+                frmBtn.submit();
+            }
+        });
+    }
 
-
-
+    // 수정 결과 확인
+    const fnModifyResult = () => {
+        let modifyResult = '${modifyResult}';
+        if (modifyResult !== '') {
+            if (modifyResult === '1') {
+                alert('공지사항이 수정되었습니다.');
+            } else {
+                alert('공지사항이 수정되지 않았습니다.');
+            }
+        }
+    }
+    
+    
+    fnEditSupport();
+    fnRemoveSupport();
+    fnModifyResult();
+</script>
 
 <%@ include file="../layout/footer.jsp" %>

@@ -7,11 +7,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.withmall.dao.MainMapper;
+import kr.co.withmall.dto.BoardAnswerDto;
 import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.CpIssueDto;
@@ -21,6 +23,7 @@ import kr.co.withmall.dto.ProductImageDto;
 import kr.co.withmall.util.MyFileUtils;
 import lombok.RequiredArgsConstructor;
 
+@Transactional
 @RequiredArgsConstructor
 @Service
 public class MainServiceImpl implements MainService {
@@ -114,8 +117,14 @@ public class MainServiceImpl implements MainService {
   }
   
   @Override
-  public BoardAskDto getQnaDetail(int askNum) {
-    return mainMapper.getQnaDetail(askNum);
+  public void getQnaDetail(int askNum, Model model) {
+    BoardAskDto boardAskDto = mainMapper.getQnaDetail(askNum);
+    model.addAttribute("qnaDetail", boardAskDto);
+    System.out.println("askState: " + boardAskDto.getAskState());
+    if(boardAskDto.getAskState() == 1) {
+      BoardAnswerDto boardAnswerDto = mainMapper.getQnaAnswer(askNum);
+      model.addAttribute("boardAnswer", boardAnswerDto);
+    }
   }
   
   @Override
@@ -140,6 +149,24 @@ public class MainServiceImpl implements MainService {
     Map<String, Object> map = Map.of("askTitle", askTitle, "askContent", askContent, "askFile", askFile, "num", num);
     int addResult = mainMapper.addBoardAsk(map);
     return addResult;
+  }
+  
+  @Override
+  public int addBoardAnswer(HttpServletRequest request) {
+    String answerTitle = request.getParameter("answerTitle");
+    String answerContent = request.getParameter("answerContent");
+    int num = Integer.parseInt(request.getParameter("num"));
+    int askNum = Integer.parseInt(request.getParameter("askNum"));
+    Map<String, Object> map = Map.of("answerTitle", answerTitle
+                                   , "answerContent", answerContent
+                                   , "num", num
+                                   , "askNum", askNum);
+    int addResult = mainMapper.addBoardAnswer(map);
+    int updateResult = 0;
+    if(addResult == 1) {
+      updateResult = mainMapper.updateBoardAskState(askNum);
+    }
+    return updateResult;
   }
   
 }
