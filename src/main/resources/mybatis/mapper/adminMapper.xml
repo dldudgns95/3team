@@ -41,6 +41,8 @@
   
 
   
+
+  
   <!-- 제품신규등록 -->
   <insert id="insertProduct" parameterType="ProductDto">
   <!-- INSERT 수행 이전에 파라미터 ProductDto의 prdtNum의 필드에 PRODUCT_SEQ.NEXTVAL값을 저장한다. -->
@@ -123,6 +125,25 @@
        WHERE PRDT_NUM = #{prdtNum}
   </update>
   
+  <select id="getPrdtImageList" parameterType="int" resultType="ProductImageDto">
+    SELECT PRDT_NUM, IMAGE_PATH, FILESYSTEM_NAME
+      FROM PRODUCT
+     WHERE PRDT_NUM = #{prdtNum}
+  </select>
+  
+  <delete id="deletePrdtImage" parameterType="String">
+    DELETE
+      FROM PRODUCT_IMAGE
+     WHERE FILESYSTEM_NAME = #{filesystemName}  
+  </delete>
+
+
+  <delete id="deletePrdtImageList" parameterType="int">
+    DELETE
+      FROM PRODUCT_IMAGE
+     WHERE PRDT_NUM = #{prdtNum}    
+  </delete>
+  
   <delete id="deletePrdt" parameterType="int">
     DELETE
       FROM PRODUCT
@@ -199,7 +220,7 @@
   </select>
   
   <!-- 회원 탈퇴 -->
-  <delete id="deleteUser" parameterType="MemberDto">
+  <delete id="deleteUser" parameterType="int">
     DELETE 
       FROM MEMBER
      WHERE NUM = #{num}
@@ -265,7 +286,12 @@
        WHERE CP_NUM = #{cpNum}
     </select>
 
-  
+  <!-- 쿠폰 삭제 -->
+  <delete id="deleteCp" parameterType="int">
+   DELETE
+     FROM CP
+    WHERE CP_NUM = #{cpNum}
+  </delete>
   
   
  

@@ -66,6 +66,9 @@ public interface AdminService {
   // 쿠폰 편집 정보
   public CpDto getCp(int cpNum);
   
+  // 쿠폰 삭제
+  public int deleteCp(int cpNum);
+  
   // 주문 목록
   public void loadOrderList(HttpServletRequest request, Model model);
   

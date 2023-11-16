@@ -39,6 +39,7 @@ public class AdminController {
   }
 
   
+  
   // 상품작성페이지이동
   @GetMapping("/prdtWrite.form")
   public String prdtWrite() {
@@ -111,12 +112,8 @@ public class AdminController {
 ////    model.addAttribute("mem", mem );
 ////    return "admin/user/userDetail";
 ////  }
-//  
-//  @GetMapping("/prdtDetail.do")
-//  public String prdtDetail(HttpServletRequest request, Model model) {
-//    return "admin/prdt/prdtDetail";
-//  }
-//  
+
+  
   // 회원 검색
   @GetMapping("/search.do")
   public String search(HttpServletRequest request, Model model) {
@@ -196,6 +193,8 @@ public class AdminController {
     return "redirect:/admin/cpList.do";
   }
   
+  // 쿠폰 삭제
+  
 
  // 주문 목록 보여주기
   @GetMapping("/orderList.do")
@@ -203,6 +202,7 @@ public class AdminController {
     adminService.loadOrderList(request, model);
     return "admin/adminOrder/adminOrder";
   }
+
 
 
  

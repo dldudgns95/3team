@@ -18,6 +18,7 @@
   }
 </style>
 
+
 <jsp:include page="../../layout/header.jsp">
   <jsp:param value="관리자페이지" name="title"/>
 </jsp:include>
@@ -36,6 +37,12 @@
  }
 </style>
 
+<script>
+
+
+
+
+</script>
 
   <h1 class="head">상품 목록</h1>
   
@@ -95,7 +102,7 @@
             
             
             <td><a href="${contextPath}/admin/prdtEdit.form?prdtNum=${p.prdtNum}"><button type="button" id="btn_edit">수정</button></a></td>
-            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" id="btn_remove">삭제</button></a></td>         
+            <td><a href="${contextPath}/admin/remove.do?prdtNum=${p.prdtNum}"><button type="button" id="btn_remove">삭제</button></a></td>          
          
           </tr>
         </c:forEach>
@@ -112,19 +119,8 @@
 
 
 
-<script>
-const fnRemove = () => {
-	  $('.frm_remove').submit((ev) => {
-		  if(!confirm('회원을 삭제할까요?')){
-			  ev.preventDefault();
-			  return;
-		  }
-	  })
-}
 
-fnRemove();
 
-</script>
 
 
 <%@ include file="../../layout/footer.jsp" %>

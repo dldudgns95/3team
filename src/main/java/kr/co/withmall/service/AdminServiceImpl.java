@@ -33,7 +33,8 @@ import kr.co.withmall.util.MyFileUtils;
 import kr.co.withmall.util.MyPageUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-@Slf4j
+
+
 @Transactional
 @RequiredArgsConstructor
 @Service
@@ -220,11 +221,27 @@ public class AdminServiceImpl implements AdminService {
     return adminMapper.getPrdt(prdtNum);
   }
   
-  // 제품 삭제
   @Override
   public int deletePrdt(int prdtNum) {
     return adminMapper.deletePrdt(prdtNum);
   }
+  
+//  // 제품 삭제
+//  @Override
+//  public int deletePrdt(int prdtNum) {
+//   
+//    List<ProductImageDto> prdtImageList = adminMapper.getPrdtImageList(prdtNum);
+//    for(ProductImageDto prdtImage : prdtImageList) {
+//      File file = new File(prdtImage.getImagePath(), prdtImage.getFilesystemName());
+//      if(file.exists()) {
+//        file.delete();
+//      }
+//    }
+//    
+//    adminMapper.deletePrdtImageList(prdtNum);
+//    
+//    return adminMapper.deletePrdt(prdtNum);
+//  }
 
   
   // 제품 검색
@@ -417,7 +434,11 @@ public class AdminServiceImpl implements AdminService {
   }
   
 
- 
+  // 쿠폰 삭제
+@Override
+  public int deleteCp(int cpNum) {
+   return adminMapper.deleteCp(cpNum);
+  }
   
   // 주문 목록
   @Transactional(readOnly = true)
