@@ -42,6 +42,7 @@
 
   
   <div  class="wrap wrap_9">
+  
     <form id="frm_admin_add"  method="post" action="${contextPath}/admin/addPrdt.do">
       <h1 class="head">제품작성</h1>
       <div class="mb-3">
@@ -68,7 +69,7 @@
       </div>
       <div class="mb-3">
           <label for="prdtRealPrice">제품 가격(숫자만 입력 가능합니다.)</label>
-          <input type="text" name="prdtRealPrice" class="form-control" oninput="this.value = this.value.replace(/[^0-9]/, '');">
+          <input type="text" name="prdtRealPrice" class="form-control" class="price" oninput="this.value = this.value.replace(/\D/g,'');">
       </div>
       <div class="mb-3">
           <label for="prdtStock">제품 재고(숫자만 입력 가능합니다.)</label>
@@ -96,7 +97,6 @@
     
     
     </form>
-  
   </div>
   
   
@@ -129,6 +129,9 @@
 		  $('#prdtInfo').val($('#ckeditor').html());
 	  })
   }
+  
+ 
+
   
   fnCkeditor();
   fnAdminAdd();
