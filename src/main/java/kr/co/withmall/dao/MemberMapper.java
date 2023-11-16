@@ -17,4 +17,7 @@ public interface MemberMapper {
 	public InactiveMemberDto getInactiveMember(Map<String, Object> map);
 	public int insertLeaveMember(MemberDto member);
 	public int deleteMember(MemberDto member);
+	public int updateMember(MemberDto member);
+	public int updateMemberPw(MemberDto member);
+	public int updatepw(Map<String, Object> map);
 }
