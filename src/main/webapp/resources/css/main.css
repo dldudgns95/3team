@@ -105,6 +105,7 @@
   .main_list img {
     width: 315px;
     height: 395px;
+    background-size: 50%;
   }
   
   #orderBy {
@@ -114,3 +115,17 @@
   .check_coupon {
     width: 128px;
   }
+  
+  .background_image {
+    position: relative;
+    background-size: 310px 390px;
+  }
+  
+  .soldout {
+    position: absolute;
+  }
+  
+  .padding_top {
+    margin-top: 200px;
+  }
+  
