@@ -10,9 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.service.MemberService;
@@ -61,11 +64,11 @@ public class MemberController {
 	    memberService.naverJoin(request, response);
 	  }	  
 	 
-	
 	@PostMapping("/login.do")
 	public void login(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		memberService.login(request, response);
 	}
+
 	
 	@GetMapping("/agree.form")
 	public String agreeForm() {
@@ -73,7 +76,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/join.form")
-	  public String joinForm(@RequestParam(value="service", required=false, defaultValue="off") String service
+	public String joinForm(@RequestParam(value="service", required=false, defaultValue="off") String service
 	                       , @RequestParam(value="event", required=false, defaultValue="off") String event
 	                       , Model model) {
 	    String rtn = null;
@@ -139,8 +142,35 @@ public class MemberController {
 		return "member/zimlist";
 	}
 	
+	
 	@PostMapping("/memberout.do")
 	public void memberout(HttpServletRequest request, HttpServletResponse response) {
 		memberService.memberout(request, response);
+	}
+	
+	@PostMapping(value="/modify.do",  produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Object>> modify(HttpServletRequest request) {
+	    return memberService.modify(request);
+	  }
+	
+	@PostMapping("/modifyPw.do")
+	public void modifyPw(HttpServletRequest request, HttpServletResponse response) {
+		memberService.modifyPw(request, response);
+	}
+	
+
+	@PostMapping(value="/sendPw.do")
+	public String sendPw(@RequestParam String email) {
+	  memberService.sendPw(email);
+      return "redirect:/main.do";
+	  }
+	
+	@GetMapping(value="/checkPwEmail.do", produces=MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Map<String, Object>> checkPwEmail(@RequestParam String email) {
+	  return memberService.checkPwEmail(email);
+	}
+	@GetMapping("/findpw.do")
+	public String findpw() {
+		return "member/findpw";
 	}
 }

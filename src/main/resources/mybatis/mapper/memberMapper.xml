@@ -74,23 +74,25 @@
         SYSDATE
     )
 </insert>
-  <insert id="insertLeaveMember" parameterType="MemberDto">
-    INSERT INTO MEMBER_EXP (
-        EMAIL
-      , REG_DATE
-      , EXP_DATE
-    ) VALUES (
-        #{email}
-      , #{regDate}
-      , SYSDATE
-    ) 
-  </insert>
+
   
   <delete id="deleteMember" parameterType="MemberDto">
     DELETE
       FROM MEMBER
      WHERE NUM = #{num}
   </delete>
+  
+  <insert id="insertLeaveMember" parameterType="MemberDto">
+  	INSERT INTO MEMBER_EXP (
+  			    EMAIL
+  			   ,REG_DATE
+  			   ,EXP_DATE
+  	) VALUES (
+		  		#{email}
+		  	   ,#{regDate}
+		  	   ,SYSDATE
+  		    	)
+  </insert>
   
   <select id="getLeaveMember" parameterType="Map" resultType="LeaveMemberDto">
     SELECT EMAIL, REG_DATE, EXP_DATE
@@ -106,4 +108,28 @@
       <if test="pw != null">AND PW = #{pw}</if>
     </where>
   </select>  
+  <update id="updateMember" parameterType="MemberDto">
+  	UPDATE MEMBER
+  	   SET NAME = #{name}
+  	   	 , GENDER = #{gender}
+  	   	 , MOBILE = #{mobile}
+  	   	 , POSTCODE = #{postcode}
+  	   	 , ROADADDRESS = #{roadaddress}
+  	   	 , JIBUNADDRESS = #{jibunaddress}
+  	   	 , DETAILADDRESS = #{detailaddress}
+  	   	 , AGREE = #{agree}
+  	 WHERE NUM = #{num}
+  </update>
+  
+  <update id="updateMemberPw" parameterType="MemberDto">
+    UPDATE MEMBER
+       SET PW = #{pw}
+         , MDATE = SYSDATE
+     WHERE NUM = #{num}
+  </update>
+  <update id="updatepw" parameterType="Map">
+  	UPDATE MEMBER 
+  	   SET PW = #{pw} 
+  	 WHERE EMAIL = #{email}
+  </update>
 </mapper>
