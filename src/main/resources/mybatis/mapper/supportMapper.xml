@@ -45,9 +45,20 @@
       , SYSDATE
     ) 
   </insert>
+   <!-- 수정하기 -->
+     <update id="updateSupport" parameterType="SupportDto">
+    UPDATE BOARD_ANNOUNCE
+      SET  ANN_TITLE = #{annTitle}
+         , ANN_CONTENT = #{annContent}
+         , ANN_DATE = SYSDATE
+     WHERE ANN_NUM = #{annNum}
+   </update>
    
-   
-   
+   <delete id="deleteSupport" parameterType="int">
+   DELETE
+   	FROM BOARD_ANNOUNCE
+   WHERE ANN_NUM = #{annNum}
+   </delete>
    
    
    

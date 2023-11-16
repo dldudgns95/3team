@@ -23,6 +23,7 @@ public interface MainService {
   public List<ProductImageDto> getZzimProductList(int num);
   public Map<String, Object> getUnusedCouponList(int num);
   public List<BoardAskDto> getQnaList();
-  public BoardAskDto getQnaDetail(int askNum);
+  public void getQnaDetail(int askNum, Model model);
   public int addBoardAsk(MultipartHttpServletRequest multipartRequest) throws Exception;
+  public int addBoardAnswer(HttpServletRequest request);
 }

@@ -11,7 +11,7 @@
 
   <!-- 나중에 바꾸기 -->
   <div><h1>${qnaDetail.askNum}번 문의게시글</h1></div>
-  
+  <hr>
   <div>
     <div><h3>${qnaDetail.askTitle}</h3></div>
     <div>작성자:${qnaDetail.memberDto.name}</div>
@@ -30,6 +30,24 @@
       ${qnaDetail.askFile}
     </c:if>
   </div>
+  
+  <div>
+    <c:if test="${sessionScope.member.auth eq 9 && qnaDetail.askState eq 0}">
+      <a href="${contextPath}/main/qnaAnswer.form?askNum=${qnaDetail.askNum}"><button type="button" class="btn btn-primary btn-lg">문의글 답변하기</button></a>
+    </c:if>
+  </div>
+  
+  <c:if test="${qnaDetail.askState eq 1}">
+    <hr>
+    <div class="padding_top">
+      <hr>
+      <div><h1>${qnaDetail.askNum}번 문의게시글 답변</h1></div>
+      <div><h3>${boardAnswer.answerTitle}</h3></div>
+      <div>${boardAnswer.answerContent}</div>
+    </div>
+  </c:if>
+  
+  
   
   
 

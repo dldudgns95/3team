@@ -64,7 +64,12 @@ public class MyFileUtils {
   }
   
   public String getSupportImagePath() {
-    return null;
+	  /*  /blog/yyyy/MM/dd  */
+	    
+	    // 당일날짜를 저장할 today
+	    LocalDate today = LocalDate.now();
+	    return "/support/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
+	  
   }
   
   

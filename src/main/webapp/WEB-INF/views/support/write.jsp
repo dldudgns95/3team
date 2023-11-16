@@ -23,7 +23,7 @@
 
 <div>   
     <h1 style="text-align: center;">공지사항을 작성하세요</h1>
-    
+   <form method="post" action="${contextPath}/support/add.do" enctype="multipart/form-data">
     <!-- 제목 -->
     <div class="mb-3">
         <label for="title" class="form-label">제목</label>
@@ -41,13 +41,14 @@
         <label for="file" class="form-label">첨부</label>
         <input type="file" name="file" id="file" class="form-control">
     </div>
-    
+     
     <div class="d-grid gap-2">
         <!-- 작성완료 -->
         <button type="submit" class="btn btn-outline-primary">작성완료</button>
     </div>
+    </form>  
 </div>
-    
+  
 <!-- 파일 업로드 -->  
 <div id="file_list"></div>
 

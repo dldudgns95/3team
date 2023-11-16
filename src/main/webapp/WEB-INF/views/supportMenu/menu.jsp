@@ -6,9 +6,9 @@
         <div class="left-div">
             <div class="page-name">고객센터</div>
             <ul class="menu-box">
-                <li><a href="list.do">공지사항<img></a></li>
+                <li><a href="list.do">공지사항</a></li>
                 <li><a href="faqList.do">자주하는 질문</a></li>
-                <li><a href="askList.do">1:1 문의<img></a></li>
+                <li><a href="${contextPath}/main/qnaList.do ">1:1 문의</a></li>
             </ul>
         </div>
     </div>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.withmall.service.MainService;
 import lombok.RequiredArgsConstructor;
@@ -69,8 +70,9 @@ public class MainController {
   }
   
   @GetMapping("/qnaDetail.do")
-  public String getQnaDetail(@RequestParam("askNum") int askNum, Model model) {
-    model.addAttribute("qnaDetail", mainService.getQnaDetail(askNum));
+  public String getQnaDetail(@RequestParam(value="askNum", required=false, defaultValue="0") int askNum, Model model) {
+    mainService.getQnaDetail(askNum, model);
+    // model.addAttribute("qnaDetail", mainService.getQnaDetail(askNum, model));
     return "main/qnaDetail";
   }
   
@@ -80,12 +82,22 @@ public class MainController {
   }
   
   @PostMapping("/qnaWrite.do")
-  public String getQnaWrite(MultipartHttpServletRequest multipartRequest) throws Exception {
+  public String addQnaAsk(MultipartHttpServletRequest multipartRequest) throws Exception {
     mainService.addBoardAsk(multipartRequest);
     return "redirect:/main/qnaList.do";
   }
   
+  @GetMapping("/qnaAnswer.form")
+  public String getQnaAnswerForm(@RequestParam("askNum") int askNum, Model model) {
+    model.addAttribute("askNum", askNum);
+    return "main/qnaAnswer";
+  }
   
+  @PostMapping("/qnaAnswer.do")
+  public String addQnaAnswer(HttpServletRequest request) {
+    mainService.addBoardAnswer(request);
+    return "redirect:/main/qnaDetail.do?askNum=" + request.getParameter("askNum");
+  }
   
   
   
