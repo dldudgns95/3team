@@ -61,6 +61,18 @@ public class MainController {
     return "main/searchList";
   }
   
+  @GetMapping("/qnaList.do")
+  public String getQnaList(Model model) {
+    model.addAttribute("qnaList", mainService.getQnaList());
+    return "main/qnaList";
+  }
+  
+  @GetMapping("/qnaDetail.do")
+  public String getQnaDetail(@RequestParam("askNum") int askNum, Model model) {
+    model.addAttribute("qnaDetail", mainService.getQnaDetail(askNum));
+    return "main/qnaDetail";
+  }
+  
   
   
   

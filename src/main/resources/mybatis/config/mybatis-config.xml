@@ -24,6 +24,8 @@
     <typeAlias alias="SupportDto"          type="kr.co.withmall.dto.SupportDto"/>
     <typeAlias alias="ZzimDto"             type="kr.co.withmall.dto.ZzimDto"/>
     <typeAlias alias="OrderDto"             type="kr.co.withmall.dto.OrderDto"/>
+    <typeAlias alias="BoardAskDto"          type="kr.co.withmall.dto.BoardAskDto"/>
+    <typeAlias alias="BoardAnswerDto"      type="kr.co.withmall.dto.BoardAnswerDto"/>
   </typeAliases>
 
 </configuration>

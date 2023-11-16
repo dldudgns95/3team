@@ -25,7 +25,16 @@
     <c:forEach items="${productList}" var="product">
       <div class="main_item">
         <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
-          <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
+          <c:if test="${product.productDto.prdtStock eq 0}">
+            <div class="main_item_image background_image" style="background-image: url(${product.imagePath}/${product.filesystemName});">
+              <img src="${contextPath}/resources/images/soldout.png" class="soldout">
+            </div>
+          </c:if>
+          <c:if test="${product.productDto.prdtStock ne 0}">
+            <div class="main_item_image">
+              <img src="${product.imagePath}/${product.filesystemName}">
+            </div>
+          </c:if>
           <div>${product.productDto.prdtTitle}</div>
           <div><p>${product.productDto.prdtRealPrice}원</p></div>
         </a>

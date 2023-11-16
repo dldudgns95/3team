@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.CpIssueDto;
 import kr.co.withmall.dto.ProductDto;
@@ -25,4 +26,6 @@ public interface MainMapper {
   public List<ProductImageDto> getZzimProductList(int num);
   public List<CpDto> getUnusedCouponList(int num);
   public int deleteEndCoupon();
+  public List<BoardAskDto> getQnaList();
+  public BoardAskDto getQnaDetail(int askNum);
 }

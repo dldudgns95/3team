@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import kr.co.withmall.dao.MainMapper;
+import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.CpIssueDto;
 import kr.co.withmall.dto.MemberDto;
@@ -99,6 +100,17 @@ public class MainServiceImpl implements MainService {
   public Map<String, Object> getUnusedCouponList(int num) {
     List<CpDto> productList = mainMapper.getUnusedCouponList(num);
     return Map.of("productList", productList);
+  }
+  
+  @Override
+  public List<BoardAskDto> getQnaList() {
+    System.out.println("qnaList: " + mainMapper.getQnaList());
+    return mainMapper.getQnaList();
+  }
+  
+  @Override
+  public BoardAskDto getQnaDetail(int askNum) {
+    return mainMapper.getQnaDetail(askNum);
   }
   
 }

@@ -14,7 +14,13 @@
     <div class="owl-carousel owl-theme">
       <c:forEach items="${productTop10List}" var="top10" begin="0" varStatus="i">
         <div class="item">
-          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}"><div class="a-images"><img src="${top10.imagePath}/${top10.filesystemName}"></div><div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div><div><p>${top10.productDto.prdtRealPrice}원</p></div></a>
+          <a href="${contextPath}/product/detail.do?prdtNum=${top10.productDto.prdtNum}">
+            <div class="a-images">
+              <img src="${top10.imagePath}/${top10.filesystemName}">
+            </div>
+            <div><p>TOP${i.index + 1} ${top10.productDto.prdtTitle}</p></div>
+            <div><p>${top10.productDto.prdtRealPrice}원</p></div>
+          </a>
         </div>
       </c:forEach>
     </div>
@@ -38,7 +44,8 @@
         </div>
       </div>
     </div>
-  </div>  
+  </div>
+  <a href="${contextPath}/main/qnaList.do">qna</a>  
   
   <script>
   
@@ -175,7 +182,16 @@
     <c:forEach items="${productList}" var="product">
       <div class="main_item">
         <a href="${contextPath}/product/detail.do?prdtNum=${product.productDto.prdtNum}">
-          <div class="main_item_image"><img src="${product.imagePath}/${product.filesystemName}"></div>
+          <c:if test="${product.productDto.prdtStock eq 0}">
+            <div class="main_item_image background_image" style="background-image: url(${product.imagePath}/${product.filesystemName});">
+              <img src="${contextPath}/resources/images/soldout.png" class="soldout">
+            </div>
+          </c:if>
+          <c:if test="${product.productDto.prdtStock ne 0}">
+            <div class="main_item_image">
+              <img src="${product.imagePath}/${product.filesystemName}">
+            </div>
+          </c:if>
           <div>${product.productDto.prdtTitle}</div>
           <div><p>${product.productDto.prdtRealPrice}원</p></div>
         </a>

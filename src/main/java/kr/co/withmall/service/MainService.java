@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.ui.Model;
 
+import kr.co.withmall.dto.BoardAskDto;
 import kr.co.withmall.dto.ProductDto;
 import kr.co.withmall.dto.ProductImageDto;
 
@@ -20,4 +21,6 @@ public interface MainService {
   public Map<String, Object> addMemberCoupon(HttpServletRequest request);
   public List<ProductImageDto> getZzimProductList(int num);
   public Map<String, Object> getUnusedCouponList(int num);
+  public List<BoardAskDto> getQnaList();
+  public BoardAskDto getQnaDetail(int askNum);
 }

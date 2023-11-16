@@ -31,6 +31,8 @@
 <!-- Momment를 사용하기 위한 cdn -->
 <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <link rel="stylesheet" href="${contextPath}/resources/css/cart.css?dt=${dt}" />
 <link rel="stylesheet" href="${contextPath}/resources/css/header.css?dt=${dt}" />
 <link rel="stylesheet" href="${contextPath}/resources/css/main.css?dt=${dt}" />
