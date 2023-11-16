@@ -17,24 +17,6 @@
  color: rgb(40 40 40);
  }
 
-.icon_main {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 20px 5px 20px 30px;
-  color: rgb(40 40 40);
-}
-
-.icon_main .icon {
-  font-size: 20px;
-}
-
-
-.icon_main .fa-solid {
-  font-size: 30px; 
-  margin: 30px 20px 20px 40px;
-  
-}
 
 </style>
 
