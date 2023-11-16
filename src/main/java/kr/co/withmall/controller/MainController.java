@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import kr.co.withmall.service.MainService;
 import lombok.RequiredArgsConstructor;
@@ -57,8 +58,31 @@ public class MainController {
   public String getProductListByQuery(HttpServletRequest request, Model model) {
     model.addAttribute("column", request.getParameter("column"));
     model.addAttribute("query", request.getParameter("query"));
-    model.addAttribute("productList", mainService.getProductListByQuery(request));
+    mainService.getProductListByQuery(request, model);
     return "main/searchList";
+  }
+  
+  @GetMapping("/qnaList.do")
+  public String getQnaList(Model model) {
+    model.addAttribute("qnaList", mainService.getQnaList());
+    return "main/qnaList";
+  }
+  
+  @GetMapping("/qnaDetail.do")
+  public String getQnaDetail(@RequestParam("askNum") int askNum, Model model) {
+    model.addAttribute("qnaDetail", mainService.getQnaDetail(askNum));
+    return "main/qnaDetail";
+  }
+  
+  @GetMapping("/qnaWrite.form")
+  public String getQnaWriteForm() {
+    return "main/qnaWrite";
+  }
+  
+  @PostMapping("/qnaWrite.do")
+  public String getQnaWrite(MultipartHttpServletRequest multipartRequest) throws Exception {
+    mainService.addBoardAsk(multipartRequest);
+    return "redirect:/main/qnaList.do";
   }
   
   
