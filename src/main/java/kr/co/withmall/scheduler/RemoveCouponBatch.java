@@ -4,7 +4,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import kr.co.withmall.dao.MainMapper;
-import kr.co.withmall.service.MainService;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor

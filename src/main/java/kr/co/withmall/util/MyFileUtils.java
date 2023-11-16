@@ -29,6 +29,12 @@ public class MyFileUtils {
     return "/upload/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
   }
   
+  //제품 작성 시 사용된 이미지가 저장될 경로 반환하기
+   public String getQnaFilePath() {   
+     LocalDate today = LocalDate.now();  // 오늘
+     return "/qna/" + DateTimeFormatter.ofPattern("yyyy/MM/dd").format(today);
+   }
+  
   // 임시 파일이 저장될 경로 반환하기 (zip파일)
   public String getTempPath() {
     return "/temp";
