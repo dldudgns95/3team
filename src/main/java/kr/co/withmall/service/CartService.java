@@ -17,7 +17,8 @@ public interface CartService {
   public int modifyCount(CartDto cartDto) throws Exception; // 카트 수량 수정
 //  public Map<String,List> cartList(CartDto cartDto) throws Exception; // 카트 정보
   public List<CartDto> getCartList(int num) throws Exception;
-  public ProductImageDto getCartImage(int prdtNum);
   public List<CartDto> getCartCp(int num);
+  public ProductImageDto getProductImage(int prdtNum);
+
   
 }

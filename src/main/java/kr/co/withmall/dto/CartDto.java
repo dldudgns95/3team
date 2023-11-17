@@ -31,9 +31,17 @@ public class CartDto {
   private int cpMin;
   
   // image
+  private ProductImageDto productImageDto;
   private List<ProductImageDto> imageList;
   
+  // 추가
+  private int salePrice;
   
+  private int totalPrice;
+  
+  private int coupon;
+  
+  private int totalCoupon;  
   
   
 }

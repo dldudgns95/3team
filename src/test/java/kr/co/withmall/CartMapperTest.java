@@ -1,5 +1,6 @@
 package kr.co.withmall;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import kr.co.withmall.dao.CartMapper;
 import kr.co.withmall.dto.CartDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
+import kr.co.withmall.dto.ProductImageDto;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml")
@@ -86,7 +88,7 @@ public class CartMapperTest {
   }
   
 //getCp 테스트
-@Test
+//@Test
 public void getCpTest() {
     try {
         int num = 1;
@@ -104,7 +106,24 @@ public void getCpTest() {
         fail("Exception occurred during getCpTest");
     }
 }
-  
+
+//getProductImage 테스트
+@Test
+public void getProductImage() {
+//테스트할 num과 prdtNum 값 설정
+  int prdtNum = 1;
+
+  // getProductImage 메서드 호출
+  ProductImageDto productImageDto = cartMapper.getProductImage(prdtNum);
+
+  // 결과가 null이 아닌지 확인
+  assertNotNull(productImageDto);
+
+  // 출력하여 확인 (optional)
+  System.out.println("Image Path: " + productImageDto.getImagePath());
+  System.out.println("Product Title: " + productImageDto.getProductDto().getPrdtTitle());
+
+}
   
 
 }

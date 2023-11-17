@@ -26,6 +26,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kr.co.withmall.dto.CartDto;
 import kr.co.withmall.dto.MemberDto;
+import kr.co.withmall.dto.ProductImageDto;
 import kr.co.withmall.service.CartService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -103,6 +104,7 @@ public class CartController {
       // cartService.getCartList(num) 메소드를 호출하여 어떤 결과가 나오는지 확인
       List<CartDto> cartInfo = cartService.getCartList(num);
       List<CartDto> cpInfo = cartService.getCartCp(num);
+      ProductImageDto cartImageInfo = cartService.getProductImage(num);
   
       // 디버깅 정보 로깅
       logger.debug("cartList: {}", cartInfo);
@@ -110,6 +112,7 @@ public class CartController {
       // 세션에 cartInfo 추가
       request.getSession().setAttribute("cartInfo", cartInfo);
       session.setAttribute("cartInfo", cartInfo);
+      session.setAttribute("cartImageInfo", cartImageInfo);
       
       // 모델에 cartInfo 추가
       model.addAttribute("cartInfo", cartInfo);

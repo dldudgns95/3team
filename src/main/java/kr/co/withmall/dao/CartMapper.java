@@ -8,6 +8,7 @@ import org.springframework.dao.DataAccessException;
 import kr.co.withmall.dto.CartDto;
 import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.ProductDto;
+import kr.co.withmall.dto.ProductImageDto;
 
 @Mapper
 public interface CartMapper {
@@ -25,7 +26,8 @@ public interface CartMapper {
   /* 제품 확인 */
   public List<ProductDto> getPrdtList(CartDto cartDto) throws DataAccessException;
   /* 쿠폰 확인 */
-  public List<CartDto> getCp(int num); 
+  public List<CartDto> getCp(int num);
+  public ProductImageDto getProductImage(int num); 
   
   
 

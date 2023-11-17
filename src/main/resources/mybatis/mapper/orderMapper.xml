@@ -25,4 +25,93 @@
   </association>
 </resultMap>
 
+
+  <!-- 주문 상품 정보 -->
+  <select id="getPrdtInfo" resultType="OrderPageDetailDTO">
+    SELECT PRDT_NUM, PRDT_TITLE, PRDT_REAL_PRICE
+      FROM PRODUCT
+     WHERE PRDT_NUM = ${prdtNum}  
+  </select>
+
+  <select id="getOrderInfo" resultType="OrderDetailDTO">
+    SELECT PRDT_NUM, PRDT_REAL_PRICE
+      FROM PRODUCT
+     WHERE PRDT_NUM = ${prdtNum}  
+  </select> 
+
+
+<insert id="insertOrder" parameterType="OrderDto">
+  INSERT INTO ORDER_T(ORDER_NUM,
+                    NUM,
+                    ORDER_TOTAL_PRICE,
+                    ORDER_STATUS,
+                    ORDER_DATE,
+                    ORDER_NOTICE,
+                    RECEIVER_NAME,
+                    RECEIVER_PHONE,
+                    ORDERER_NAME,
+                    ORDERER_PHONE,
+                    DELIVERY_METHOD,
+                    PAY_METHOD,
+                    CARD_NAME,
+                    CARD_PAY
+  ) VALUES (
+  ORDER_SEQ.NEXTVAL,
+   #{orderTotalPrice},
+   #{orderStatus},
+   #{orderDate},
+   #{orderNotice},
+   #{receiverName},
+   #{receiverPhone},
+   #{ordererName},
+   #{ordererPhone},
+   #{deliveryMethod},
+   #{payMethod},
+   #{cardName},
+   #{cardPay}
+  )
+</insert>
+
+<!-- 주문 상세 정보 --> 
+<insert id="insertOrderDetail" parameterType="OrderDetailDto">
+ INSERT INTO ORDER_DETAIL(ORDER_DETAIL_NUM
+                          ,ORDER_NUM
+                          ,PRDT_NUM
+                          ,ORDER_PRICE
+                          ,ORDER_QTY
+  ) VALUES (
+   ORDER_DETAIL_SEQ.NEXTVAL,
+   #{orderNum}, 
+   #{prdtNum},
+   #{orderPrice},
+   #{orderQty}
+  )
+</insert> 
+
+  <!-- 주문자 정보 (이게 필수로 필요한가?)
+<select id="getMemberInfo" resultType="MemberDto">
+
+  SELECT M.NUM, M.NAME, memberMail, memberAddr1, memberAddr2, memberAddr3, money, point 
+    FROM ORDER_T O INNER JOIN MEMBER M
+      ON O.NUM = M.NUM
+   WHERE NUM = #{num}
+   
+   
+     private int orderNum; //주문번호
+  private int num; //주문 회원
+  private int orderTotalPrice; // 주문 가격
+  private int orderStatus; // 주문 상태
+  private Date orderDate; // 주문 날짜
+  private String orderNotice; // 주문 전달사항
+  private String receiverName; // 받는 이 이름
+  private String receiverPhone; // 받는 이 연락처
+  private String ordererName; // 주문자 이름
+  private String ordererPhone; // 주문자 연락처
+  private String deleveryMethod; // 배송방법
+  private String payMethod; // 결제방법
+  private String cartName; // 카드 이름
+  private String cardPay; // 카드 할부
+
+</select> -->
+
 </mapper>

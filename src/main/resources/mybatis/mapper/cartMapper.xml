@@ -35,7 +35,7 @@
     <result column="PRDT_STOCK" property="prdtStock"/>
   </resultMap>
   
-    <resultMap type="ProductImageDto" id="ProductImageMap">
+  <resultMap type="ProductImageDto" id="ProductImageMap">
     <result column="IMAGE_PATH"        property="imagePath" />
     <result column="FILESYSTEM_NAME"   property="filesystemName" />
     <association javaType="ProductDto" property="productDto">
@@ -48,12 +48,6 @@
       <result column="PRDT_HIT"        property="prdtHit" />
     </association>
   </resultMap>
-  
-<!-- <resultMap id="ProductImageMap" type="ProductImageDto">
-      <id column="PRDT_NUM" property="prdtNum"/>
-      <result column="FILESYSTEM_NAME" property="fileSystemName" />
-  </resultMap>
- -->  
 
 <!-- 쿼리 -->
   <!-- 장바구니 제품 조회 -->
@@ -140,6 +134,16 @@
        ORDER BY C.CP_NUM
     ]]>
 </select>
+
+  <!-- 제품이미지 가져오기 -->
+  <select id="getProductImage" parameterType="int" resultMap="ProductImageMap">
+    SELECT I.IMAGE_PATH, I.FILESYSTEM_NAME, P.PRDT_NUM, P.PRDT_NAME, P.PRDT_TITLE, P.PRDT_INFO, P.PRDT_REAL_PRICE, P.PRDT_STOCK, P.PRDT_HIT
+      FROM CART C INNER JOIN PRODUCT P
+        ON C.PRDT_NUM=P.PRDT_NUM LEFT OUTER JOIN PRODUCT_IMAGE I
+        ON P.PRDT_NUM=I.PRDT_NUM 
+     WHERE C.NUM = #{num} 
+       AND P.PRDT_NUM = #{prdtNum}
+  </select>
   
   
 </mapper>

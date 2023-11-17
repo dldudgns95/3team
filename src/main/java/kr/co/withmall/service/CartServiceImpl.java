@@ -13,6 +13,7 @@ import kr.co.withmall.dto.CpDto;
 import kr.co.withmall.dto.MemberDto;
 import kr.co.withmall.dto.ProductImageDto;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 
 @Service
 @RequiredArgsConstructor
@@ -60,55 +61,6 @@ public class CartServiceImpl implements CartService {
     cartMapper.deleteCart(cartNum);    
   }
   
-
-//  @Override
-//  public Map<String, List> getCartList(int num) throws Exception {
-//      Map<String, List> cartMap = new HashMap<>();
-//      
-//      // cartDto 객체 생성 및 설정
-//      CartDto cartDto = new CartDto();
-//      cartDto.setNum(num);
-//      
-//      List<CartDto> cartList = cartMapper.getCartList(cartDto);
-//      List<ProductDto> prdtList = cartMapper.getPrdtList(cartDto);
-//      
-//      System.out.println("cartList: " + cartList);
-//      System.out.println("prdtList: " + prdtList);
-//      
-//      if (cartList.size() == 0) {
-//          // 카트에 저장된 상품이 없는 경우
-//          return null;
-//      }
-//      
-//      cartMap.put("cartList", cartList);
-//      cartMap.put("prdtList", prdtList);
-//      
-//      for (Map.Entry<String, List> entry : cartMap.entrySet()) {
-//        String key = entry.getKey();
-//        List value = entry.getValue();
-//
-//        // 여기서 key와 value를 사용하여 작업을 수행
-//        System.out.println("Key: " + key);
-//        System.out.println("Value: " + value);
-//
-//        // 만약 List인 경우에는 또 다른 반복문을 사용하여 각 요소에 접근 가능
-//        if ("cartList".equals(key)) {
-//            List<CartDto> cartList1 = (List<CartDto>) value;
-//            for (CartDto cartDto1 : cartList) {
-//                // cartDto를 사용하여 작업
-//                System.out.println("CartDto: " + cartDto);
-//            }
-//        } else if ("prdtList".equals(key)) {
-//            List<ProductDto> prdtList1 = (List<ProductDto>) value;
-//            for (ProductDto productDto : prdtList) {
-//                // productDto를 사용하여 작업
-//                System.out.println("ProductDto: " + productDto);
-//            }
-//        }
-//    }
-//      return cartMap;
-//  }
-  
   @Override
   public List<CartDto> getCartList(int num) throws Exception {
     List<CartDto> cart = cartMapper.getCart(num);
@@ -116,14 +68,15 @@ public class CartServiceImpl implements CartService {
   }
   
   @Override
-  public ProductImageDto getCartImage(int prdtNum) {
-    return productMapper.getProductImage(prdtNum);
-  }
-  
-  @Override
   public int modifyCount(CartDto cartDto) throws Exception {
     // TODO Auto-generated method stub
     return cartMapper.modifyCount(cartDto);
+  }
+  
+  @Override
+  public ProductImageDto getProductImage(int prdtNum) {
+    ProductImageDto productImageDto = cartMapper.getProductImage(prdtNum);
+    return productImageDto;
   }
   
   @Override

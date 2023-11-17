@@ -17,14 +17,15 @@
   
 </style>
 
-<!-- 장바구니 시작 -->   
-<div class="cart cart-title"><h2>${member.name}님의 장바구니</h2></div>
+<!-- 장바구니 시작 --> 
+<div class="wrapper">
+<div class="cart-title"><h2>${member.name}님의 장바구니</h2></div>
 
 <!-- 장바구니 상단 (전체선택, 선택삭제) -->
-<div class="cart cart-top">
+<div class="cart-top">
 <div>
   <span class="all-check-div">
-    <label class="cart-checkbox">
+    <label class="cart-checkbox ">
       <input type="checkbox" class="all-check input_size_20" checked="checked"><span class="all_chcek_span">전체선택 (<span class="totalKind_span"></span>) </span>
     </label>
   </span>
@@ -35,7 +36,6 @@
 </div>
 
 <!-- 장바구니 목록 -->
-<div><a href="${contextPath}/cart/list/num/${member.num}">장바구니 </a></div>
 
 <c:if test="${empty cartInfo}">
     <div class="cart cart-noPrdt">
@@ -44,21 +44,20 @@
 </c:if>    
 <c:if test="${!empty cartInfo}">
 
-<table class="cart-table">
+<table class="cart-table ">
   <tbody>
    <c:forEach items="${cartInfo}" var="ci">
-   
     <tr>
-      <td class="cart-prdt prdt-check">
+      <td class="cart-prdt prdt-check ">
         <input type="checkbox" class="individual_checkbox size-20" checked="checked">
         <input type="hidden" class="individual_prdtRealPrice_input" value="${ci.productDto.prdtRealPrice}">
         <input type="hidden" class="individual_prdtQty_input" value="${ci.prdtQty}">
         <input type="hidden" class="individual_totalPrice_input" value="${ci.productDto.prdtRealPrice * ci.prdtQty}">
         <input type="hidden" class="individual_prdtNum_input" value="${ci.prdtNum}">
       </td>
-      <td class="cart-prdt prdt-image">
-        <div class="image_wrap" data-prdtNum="${ci.imageList[0].productDto}" data-path="${ci.imageList[0].imagePath}" data-filename="${ci.imageList[0].filesystemName}">
-          <img src="${productImage.imagePath}/${productImage.filesystemName}">  
+      <td class="cart-prdt prdt-image ">
+        <div class="image_wrap">
+          <img class="image_size" src="${cartImageInfo.imagePath}/${cartImageInfo.filesystemName}">  
         </div>
       </td>
       <td class="cart-prdt prdt-title">${ci.productDto.prdtTitle}</td>
@@ -69,17 +68,18 @@
       <td class="prdt-mod">
         <div class="table_text_align_center quantity_div">
           <button class="qty_btn minus_btn"><i id="qtyMinus" class="fa-solid fa-square-minus"></i></button>
-          <input type="text" value="${ci.prdtQty}" class="quantity_input">  
+          <input type="text" value="${ci.prdtQty}" class="qty_input">  
           <button class="qty_btn plus_btn"><i id="qtyPlus" class="fa-solid fa-square-plus"></i></button>
         </div>
         <a class="btn btn-light qty_modify_btn" data-cartnum="${ci.cartNum}">수정</a>
       </td>
-      <td class="prdy-del">
+      <td class="prdt-del">
       <button class="btn btn-primary delete_btn" data-cartnum="${ci.cartNum}">삭제</button>
       <input class="btn btn-primary delete_btn" type="button" data-cartnum="${ci.cartNum}" value="삭제" />
       </td>
       
     </tr>
+    
     </c:forEach>
   </tbody>
 </table>
@@ -96,16 +96,17 @@
   <input type="hidden" name="num" value="${member.num}">
 </form>  
 <!-- 주문 form -->
-<form action="${contextPath}/order/{num}" method="get" class="order_form">
+<form action="${contextPath}/order/list/num/${member.num}" method="get" class="order_form">
   <input type="hidden" name="orders[0].prdtNum" value="${ci.prdtNum}">
   <input type="hidden" name="orders[0].prdtQty" value="">
 </form>
+</div>  
 
 <!-- 하단 플로팅 바 (총주문액 계산, 주문버튼) -->
 <div class="cart-floating">
   <div class="order-area">
-    <span>총주문액 <span class="totalPrice_span"></span> 원 - 쿠폰 <span class="coupon_span"></span> 원 = <span class="finalTotalPrice_span"></span>원 </span>
-    <input type="submit" value="주문하기" class="btn btn-light">
+    <span>총주문액 <span class="totalPrice_span"></span> 원 - 쿠폰 <span class="coupon_span"></span> 원 = <span class="finalTotalPrice_span"></span><span>원</span> </span>
+    <input type="submit" value="주문하기" class="btn btn-light order_btn">
   </div>
 </div>
 
@@ -138,11 +139,6 @@ $(".all-check").on("click", function(){
     var checkedCount = $(".prdt-check input[type='checkbox']:checked").length;
     console.log("Checked Count: " + checkedCount);
 
-    // 여기에 추가적인 작업을 수행하거나 식을 추가할 수 있습니다.
-    // 예시: alert("현재 체크된 항목 개수는 " + checkedCount + "개입니다.");
-    
-    // 반환하고 싶은 값이 있다면 리턴
-    // return checkedCount;
     }
   
   /* 총 주문 정보 세팅(배송비, 총 가격, 마일리지, 물품 수, 종류) */
@@ -158,11 +154,7 @@ function setTotalInfo() {
           // 총 가격
           totalPrice += parseInt($(element).find(".individual_totalPrice_input").val());
           // 쿠폰
-<<<<<<< Updated upstream
-                
-=======
-    
->>>>>>> Stashed changes
+
           // 총 종류
           totalKind += 1;
       }
@@ -278,6 +270,36 @@ $(".delete_btn").on("click", function(e){
     });
   };
   
+  
+  /* 주문 페이지 이동 */  
+  $(".order_btn").on("click", function(){
+    
+    let form_contents ='';
+    let orderNumber = 0; // orders[] 인덱스 값
+    
+    $(".prdt-check").each(function(index, element){
+      
+      if($(element).find(".individual_checkbox").is(":checked") === true){  //체크여부
+        
+        let prdtNum = $(element).find(".individual_prdtNum_input").val();
+        let prdtQty = $(element).find(".individual_prdtQty_input").val();
+        
+        let prdtNumInput = "<input name='orders[" + orderNumber + "].prdtNum' type='hidden' value='" + prdtNum + "'>";
+        form_contents += prdtNumInput;
+        
+        let prdtQtyInput = "<input name='orders[" + orderNumber + "].prdtQty' type='hidden' value='" + prdtQty + "'>";
+        form_contents += prdtQtyInput;
+        
+        orderNumber += 1;
+        
+      }
+    });  
+  
+    $(".order_form").html(form_contents);
+    $(".order_form").submit();
+    
+  });
+      
   
 $(document).ready(function() {
 	  /* 종합 정보 섹션 정보 삽입 */
