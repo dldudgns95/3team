@@ -1,5 +1,6 @@
 package kr.co.withmall.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,13 +16,18 @@ public interface AdminService {
    //public int addAdmin(HttpServletRequest request);
    //public Map<String, Object> imageUpload(MultipartHttpServletRequest httpServletRequest);
   
-
+ // 이미지 목록 반환
+  public List<String> getPrdtImageList(String prdtInfo);
+  
+  // 어제 저장된 임시 이미지 삭제
+  public void prdtImageBatch();
   
   //이미지 저장...
   public Map<String, Object> imageUpload(MultipartHttpServletRequest multipartRequest);
 
-  // 제품 목록
-  public void loadPrdtList(HttpServletRequest request, Model model);  
+  // 제품 목록, 검색
+  public void loadPrdtList(HttpServletRequest request, Model model); 
+  public void loadSearchPrdtList(HttpServletRequest request, Model model);
   
   //제품 삽입 저장
   public int addPrdt(HttpServletRequest request);
@@ -56,6 +62,12 @@ public interface AdminService {
   
   // 쿠폰 등록
   public int insertCp(HttpServletRequest request);
+  
+  // 쿠폰 편집 정보
+  public CpDto getCp(int cpNum);
+  
+  // 쿠폰 삭제
+  public int deleteCp(int cpNum);
   
   // 주문 목록
   public void loadOrderList(HttpServletRequest request, Model model);

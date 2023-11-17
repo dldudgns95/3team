@@ -39,6 +39,7 @@ public class AdminController {
   }
 
   
+  
   // 상품작성페이지이동
   @GetMapping("/prdtWrite.form")
   public String prdtWrite() {
@@ -76,8 +77,6 @@ public class AdminController {
   public String modifyPrdt(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int modifyResult = adminService.modifyPrdt(request);
     redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
-    System.out.println("modifyPrdt.do - modifyResult: " + modifyResult);
-
     return "redirect:/admin/prdtList.do";
   }
   
@@ -89,6 +88,15 @@ public class AdminController {
     redirectAttributes.addFlashAttribute("removeResult", removeResult);
     return "redirect:/admin/prdtList.do";
   }
+  
+  // 제품 검색
+  @GetMapping("/searchPrdt.do")
+  public String searchPrdt(HttpServletRequest request, Model model) {
+    adminService.loadSearchPrdtList(request, model);
+    return "admin/prdt/prdtList";
+  }
+  
+
   
   // 회원관리이동
   @GetMapping("/userList.do")
@@ -104,12 +112,8 @@ public class AdminController {
 ////    model.addAttribute("mem", mem );
 ////    return "admin/user/userDetail";
 ////  }
-//  
-//  @GetMapping("/prdtDetail.do")
-//  public String prdtDetail(HttpServletRequest request, Model model) {
-//    return "admin/prdt/prdtDetail";
-//  }
-//  
+
+  
   // 회원 검색
   @GetMapping("/search.do")
   public String search(HttpServletRequest request, Model model) {
@@ -172,28 +176,30 @@ public class AdminController {
   
 
   
-//  // 쿠폰 수정 페이지로 이동
-//  @GetMapping("/edtitCp.form")
-//  public void edtitCp(@RequestParam ("cpNum")  int cpNum, Model model) {
-//    CpDto cp = adminService.getCp(cpNum);
-//    model.addAttribute("cpNum", cpNum);
-//    return "/admin/coupon/couponEdit";
-//  }
+  // 쿠폰 수정 페이지로 이동
+  @GetMapping("/edtitCp.form")
+  public String edtitCp(@RequestParam ("cpNum")  int cpNum, Model model) {
+    CpDto cp = adminService.getCp(cpNum);
+    model.addAttribute("cp", cp);
+    return "/admin/coupon/couponEdit";
+  }
+
   
-//  // 쿠폰 수정 페이지로 이동
-//  @GetMapping("/edtitCp.form")
-//  public String edtitCp(@RequestParam("cpNum") int cpNum, Model model) {
-//    CpDto cp = adminService.getCp(cpNum);
-//    model.addAttribute("cpNum", cpNum);
-//    return "/admin/coupon/couponEdit";
-//  }
-  
-  
-  // 쿠폰 수정
+  // 쿠폰 수정 modifyCp.do
   @PostMapping("/modifyCp.do")
   public String modifyCp(HttpServletRequest request, RedirectAttributes redirectAttributes) {
     int modifyCpResult = adminService.modifyCp(request);
     redirectAttributes.addFlashAttribute("modifyCpResult", modifyCpResult);
+    return "redirect:/admin/cpList.do";
+  }
+  
+  
+
+  // 쿠폰 삭제
+  @PostMapping("/cpRemove.do")
+  public String cpRemove(@RequestParam(value = "cpNum") int cpNum, RedirectAttributes redirectAttributes) {
+    int removeResult = adminService.deleteCp(cpNum);
+    redirectAttributes.addFlashAttribute("removeResult", removeResult);
     return "redirect:/admin/cpList.do";
   }
   
@@ -206,6 +212,7 @@ public class AdminController {
   }
 
 
+ // 제품 카테고리 등록
  
   
  

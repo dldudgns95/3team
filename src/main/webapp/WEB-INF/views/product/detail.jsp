@@ -17,7 +17,7 @@
     <div>
     <!-- 제품이미지 출력 -->
     <div class="prdt_image" style="float: left; width: 50%; padding-left:50px;">
-      <img src="${productImage.imagePath}/${productImage.filesystemName}">  
+      <img src="${contextPath}/${productImage.imagePath}/${productImage.filesystemName}">  
     </div>
     
     <!-- 제품정보 출력 -->
@@ -26,31 +26,38 @@
       <p>${product.prdtName}</p>            
       <p>${product.prdtInfo}</p>            
       <p>상품조회수 : ${product.prdtHit} 회</p>            
-      <p>판매가 : ${product.prdtRealPrice} 원</p>     
-      <div class="button_quantity" style="padding-bottom: 10px;">
-        수량 : 
-        <button type="button" class="minus_btn">-</button>
-        <input type="text" class="quantity_input" id="qty" value="1" size="2" readonly> 개      
-        <button type="button" class="plus_btn">+</button>
-        현재 재고 : ${product.prdtStock} 개
-      </div>
+      <p>판매가 : ${product.prdtRealPrice} 원</p> 
       
       <!-- 사용 가능한 쿠폰리스트 출력하는 div -->
       <div id="coupon_list">
         <select id="member_couponList"></select>
       </div>
-      <p>쿠폰적용가 : ${product.prdtRealPrice} 원   <!-- 판매가에서 할인계산 후 금액 -->  </p> 
+      
+      <!-- 수량 설정 -->    
+      <div class="button_quantity" style="padding-bottom: 10px;">
+        수량 : 
+        <button type="button" class="minus_btn btn btn-outline-dark">-</button>
+        <input type="text" class="quantity_input" id="qty" value="1" size="2" readonly> 개      
+        <button type="button" class="plus_btn btn btn-outline-dark">+</button>
+        현재 재고 : ${product.prdtStock} 개
+      </div>
+      
+      
+      <!-- 쿠폰 적용가 출력 -->
+      <div>
+      <p id="p_couponPrice">쿠폰 적용가 :</p>
+      </div>
       <hr>
       
       <!-- 장바구니,찜하기,구매하기로 이동하는 버튼 -->
       <div>
-        총 결제금액: ${product.prdtRealPrice} 원
+        <p id="total_price">총 결제가격 :</p>
         <input type="hidden" name="prdtNum" value="${product.prdtNum}">    
         <form id="frm_zzim">
-          <button type="button" id="btn_zzim"><i class="fa-regular fa-star"></i></button>
+          <button type="button" id="btn_zzim" class="btn btn-outline-secondary"><i class="fa-regular fa-star"></i></button>
+          <button type="button" id="btn_cart" class="btn btn-light">장바구니</button>
+          <button type="button" id="btn_order" class="btn btn-primary">구매하기</button>
         </form>
-        <button type="button" id="btn_cart" class="btn btn-light">장바구니</button>
-        <button type="button" id="btn_order" class="btn btn-primary">구매하기</button>
         </div>  
       </div>
     </div>
@@ -58,31 +65,54 @@
   </div> 
 
     <hr>
-    <div>상세보기</div>
+    <div>제품상세이미지</div>
     
    </div> 
 
   <script>
-  console.log(${couponList});
-  // 버튼을 클릭하면 수량 변경(1개 이하는 불가능)
+  // 버튼을 클릭하면 수량,쿠폰 적용가 변경(재고이상 수량 불가능) 
   let quantity = $('.quantity_input').val();
+  let price = ${product.prdtRealPrice};
+  
   $('.plus_btn').on('click', function(ev){
     if(quantity >= ${product.prdtStock}){
-    alert('최대 구매수량을 초과했습니다.');
-    ev.preventDefault();
-    return;      
+      alert('최대 구매수량을 초과했습니다.');
+      ev.preventDefault();
+      return;      
     } else {
     $('.quantity_input').val(++quantity);
+    let total = price * $('#qty').val();
+   $('#p_couponPrice').append(total);
+    const value = $("select[id=member_couponList]").val();
+    let str = '';
+    let qty = $('#qty').val();
+    str += ('${product.prdtRealPrice}' * qty) - value;
+    $('#p_couponPrice').text('쿠폰 적용가 : ');
+    $('#p_couponPrice').append(str);
+    $('#total_price').text('총 구매가 : ');
+    $('#total_price').append(str);
     }
   });
+  
+  //버튼을 클릭하면 수량,쿠폰적용가 변경(1개 이하는 불가능)
   $('.minus_btn').on('click', function(){
     if(quantity > 1) {
     $('.quantity_input').val(--quantity);
+    const value = $("select[id=member_couponList]").val();
+    let qty = $('#qty').val();
+    let str = '';
+    str += ('${product.prdtRealPrice}' * qty) - value;    
+    $('#p_couponPrice').text('쿠폰 적용가 : ');
+    $('#p_couponPrice').append(str);
+    $('#total_price').text('총 구매가 : ');
+    $('#total_price').append(str);
     } else {
       alert('최소 수량은 1개입니다.');
       return;
     }
   });
+  
+  
   
   
   // 장바구니 버튼을 누르면 멤버번호,제품번호,수량 데이터 전송
@@ -128,17 +158,15 @@
             const select = document.getElementById('member_couponList');
             // #pets에 select 아이디 입력
             $('#coupon_select option').remove();
-            $(select).append("<option>----적용가능쿠폰----.</option>")
+            $(select).append("<option>----적용가능쿠폰----</option>")
             $.each(resData.productList, (i, c) => {
-              $(select).append("<option value='"+ c.cpNum+"'>" + c.cpName + '  ' +  c.cpInfo + "</option>")
-              
+              $(select).append("<option value='"+ c.cpPrice+"'>" + c.cpName + '  ' +  c.cpInfo + "</option>")             
             })
           } 
         })
    
         
-   // 찜하기
-   
+   // 찜하기(기본은 비어있는 별)  
    $('#btn_zzim').on('click', () => {
      if(!$('#btn_zzim').hasClass('zzimClass')){
      $.ajax({
@@ -161,6 +189,7 @@
      } 
  })       
  
+  // 찜하기 되어있는 상품은 까만별로 표시 (한번 클릭하면 버튼 비활성화)
   const fnCheckZzim = () => {
   $.ajax({
        type: 'get',
@@ -170,14 +199,28 @@
        success: (resData) => {
          if(resData.lenght !== 0)
            document.getElementById('btn_zzim').innerHTML = '<i class="fa-solid fa-star"></i>';
-         $('#btn_zzim').attr('disabled', 'disabled');
+           $('#btn_zzim').attr('disabled', 'disabled');
        }
        
      })
   }
   
+  // 쿠폰 적용가, 총 결제가 계산
+  $("select[id=member_couponList]").change(function(){
+    const value = $("select[id=member_couponList]").val();
+    let qty = $('#qty').val();
+    let str = '';
+    str += ('${product.prdtRealPrice}' * qty) - value;
+    $('#p_couponPrice').text('쿠폰 적용가 : ');
+    $('#p_couponPrice').append(str);
+    $('#total_price').text('총 구매가 : ');
+    $('#total_price').append(str);
+  })
+
+  
   
   fnCheckZzim();
+
   </script>
 
 

@@ -6,84 +6,128 @@
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="dt" value="<%=System.currentTimeMillis()%>" />
 
-
 <jsp:include page="../layout/header.jsp">
-  <jsp:param value="개인정보수정" name="title"/>
+  <jsp:param value="마이페이지" name="title"/>
 </jsp:include>
 
+
+<script src="${contextPath}/resources/js/modify.js?dt=${dt}"></script>
+<style>
+    /* 점 없애기 */
+    li {
+        list-style: none;
+    }
+    div.parent {
+        padding-left: 50px;
+        display: flex;
+        justify-content: flex-start;
+    }
+    /* 개인정보변경 부분 가운데 정렬 */
+    div.child2 {
+        width: 70%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    div.child1 {
+        width: 10%;
+    }
+    div.child3 {
+        width: 62%;
+    }
+
+    /* 추가 스타일 */
+    div.content-container form {
+        max-width: 400px; /* 폼의 최대 너비를 조절 */
+        width: 100%;
+    }
+
+    div.content-container h1 {
+        text-align: center;
+    }
+
+    /* 헤더와 푸터 제외한 나머지 페이지 */
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    main {
+        flex-grow: 1;
+    }
+
+    /* 푸터 스타일 */
+    footer {
+        background-color: #f8f9fa;
+        padding: 20px;
+        text-align: center;
+    }
+</style>
+<div class="parent">
+<div class="child1"> 
 <h1>내 정보</h1>
 	<ul>
 		<li><a href="${contextPath}/member/orderlist.do">주문내역</a></li>
 		<li><a href="${contextPath}/member/qnalist.do">문의내역</a></li>
 		<li><a href="${contextPath}/cart/list.do">장바구니</a></li>
-		<li><a href="${contextPath}/member/zimlist.do">찜한삼품</a></li>
+		<li><a href="${contextPath}/main/zzimList.do?num=${sessionScope.member.num}">찜한삼품</a></li>
 		<li><a href="${contextPath}/member/mypageedit.form">개인정보 수정</a></li>
 		<li><a href="${contextPath}/member/memberoutform.do">회원 탈퇴</a></li>
 	</ul>
-  <h1 class="text-center title">개인정보수정</h1>
+</div>
+<div class="child2">
+    <h1>개인정보변경</h1>
 
-  <form id="frm_mypage" method="post">
+<!-- 사용자 정보 변경 폼 -->
+
+ <form id="frm_mypage" method="post"> 
+ <div style="display: flex; flex-direction: row; margin-top: 10px; justify-content: flex-start;">
+    <div style="margin-right: 10px;">
+        <label for="email">이메일</label>
+        <span>${sessionScope.member.email}</span>
+    </div>
+
+    <div>
+        <label for="regDate">가입일</label>
+        <span>${sessionScope.member.regDate}</span>
+    </div>
+</div>  
+    <div>
+      <label for="name">이름</label>
+      <input type="text" name="name" id="name" value="${sessionScope.member.name}">
+      <span id="msg_name"></span>
+    </div>
+  
     
-    <c:if test="${sessionScope.member.state == 0}">
-      <div class="text-center">
-        <div class="mb-2">비밀번호 변경</div>
-        <button type="button" id="btn_modify_pw" class="btn btn-danger">비밀번호변경하기</button>
-      </div>      
-    </c:if>
-       <div class="row mb-4">
-      <div class="col-sm-3">이메일</div>
-      <div class="col-sm-9">${sessionScope.member.email}</div>
-    </div>
-    <div class="row mb-4">
-      <div class="col-sm-3">가입일</div>
-      <div class="col-sm-9">${sessionScope.member.regDate}</div>
-    </div>
-    <div class="row mb-2">
-      <label for="name" class="col-sm-3 col-form-label">이름</label>
-      <div class="col-sm-9"><input type="text" name="name" value="${sessionScope.member.name}" id="name" class="form-control"></div>
-      <div class="col-sm-3"></div>
-      <div class="col-sm-9 mb-3" id="msg_name"></div>
-    </div>
-    
-    <div class="row mb-2">
-      <label for="mobile" class="col-sm-3 col-form-label">휴대전화번호</label>
-      <div class="col-sm-9"><input type="text" name="mobile" value="${sessionScope.member.mobile}" id="mobile" class="form-control"></div>
-      <div class="col-sm-3"></div>
-      <div class="col-sm-9 mb-3" id="msg_mobile"></div>
-    </div>
-    
-    <div class="row mb-2">
-      <label class="col-sm-3 form-label">성별</label>
-      <div class="col-sm-3">
-        <input type="radio" name="gender" value="NO" id="none" class="form-check-input" checked>
-        <label class="form-check-label" for="none">선택안함</label>
-      </div>
-      <div class="col-sm-3">
-        <input type="radio" name="gender" value="1" id="man" class="form-check-input">
-        <label class="form-check-label" for="man">남자</label>
-      </div>
-      <div class="col-sm-3">
-        <input type="radio" name="gender" value="2" id="woman" class="form-check-input">
-        <label class="form-check-label" for="woman">여자</label>
-      </div>
+    <div>
+      <input type="radio" name="gender" value="NO" id="none">
+      <label for="none">선택안함</label>
+      <input type="radio" name="gender" value="1" id="man">
+      <label for="man">남자</label>
+      <input type="radio" name="gender" value="2" id="woman">
+      <label for="woman">여자</label>
     </div>
     <script>
       $(':radio[value=${sessionScope.member.gender}]').prop('checked', true);
     </script>
     
-    <div class="row mb-2">
-      <label for="postcode" class="col-sm-3 col-form-label">주소</label>
-      <div class="col-sm-4"><input type="text" name="postcode" value="${sessionScope.member.postcode}" id="postcode" class="form-control" onclick="execDaumPostcode()" placeholder="우편번호" readonly></div>
-      <div class="col-sm-5"><input type="button" class="btn btn-outline-success" onclick="execDaumPostcode()" value="우편번호 찾기"></div>
+    <div>
+      <label for="mobile">휴대전화번호</label>
+      <input type="text" name="mobile" id="mobile" value="${sessionScope.member.mobile}">
+      <span id="msg_mobile"></span>
     </div>
     
-    <div class="row mb-2">
-      <div class="col-sm-6"><input type="text" name="roadaddress" value="${sessionScope.member.roadaddress}" id="roadaddress" class="form-control" placeholder="도로명주소" readonly></div>
-      <div class="col-sm-6"><input type="text" name="jibunaddress" value="${sessionScope.member.jibunaddress}" id="jibunaddress" class="form-control" placeholder="지번주소" readonly></div>
-    </div>
-    <div class="col-sm-12"><span id="guide" style="color:#999;display:none"></span></div>
-    <div class="row mb-2">
-      <div class="col-sm-6"><input type="text" name="detailaddress" value="${sessionScope.member.detailaddress}" id="detailaddress" class="form-control" placeholder="상세주소"></div>
+    <div>    
+      <input type="text" name="postcode" id="postcode" onclick="execDaumPostcode()" placeholder="우편번호" readonly value="${sessionScope.member.postcode}">
+      <input type="button" class="btn btn-dark" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+      <input type="text" name="roadaddress" id="roadaddress" placeholder="도로명주소" readonly value="${sessionScope.member.roadaddress}">
+      <input type="text" name="jibunaddress" id="jibunaddress" placeholder="지번주소" readonly value="${sessionScope.member.jibunaddress}">
+      <span id="guide" style="color:#999;display:none"></span>
+      <input type="text" name="detailaddress" id="detailaddress" placeholder="상세주소" value="${sessionScope.member.detailaddress}">
+      <input type="text" id="extraaddress" placeholder="참고항목">
     </div>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script>
@@ -143,34 +187,48 @@
       }
     </script>
     
-    <div class="row mt-3">
-      <label class="col-sm-12 form-label">이벤트 알림 동의(선택)</label>
-    </div>
-    <div class="row mb-2">
-      <div class="col-sm-3">
-        <input type="radio" name="event" value="on" id="event_on" class="form-check-input">
-        <label class="form-check-label" for="event_on">동의함</label>
-      </div>
-      <div class="col-sm-3">
-        <input type="radio" name="event" value="off" id="event_off" class="form-check-input">
-        <label class="form-check-label" for="event_off">동의안함</label>
-      </div>
+    <div>
+      <div>이벤트 알림 동의(선택)</div>
+      <input type="radio" name="event" id="event_on" value="on"><label for="event_on">동의함</label>
+      <input type="radio" name="event" id="event_off" value="off"><label for="event_off">동의안함</label>      
     </div>
     <script>
       if('${sessionScope.member.agree}' === '0'){
-        $('#event_off').prop('checked', true);
+    	  $('#event_off').prop('checked', true);
       } else if('${sessionScope.member.agree}' === '1'){
         $('#event_on').prop('checked', true);
       }
     </script>
     
-
-    <div class="text-center">
+    <div>
       <input type="hidden" name="num" value="${sessionScope.member.num}">
-      <button type="button" id="btn_modify" class="btn btn-success">개인정보수정</button>
+      <button type="button" class="btn btn-dark" id="btn_modify">개인정보수정</button>
     </div>
     
   </form>
+<div class="child3">
+<form id="frm_modify_pw" method="post" action="${contextPath}/member/modifyPw.do">
+    <div style="display: flex;  margin-top: 10px;">
+        <div style="margin-right: 10px;">
+            <label for="pw">비밀번호</label>
+            <input type="password" name="pw" id="pw">
+            <span id="msg_pw"></span>
+        </div>
 
+        <div>
+            <label for="pw2">비밀번호 확인</label>
+            <input type="password" id="pw2">
+            <span id="msg_pw2"></span>
+        </div>
+    </div>
+
+    <div>
+        <input type="hidden" name="num" value="${sessionScope.member.num}">
+        <button class="btn btn-dark" type="submit">비밀번호변경하기</button>
+    </div>
+</form>
+</div>
+</div>
+</div>
 
 <%@ include file="../layout/footer.jsp" %>

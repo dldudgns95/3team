@@ -2,12 +2,13 @@ package kr.co.withmall.controller;
 
 
 
+
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,7 +45,7 @@ public class SupportController {
    model.addAttribute("support", support);
    return "support/detail";
  }
- // 공지사항 작성하기
+  // 공지사항 작성페이지로 이동
 	 @GetMapping("/write.form")
 	 public String write() {
 	   return "support/write";
@@ -61,34 +62,39 @@ public class SupportController {
 	 }
 	 
 	 
-	 // 작성 디비로 추가하기
+	 // 작성 결과 저장
 	 @PostMapping("/add.do") 
 	  public String addSupport(MultipartHttpServletRequest multipartRequest, RedirectAttributes redirectAttributes) throws Exception {
 		int addResult = supportService.addSupport(multipartRequest);
 	    redirectAttributes.addFlashAttribute("addResult", addResult);
 	    return "redirect:/support/list.do";
 	  }
-	 /*
-	// 편집 하기
-	  @PostMapping("/edit.form")
-	  public String edit(@ModelAttribute("support") supportDto support) {
+	 
+	// 편집  //post : 데이터전송 //get : 주소
+	  @PostMapping("/edit.form")  // value에 어떤값을 쓰는거임 
+	  public String edit(@RequestParam(value="annNum", required=false, defaultValue="0") int annNum
+	               , Model model) {
+	    model.addAttribute("support", supportService.getSupport(annNum));
 	    return "support/edit";
 	  }
-	  // 수정하기
-	  @PostMapping("/modifySupport.do")
-	  public String modifySupport(HttpServletRequest request, RedirectAttributes redirectAttributes) {
-	    int modifyResult = supportService.modifySupport(request);
+
+	  
+	  // 수정하기             
+	  @PostMapping("/modify.do")
+	  public String modify(SupportDto support, RedirectAttributes redirectAttributes) {
+	    int modifyResult = supportService.modifySupport(support);
 	    redirectAttributes.addFlashAttribute("modifyResult", modifyResult);
-	    return "redirect:/support/detail.do?annNum=" + request.getParameter("annNum");
+	    return "redirect:/support/detail.do?annNum=" + support.getAnnNum();
 	  }
-	  // 지우기
+	  
+	  // 삭제하기
 	  @PostMapping("/remove.do")
-	  public String remove(@RequestParam(value="annNum", required=false, defaultValue="0") int blogNo
+	  public String remove(@RequestParam(value="annNum", required=false, defaultValue="0") int annNum
 	                     , RedirectAttributes redirectAttributes) {
-	    int deleteResult = supportService.deleteSupport(annNum);
-	    redirectAttributes.addFlashAttribute("deleteResult", deleteResult);
+	    int removeResult = supportService.removeSupport(annNum);
+	    redirectAttributes.addFlashAttribute("removeResult", removeResult);
 	    return "redirect:/support/list.do";    
 	  }
-	  */
+	  
 
 }

@@ -16,6 +16,7 @@
 	<resources mapping="/resources/**" location="/resources/" />
     <resources mapping="/admin/**"      location="file:///admin/" />
     <resources mapping="/upload/**"      location="file:///upload/" />
+    <resources mapping="/support/**"      location="file:///support/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
 	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -30,6 +31,8 @@
         <mapping path="/main/zzimList.do"/>
         <mapping path="/cart/list/num/*"/>
         <mapping path="/member/mypage.do"/>
+        <mapping path="/admin/admin.do"/>
+        <mapping path="/admin/qnaWrite.form"/>
         <beans:bean class="kr.co.withmall.intercept.RequiredLoginInterceptor" />
       </interceptor>
       <interceptor>

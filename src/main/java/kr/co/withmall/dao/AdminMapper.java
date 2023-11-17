@@ -20,6 +20,9 @@ public interface AdminMapper {
   // 제품 이미지
   public int insertPrdtImage(ProductImageDto prdtImage);
   
+  // 임시 이미지 삭제
+  public List<ProductImageDto> getPrdtImageInYesterday();
+  
   // 제품목록 가져오기
   public int getPrdtCount();  
   public List<ProductDto> getPrdtList(Map<String, Object> map);
@@ -29,8 +32,17 @@ public interface AdminMapper {
   // 제품 수정
   public int updatePrdt(ProductDto prdt);
   
+  //
+  public List<ProductImageDto> getPrdtImageList(int prdtNum);
+  public int deletePrdtImage(String filesystemName);
+  public int deletePrdtImageList(int prdtNum);
+  
   // 제품 삭제
   public int deletePrdt(int prdtNum);
+  
+  //제품 검색
+  public int getSearchPrdtCount(Map<String, Object> map);
+  public List<ProductDto> getSearchPrdtList(Map<String, Object> map);
   
   ///////////////////////////////////////////////////
   
@@ -47,7 +59,7 @@ public interface AdminMapper {
   public List<MemberDto> getSearchList(Map<String, Object> map);
   
   // 회원 삭제
-  public int deleteUser(int PrdtNum);
+  public int deleteUser(int num);
   
   
   // 쿠폰 삽입
@@ -69,7 +81,9 @@ public interface AdminMapper {
   // 쿠폰 정보 가져오기
   public CpDto getCp(int cpNum);
 
- 
+ // 쿠폰 삭제
+  public int deleteCp(int cpNum);
+  
   
   //
   public int selectPrdtNum();
